@@ -12,3 +12,11 @@ function config($name) {
     }
     return $config;
 }
+
+/**
+ * Display the given variable and die
+ */
+function dd($var=null){
+    if ($var) var_dump($var);
+    die();
+}

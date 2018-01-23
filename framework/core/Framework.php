@@ -20,12 +20,11 @@ class Framework
     {
         // Define path constants
         define( "DS", DIRECTORY_SEPARATOR );
-        define( "ROOT", getcwd() . DS );
+        define( "ROOT", dirname(dirname(__DIR__)) . DS );
         define( "APP_PATH", ROOT . 'application' . DS );
         define( "FRAMEWORK_PATH", ROOT . "framework" . DS );
         define( "PUBLIC_PATH", ROOT . "public" . DS );
         define( "VENDOR_PATH", ROOT . 'vendor' . DS );
-
 
         define( "CONFIG_PATH", APP_PATH . "config" . DS );
         define( "CONTROLLER_PATH", APP_PATH . "controllers" . DS );
@@ -92,7 +91,7 @@ class Framework
      */
     private static function dispatch()
     {
-        require_once LIB_PATH . 'Router.php';
+        require_once CORE_PATH . 'Router.php';
         $routes = include APP_PATH . 'routes.php';
 
         $router = new Router();
