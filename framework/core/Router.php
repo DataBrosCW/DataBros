@@ -2,6 +2,8 @@
 
 class Router
 {
+    // TODO: add name to routes
+
     /**
      * Contains the list of routes used by the app.
      */
