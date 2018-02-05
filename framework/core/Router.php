@@ -50,6 +50,17 @@ class Router
                 $httpMethod = $_SERVER['REQUEST_METHOD']?$_SERVER['REQUEST_METHOD']:'GET';
                 if (!isset($params[$httpMethod])) continue;
 
+
+                if ($httpMethod == 'POST' && isset($params[$httpMethod]['csrf']) && $params[$httpMethod]['csrf']){
+                    if ( empty( $_POST['csrf_token'] ) ||  !checkToken( $_POST['csrf_token']) ) {
+                        $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+                        $msg->error('Oups! CSRF error occured...');
+
+                        header('Location: ' . $_SERVER['HTTP_REFERER']);
+                        exit;
+                    }
+                }
+
                 $controller = preg_split("/@/", $params[$httpMethod]['action'])[0];
                 $method = preg_split("/@/", $params[$httpMethod]['action'])[1];
 

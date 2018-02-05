@@ -21,6 +21,8 @@ return [
 
         'user'        => 'databros',
         'password'    => 'databros',
-    ]
+    ],
+
+    'app_key' => 'oijwef893520kf=-32'
 
 ];

@@ -15,9 +15,13 @@ return [
             'action'=>'HomeController@index',
         ]
     ],
-    '/test' => [
+    '/register' => [
         'GET' => [
-            'action'=>'HomeController@index',
+            'action'=>'AuthController@registerPage',
+        ],
+        'POST' => [
+            'action'=>'AuthController@register',
+            'csrf' => true
         ]
     ],
 ];

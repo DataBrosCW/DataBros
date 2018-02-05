@@ -1,5 +1,7 @@
 {
     "require": {
-        "filp/whoops": "^2.1"
+        "filp/whoops": "^2.1",
+        "jenssegers/blade": "^1.1",
+        "plasticbrain/php-flash-messages": "^1.0"
     }
 }

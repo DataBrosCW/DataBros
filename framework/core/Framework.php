@@ -2,21 +2,28 @@
 
 class Framework
 {
-    public static function run()
+
+    /**
+     * Load the app and starts the router.
+     * If $cliMode is activated, router and session won't be initiated
+     */
+    public static function run($cliMode = false)
     {
-        self::init();
+        self::init($cliMode);
 
         self::packages();
 
         self::autoload();
 
-        self::dispatch();
+        if(!$cliMode) {
+            self::dispatch();
+        }
     }
 
     /**
      * Define app constant, load core classes and packages
      */
-    private static function init()
+    private static function init($cliMode=false)
     {
         // Define path constants
         define( "DS", DIRECTORY_SEPARATOR );
@@ -29,7 +36,8 @@ class Framework
         define( "CONFIG_PATH", APP_PATH . "config" . DS );
         define( "CONTROLLER_PATH", APP_PATH . "controllers" . DS );
         define( "MODEL_PATH", APP_PATH . "models" . DS );
-        define( "VIEW_PATH", APP_PATH . "views" . DS );
+        define( "VIEW_PATH", PUBLIC_PATH . "views" . DS );
+        define( "CACHE_PATH", PUBLIC_PATH . "cache" . DS );
 
         define( "CORE_PATH", FRAMEWORK_PATH . "core" . DS );
         define( 'DB_PATH', FRAMEWORK_PATH . "database" . DS );
@@ -51,7 +59,9 @@ class Framework
         require HELPER_PATH . 'general.php';
 
         // Start session
-        session_start();
+        if (!$cliMode){
+            session_start();
+        }
     }
 
     /**
@@ -63,6 +73,8 @@ class Framework
         $whoops = new \Whoops\Run;
         $whoops->pushHandler( new \Whoops\Handler\PrettyPageHandler );
         $whoops->register();
+
+        // Blade templating engine
     }
 
     /**
@@ -99,7 +111,6 @@ class Framework
             $router->add( $route, $action );
         }
         $router->submit();
-
     }
 
 }

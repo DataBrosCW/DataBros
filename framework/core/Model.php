@@ -29,9 +29,18 @@ abstract class Model
 
     protected $db;
 
-    public function __construct()
+    public function __construct($values = [])
     {
         $this->db = new DB();
+
+        // Instanciate object property and cast attributes
+        foreach ($this->public_fields as $field) {
+            if (isset($values[$field])){
+               $proerty = $values[$field];
+                settype($proerty, $this->private_fields[$field]);
+                $this->{$field} = $proerty;
+            }
+        }
     }
     
 }

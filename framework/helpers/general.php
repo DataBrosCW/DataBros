@@ -14,9 +14,25 @@ function config($name) {
 }
 
 /**
- * Display the given variable and die
+ * CSRF Protection
  */
-function dd($var=null){
-    if ($var) var_dump($var);
-    die();
+function generateToken()
+{
+    $sessionId = session_id();
+    return sha1( $sessionId.config('app_key') );
+}
+
+/**
+ *  Verify that given token was successfully received
+ */
+function checkToken($token){
+    return $token === generateToken();
+}
+
+/**
+ * Display the csrf hidden field in a form
+ */
+function csrf_field()
+{
+    echo '<input type="hidden" name="csrf_token" value="'.generateToken().'"/>';
 }
