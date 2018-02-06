@@ -24,4 +24,13 @@ return [
             'csrf' => true
         ]
     ],
+    '/login' => [
+        'GET' => [
+            'action'=>'AuthController@loginPage',
+        ],
+        'POST' => [
+            'action'=>'AuthController@login',
+            'csrf' => true
+        ]
+    ],
 ];

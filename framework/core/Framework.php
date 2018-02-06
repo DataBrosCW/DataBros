@@ -58,6 +58,12 @@ class Framework
         // Load helpers
         require HELPER_PATH . 'general.php';
 
+        // Load libraries
+        foreach (glob(LIB_PATH. "*.php") as $filename)
+        {
+            require $filename;
+        }
+
         // Start session
         if (!$cliMode){
             session_start();
@@ -87,11 +93,11 @@ class Framework
 
     private static function load( $classname )
     {
-        if ( substr( $classname, - 10 ) == "Controller" ) {
+        if ( substr( $classname, - 10 ) == "Controller" && $classname!= "Controller" ) {
 
             // Controller
             require_once CONTROLLER_PATH . "$classname.php";
-        } elseif ( substr( $classname, - 5 ) == "Model" ) {
+        } elseif ( substr( $classname, - 5 ) == "Model" && $classname!= "Model") {
 
             // Model
             require_once MODEL_PATH . "$classname.php";

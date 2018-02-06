@@ -1,8 +1,6 @@
 <?php
 
-namespace application\models;
-
-class UserModel extends \Model
+class UserModel extends Model
 {
     /**
      * SQL Table

@@ -23,6 +23,7 @@ return [
         'password'    => 'databros',
     ],
 
-    'app_key' => 'oijwef893520kf=-32'
+    'app_key' => 'oijwef893520kf=-32',
+    'app_url' => 'http://localhost:8888/'
 
 ];

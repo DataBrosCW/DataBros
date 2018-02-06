@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password Confirmation</label>
-                    <input type="password_confirm" class="form-control" id="password_confirm" name="password_confirm"
+                    <input type="password" class="form-control" id="password_confirm" name="password_confirm"
                            placeholder="Password Confirmation">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Register</button>

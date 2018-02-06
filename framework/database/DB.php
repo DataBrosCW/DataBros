@@ -22,6 +22,13 @@ class DB
         $this->pdo = new PDO($dsn, config('database.user'), config('database.password'), $opt);
     }
 
+    public function prepare( $sql )
+    {
+        $result = $this->pdo->prepare($sql);
+
+        return $result;
+    }
+
     public function query( $sql )
     {
         $result = $this->pdo->query($sql);
@@ -30,6 +37,10 @@ class DB
         }
 
         return $result;
+    }
+
+    public function lastInsertedId(){
+        return $this->pdo->lastInsertId();
     }
 
 

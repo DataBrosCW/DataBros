@@ -8,6 +8,8 @@
         <li>
             <a class="p-2 text-dark" href="#">Infos
             </a>
+            <a class="p-2 text-dark" href="/login">Login
+            </a>
         </li>
     </ul>
     <a class="btn btn-outline-primary" href="/register">Sign up</a>
@@ -17,7 +19,7 @@
     <div class="error-messages pt-3">
     <?php
         $msg = new \Plasticbrain\FlashMessages\FlashMessages();
-        if ($msg->hasErrors()) {
+        if ($msg->hasMessages()) {
             $msg->display();
         }
     ?>
