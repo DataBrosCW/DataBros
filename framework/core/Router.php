@@ -50,14 +50,25 @@ class Router
                 $httpMethod = $_SERVER['REQUEST_METHOD']?$_SERVER['REQUEST_METHOD']:'GET';
                 if (!isset($params[$httpMethod])) continue;
 
-
+                // CSRF Verification
                 if ($httpMethod == 'POST' && isset($params[$httpMethod]['csrf']) && $params[$httpMethod]['csrf']){
                     if ( empty( $_POST['csrf_token'] ) ||  !checkToken( $_POST['csrf_token']) ) {
                         $msg = new \Plasticbrain\FlashMessages\FlashMessages();
                         $msg->error('Oups! CSRF error occured...');
 
                         header('Location: ' . $_SERVER['HTTP_REFERER']);
-                        exit;
+                        exit();
+                    }
+                }
+
+                // Auth Verification
+                if (isset($params[$httpMethod]['auth']) && $params[$httpMethod]['auth']){
+                    if ( !auth_check() ) {
+                        $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+                        $msg->error('Oups! You are not authenticated...');
+
+                        header('Location: ' . config('app_url'));
+                        exit();
                     }
                 }
 

@@ -33,4 +33,9 @@ return [
             'csrf' => true
         ]
     ],
+    '/logout' => [
+        'GET' => [
+            'action'=>'AuthController@logout',
+        ]
+    ],
 ];

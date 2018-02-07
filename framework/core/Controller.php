@@ -24,6 +24,10 @@ abstract class Controller
      */
     protected function render( $viewName, $parameters = [] )
     {
+        // If user is logged in we pass it to view
+        if (auth_check()){
+            $parameters['user'] = auth_user();
+        }
         echo $this->blade->render( $viewName, $parameters );
     }
 
