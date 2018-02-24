@@ -24,6 +24,23 @@ return [
     ],
 
     'app_key' => 'oijwef893520kf=-32',
-    'app_url' => 'http://localhost:8888/'
+    'app_url' => 'http://localhost:8888/',
+
+    'ebay' => [
+
+        'base_url' => 'https://api.sandbox.ebay.com',
+
+        'headers' => [
+            'token_auth' => [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Authorization'=> 'Basic R2VybWFuTWktc2FtcGxlYXAtU0JYLTY1ZDcwNWIzZC03NzJhZTRmNDpTQlgtNWQ3MDViM2RmMmJiLTg4MDgtNDNkNS05ZDgyLTViMjE='
+            ]
+        ],
+
+        'endpoints' => [
+            'token_auth' => '/identity/v1/oauth2/token',
+        ],
+
+    ]
 
 ];

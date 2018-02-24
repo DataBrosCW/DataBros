@@ -72,6 +72,26 @@ class Router
                     }
                 }
 
+                // Ebay
+                if (true) {
+                    $client = new \GuzzleHttp\Client([
+                        'base_uri' => config('ebay.base_url'),
+                    ]);
+                    $response = $client->post(config('ebay.endpoints.token_auth'),[
+                        'headers' => config('ebay.headers.token_auth')
+                        ,
+                        'form_params' => [
+                            'grant_type' => 'client_credentials',
+                            'redirect_uri' => 'German_Mikulski-GermanMi-sample-amcujbjxm',
+                            'scope' => 'https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/buy.marketing https://api.ebay.com/oauth/api_scope/buy.item.feed'
+                        ]
+                    ]);
+
+                    $body = json_decode($response->getBody());
+                    dd($body);
+
+                }
+
                 $controller = preg_split("/@/", $params[$httpMethod]['action'])[0];
                 $method = preg_split("/@/", $params[$httpMethod]['action'])[1];
 
