@@ -59,7 +59,6 @@ class Framework
         require HELPER_PATH . 'general.php';
         require HELPER_PATH . 'auth.php';
 
-
         // Load libraries
         foreach (glob(LIB_PATH. "*.php") as $filename)
         {

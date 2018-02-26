@@ -10,6 +10,7 @@ return [
     '/' => [
         'GET' => [
             'action'=>'HomeController@index',
+            'ebay-auth' => true
         ],
         'POST' => [
             'action'=>'HomeController@index',
@@ -38,4 +39,25 @@ return [
             'action'=>'AuthController@logout',
         ]
     ],
+    '/authorize' => [
+        'GET' => [
+            'action'=>'HomeController@authorize',
+            'auth' => true,
+        ]
+    ],
+    '/authorize-receive' => [
+        'GET' => [
+            'action'=>'HomeController@authorizeReceive',
+            'auth' => true,
+        ]
+    ],
+
+
+
+    '/test' => [
+        'GET' => [
+            'action'=>'HomeController@test',
+        ]
+    ],
+
 ];

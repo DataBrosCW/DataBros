@@ -36,3 +36,69 @@ function csrf_field()
 {
     echo '<input type="hidden" name="csrf_token" value="'.generateToken().'"/>';
 }
+
+/**
+ * Make sure app token is up to date or updates it
+ */
+function checkOrUpdateAppToken()
+{
+    $appToken = ApplicationTokenModel::instantiate()->all()->limit(1)->get();
+
+    if (! ($appToken && $appToken instanceof ApplicationTokenModel && (new Carbon\Carbon($appToken->expires_at))->gt(\Carbon\Carbon::now()) )){
+
+        if ($appToken instanceof ApplicationTokenModel) {
+            $appToken->delete();
+        }
+
+        // We need to retrieve one
+        $client = new \GuzzleHttp\Client([
+            'base_uri' => config('ebay.base_url'),
+        ]);
+        $response = $client->post(config('ebay.endpoints.token_auth'),[
+            'headers' => config('ebay.headers.token_auth')
+            ,
+            'form_params' => [
+                'grant_type' => 'client_credentials',
+                'redirect_uri' => 'German_Mikulski-GermanMi-sample-amcujbjxm',
+                'scope' => 'https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/buy.marketing https://api.ebay.com/oauth/api_scope/buy.item.feed'
+            ]
+        ]);
+
+        $body = json_decode($response->getBody());
+        $token = $body->access_token;
+        $expires_in = $body->expires_in;
+        $expires_at = new \Carbon\Carbon();
+        $expires_at->addSeconds($expires_in);
+
+        $appToken = new ApplicationTokenModel([
+            'token' => $token,
+            'expires_at' => $expires_at
+        ]);
+        $appToken->save();
+    }
+
+    return $appToken;
+}
+
+/**
+ * Returns the app token string
+ */
+function appToken(){
+    return checkOrUpdateAppToken()->token;
+}
+
+
+/**
+ * Make sure app user has a user token or retrieve it
+ */
+function userTokenRoute()
+{
+    if (!auth_check()) return;
+
+    return  config('ebay.endpoints.user_token') . '?client_id=' .
+         config('ebay.client_id') . '&redirect_uri=' . config('ebay.redirect_uri')
+         . '&response_type=' . config('ebay.response_type') . '&scope=' . config('ebay.scope');
+
+}
+
+

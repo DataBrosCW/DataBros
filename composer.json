@@ -3,6 +3,7 @@
         "filp/whoops": "^2.1",
         "jenssegers/blade": "^1.1",
         "plasticbrain/php-flash-messages": "^1.0",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "nesbot/carbon": "^1.22"
     }
 }

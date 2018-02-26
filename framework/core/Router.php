@@ -72,24 +72,10 @@ class Router
                     }
                 }
 
-                // Ebay
-                if (true) {
-                    $client = new \GuzzleHttp\Client([
-                        'base_uri' => config('ebay.base_url'),
-                    ]);
-                    $response = $client->post(config('ebay.endpoints.token_auth'),[
-                        'headers' => config('ebay.headers.token_auth')
-                        ,
-                        'form_params' => [
-                            'grant_type' => 'client_credentials',
-                            'redirect_uri' => 'German_Mikulski-GermanMi-sample-amcujbjxm',
-                            'scope' => 'https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/buy.marketing https://api.ebay.com/oauth/api_scope/buy.item.feed'
-                        ]
-                    ]);
-
-                    $body = json_decode($response->getBody());
-                    dd($body);
-
+                // If the page requires user token to be set, then we redirect to a page to set it
+                if (auth_check() && !isset($_SESSION['user_code'])  && isset($params[$httpMethod]['ebay-auth']) &&  $params[$httpMethod]['ebay-auth'] ){
+                    header('Location: ' . config('app_url').'authorize');
+                    exit();
                 }
 
                 $controller = preg_split("/@/", $params[$httpMethod]['action'])[0];

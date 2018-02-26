@@ -82,4 +82,13 @@ CREATE TABLE IF NOT EXISTS user_categories (
     UNIQUE  (user_id,category_id)
 );
 
+-- Create table to store app key
+
+CREATE TABLE IF NOT EXISTS application_tokens (
+    id INT NOT NULL,
+    token TEXT NOT NULL,
+    expires_at datetime
+);
+
+
 

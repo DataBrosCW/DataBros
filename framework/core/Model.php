@@ -65,7 +65,7 @@ abstract class Model
 
             if ( isset( $values[ $field ] ) ) {
                 $property = $values[ $field ];
-                settype( $property, $this->casts[ $field ] );
+                if ($this->casts[ $field ] != '') settype( $property, $this->casts[ $field ] );
                 $this->{$field} = $property;
             }
         }
@@ -150,8 +150,7 @@ abstract class Model
         $valuesCount = count( $this->public_fields ) + count( $this->private_fields );
 
         $this->sql_query = 'INSERT INTO ' . $this->table
-                           . ' (' . $listOfPublicProperties . ',' . $listOfPrivateProperties . ') VALUES' .
-                           '(';
+                           . ' (' . $listOfPublicProperties . ($listOfPrivateProperties==''?'': ','.  $listOfPrivateProperties . ')').') VALUES' . '(';
         for ( $i = 0; $i < $valuesCount; $i ++ ) {
             if ( $i == $valuesCount - 1 ) {
                 $this->sql_query .= '?';
@@ -176,6 +175,8 @@ abstract class Model
             $stmt = $this->db->prepare( $this->sql_query );
             $stmt->execute( $values );
         } catch ( PDOException $e ) {
+            echo $this->sql_query .'<br>';
+            echo $e->getMessage() .'<br>';
             return false;
         }
 
@@ -231,6 +232,37 @@ abstract class Model
     }
 
     /**
+     * Delete an element from the table
+     */
+    public function delete()
+    {
+        $this->sql_query = 'SELECT * FROM ' . $this->table . ' WHERE ' . $this->getKeyName() . ' =  ?';
+        array_push($this->sql_values,$this->{$this->getKeyName()});
+
+        return $this->get();
+    }
+
+    /**
+     * Apply a sql where clause
+     */
+    public function all()
+    {
+        $this->sql_query = 'SELECT * FROM ' . $this->table;
+
+        return $this;
+    }
+
+    /**
+     * Apply a sql where clause
+     */
+    public function limit($count)
+    {
+        $this->sql_query .= ' LIMIT ' . $count;
+
+        return $this;
+    }
+
+    /**
      * Closes and execute sql statement
      */
     public function get()
@@ -244,6 +276,8 @@ abstract class Model
             $stmt = $this->db->prepare( $this->sql_query );
             $stmt->execute($this->sql_values);
         } catch ( PDOException $e ) {
+            echo $this->sql_query . '<br>';
+            echo $e->getMessage() . '<br>';
             return false;
         }
 
