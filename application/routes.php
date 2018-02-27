@@ -9,8 +9,7 @@
 return [
     '/' => [
         'GET' => [
-            'action'=>'HomeController@index',
-            'ebay-auth' => true
+            'action'=>'HomeController@index'
         ],
         'POST' => [
             'action'=>'HomeController@index',
