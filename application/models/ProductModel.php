@@ -11,9 +11,11 @@ class ProductModel extends Model
      * List of public fields (that me be passed to view, or mass updated)
      */
     public $public_fields = [
+        'title',
+        'img',
         'epid',
         'description',
-        'average_price'
+        'price'
     ];
 
     /**
@@ -28,8 +30,10 @@ class ProductModel extends Model
      */
     public $casts = [
         'epid' => 'string',
+        'title' => 'string',
+        'img' => 'string',
         'description' => 'string',
-        'average_price' => 'double',
+        'price' => 'double',
     ];
 
     /**

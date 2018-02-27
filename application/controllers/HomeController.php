@@ -23,21 +23,5 @@ class HomeController extends Controller
         }
     }
 
-    public function test()
-    {
-        // Search api
-
-//        TODO: replace __appToken__ in each config value and replace headers by a config
-//        $client = new \GuzzleHttp\Client([
-//            'base_uri' => config('ebay.base_url'),
-//        ]);
-//        $response = $client->get(config('ebay.endpoints.search'),[
-//            'headers' => ['Authorization'=> 'Bearer ' . appToken()]
-//        ]);
-//
-//        $body = json_decode($response->getBody());
-//        dd($body);
-
-    }
 
 }

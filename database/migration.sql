@@ -17,10 +17,12 @@ CREATE TABLE IF NOT EXISTS users (
 -- Create product table
 
 CREATE TABLE IF NOT EXISTS products(
-    id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
     epid VARCHAR(255) NOT NULL,
+    img VARCHAR(255),
     description TEXT,
-    average_price FLOAT,
+    price FLOAT,
     PRIMARY KEY (id),
     UNIQUE (epid)
 );
@@ -28,7 +30,7 @@ CREATE TABLE IF NOT EXISTS products(
 -- Create category table
 
 CREATE TABLE IF NOT EXISTS categories (
-    id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
     ebay_id VARCHAR(255) NOT NULL,
     description TEXT,
     PRIMARY KEY (id),
@@ -85,9 +87,10 @@ CREATE TABLE IF NOT EXISTS user_categories (
 -- Create table to store app key
 
 CREATE TABLE IF NOT EXISTS application_tokens (
-    id INT NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
     token TEXT NOT NULL,
-    expires_at datetime
+    expires_at datetime,
+    PRIMARY KEY (id)
 );
 
 

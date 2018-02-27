@@ -88,9 +88,18 @@ return [
             'ebay-auth' => true
         ]
     ],
+
     '/products/example' => [
         'GET' => [
             'action'=>'ProductController@show',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+
+    '/products/search' => [
+        'POST' => [
+            'action'=>'ProductController@search',
             'auth' => true,
             'ebay-auth' => true
         ]

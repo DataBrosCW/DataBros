@@ -23,7 +23,13 @@
         <div class="collapse navbar-collapse" id="toggable-nav">
             <ul class="navbar-nav ml-auto px-3">
 
+
                 @if(auth_check() && isset($user))
+                    <form class="form-inline my-2 my-lg-0 mr-3" method="POST" action="/products/search">
+                        {{csrf_field()}}
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search product..." aria-label="Search" name="search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{$user->getFullName()}}

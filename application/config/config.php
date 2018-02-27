@@ -47,7 +47,7 @@ return [
 
         'endpoints' => [
             'token_auth' => '/identity/v1/oauth2/token',
-            'search'     => '/buy/browse/v1/item_summary/search?q=phone',
+            'search'     => '/buy/browse/v1/item_summary/search',
             'user_token' => 'https://auth.sandbox.ebay.com/oauth2/authorize'
         ],
 

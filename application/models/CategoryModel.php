@@ -1,6 +1,6 @@
 <?php
 
-class ProductModel extends Model
+class CategoryModel extends Model
 {
     /**
      * SQL Table

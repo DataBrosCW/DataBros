@@ -151,7 +151,7 @@ abstract class Model
         $valuesCount = count( $this->public_fields ) + count( $this->private_fields );
 
         $this->sql_query = 'INSERT INTO ' . $this->table
-                           . ' (' . $listOfPublicProperties . ($listOfPrivateProperties==''?'': ','.  $listOfPrivateProperties . ')').' VALUES' . '(';
+                           . ' (' . $listOfPublicProperties . ($listOfPrivateProperties==''?')': ','.  $listOfPrivateProperties . ')').' VALUES' . '(';
         for ( $i = 0; $i < $valuesCount; $i ++ ) {
             if ( $i == $valuesCount - 1 ) {
                 $this->sql_query .= '?';
@@ -176,7 +176,7 @@ abstract class Model
             $stmt = $this->db->prepare( $this->sql_query );
             $stmt->execute( $values );
         } catch ( PDOException $e ) {
-            return false;
+            throw $e;
         }
 
         // 4 - We retrieve the id
@@ -275,7 +275,7 @@ abstract class Model
             $stmt = $this->db->prepare( $this->sql_query );
             $stmt->execute($this->sql_values);
         } catch ( PDOException $e ) {
-            return false;
+            throw $e;
         }
 
         // We convert the result (rows) to object(s)

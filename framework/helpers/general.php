@@ -3,14 +3,33 @@
 /**
  * Return a variable from the configuration
  */
-function config($name) {
+function config($name, $noReccursion=false) {
     $config = $GLOBALS['config'];
     $itemPath = explode(".",$name);
 
     foreach ($itemPath as $path){
         $config = $config[$path];
     }
+
+    if(strpos($name,'ebay')!==false && !$noReccursion) return configReplace($config);
     return $config;
+}
+
+/**
+ * Add token to the config field
+ */
+function configReplace($array){
+    if (!is_array($array)) return $array;
+    foreach($array as $key => $value){
+        if (is_array($value)) {
+            $array[ $key ] = configReplace( $value );
+        } elseif(is_string($value)) {
+            $value = str_replace('__appToken__',appToken(),$value);
+            $value = str_replace('__userToken__',userToken(),$value);
+            $array[ $key ] = $value ;
+        }
+    }
+    return $array;
 }
 
 /**
@@ -52,10 +71,10 @@ function checkOrUpdateAppToken()
 
         // We need to retrieve one
         $client = new \GuzzleHttp\Client([
-            'base_uri' => config('ebay.base_url'),
+            'base_uri' => config('ebay.base_url', true),
         ]);
-        $response = $client->post(config('ebay.endpoints.token_auth'),[
-            'headers' => config('ebay.headers.token_auth')
+        $response = $client->post(config('ebay.endpoints.token_auth',true),[
+            'headers' => config('ebay.headers.token_auth',true)
             ,
             'form_params' => [
                 'grant_type' => 'client_credentials',
@@ -99,6 +118,14 @@ function userTokenRoute()
          config('ebay.client_id') . '&redirect_uri=' . config('ebay.redirect_uri')
          . '&response_type=' . config('ebay.response_type') . '&scope=' . config('ebay.scope');
 
+}
+
+function userToken()
+{
+    if (isset($_SESSION['user_code'])){
+        return $_SESSION['user_code'];
+    }
+    return;
 }
 
 
