@@ -143,6 +143,7 @@ abstract class Model
      */
     public function create()
     {
+
         // 1 - We prepare the query
         $listOfPublicProperties = implode( ", ", $this->public_fields );
         $listOfPrivateProperties = implode( ", ", $this->private_fields );
@@ -150,7 +151,7 @@ abstract class Model
         $valuesCount = count( $this->public_fields ) + count( $this->private_fields );
 
         $this->sql_query = 'INSERT INTO ' . $this->table
-                           . ' (' . $listOfPublicProperties . ($listOfPrivateProperties==''?'': ','.  $listOfPrivateProperties . ')').') VALUES' . '(';
+                           . ' (' . $listOfPublicProperties . ($listOfPrivateProperties==''?'': ','.  $listOfPrivateProperties . ')').' VALUES' . '(';
         for ( $i = 0; $i < $valuesCount; $i ++ ) {
             if ( $i == $valuesCount - 1 ) {
                 $this->sql_query .= '?';
@@ -175,8 +176,6 @@ abstract class Model
             $stmt = $this->db->prepare( $this->sql_query );
             $stmt->execute( $values );
         } catch ( PDOException $e ) {
-            echo $this->sql_query .'<br>';
-            echo $e->getMessage() .'<br>';
             return false;
         }
 
@@ -276,8 +275,6 @@ abstract class Model
             $stmt = $this->db->prepare( $this->sql_query );
             $stmt->execute($this->sql_values);
         } catch ( PDOException $e ) {
-            echo $this->sql_query . '<br>';
-            echo $e->getMessage() . '<br>';
             return false;
         }
 

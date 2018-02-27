@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3840dbf7-9369-4fb0-93b8-b59fb7fe4226" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/routes.php" afterPath="$PROJECT_DIR$/application/routes.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/framework/core/Model.php" afterPath="$PROJECT_DIR$/framework/core/Model.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/views/layout/dashboard.blade.php" afterPath="$PROJECT_DIR$/public/views/layout/dashboard.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -55,7 +56,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/routes.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
@@ -65,12 +66,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProductController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/controllers/ProductController.php">
+      <file leaf-file-name="dashboard.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/views/layout/dashboard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="23" lean-forward="false" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+            <state relative-caret-position="255">
+              <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/controllers/AuthController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-50">
+              <caret line="9" column="31" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/framework/core/Model.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="259">
+              <caret line="178" column="0" lean-forward="false" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+              <folding>
+                <marker date="1519734978000" expanded="true" signature="3630:3691" ph="INSERT INTO ${$this-&gt;table}... " />
+                <marker date="1519734978000" expanded="true" signature="3630:3807" ph="INSERT INTO ${$this-&gt;table}... " />
+                <marker date="1519734978000" expanded="true" signature="5505:5611" ph="SELECT * FRO... ${$this-&gt;table}" />
+                <marker date="1519734978000" expanded="true" signature="5958:6031" ph="SELECT * FRO... ${$this-&gt;table}" />
+                <marker date="1519734978000" expanded="true" signature="6247:6261" ph="SELECT * FRO... ${$this-&gt;table}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -103,6 +130,7 @@
       <find>dele</find>
       <find>w</find>
       <find>center</find>
+      <find>echo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -138,7 +166,6 @@
         <option value="$PROJECT_DIR$/application/models/CategoryModel.php" />
         <option value="$PROJECT_DIR$/application/models/ApplicationTokenModel.php" />
         <option value="$PROJECT_DIR$/database/migration.sql" />
-        <option value="$PROJECT_DIR$/framework/core/Model.php" />
         <option value="$PROJECT_DIR$/framework/core/Framework.php" />
         <option value="$PROJECT_DIR$/application/config/config.php" />
         <option value="$PROJECT_DIR$/framework/helpers/general.php" />
@@ -147,7 +174,6 @@
         <option value="$PROJECT_DIR$/framework/core/Router.php" />
         <option value="$PROJECT_DIR$/application/controllers/HomeController.php" />
         <option value="$PROJECT_DIR$/application/controllers/JustForYouController.php" />
-        <option value="$PROJECT_DIR$/public/views/layout/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/application/controllers/FeedController.php" />
         <option value="$PROJECT_DIR$/public/views/feed-preferences.blade.php" />
         <option value="$PROJECT_DIR$/application/controllers/ProductController.php" />
@@ -159,6 +185,8 @@
         <option value="$PROJECT_DIR$/public/views/justForYou.blade.php" />
         <option value="$PROJECT_DIR$/public/views/product.blade.php" />
         <option value="$PROJECT_DIR$/application/routes.php" />
+        <option value="$PROJECT_DIR$/public/views/layout/dashboard.blade.php" />
+        <option value="$PROJECT_DIR$/framework/core/Model.php" />
       </list>
     </option>
   </component>
@@ -217,19 +245,13 @@
             <path>
               <item name="DataBros" type="b2602c69:ProjectViewProjectNode" />
               <item name="DataBros" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="framework" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
             <path>
               <item name="DataBros" type="b2602c69:ProjectViewProjectNode" />
               <item name="DataBros" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="css" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="DataBros" type="b2602c69:ProjectViewProjectNode" />
-              <item name="DataBros" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="views" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="framework" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="core" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -295,12 +317,12 @@
       <workItem from="1519651108863" duration="1628000" />
       <workItem from="1519677314410" duration="252000" />
       <workItem from="1519677852560" duration="1520000" />
-      <workItem from="1519726770307" duration="4625000" />
+      <workItem from="1519726770307" duration="5352000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60894000" />
+    <option name="totallyTimeSpent" value="61621000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1241" height="800" extended-state="0" />
@@ -519,24 +541,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/controllers/AuthController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="31" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migration.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="381">
           <caret line="86" column="0" lean-forward="false" selection-start-line="86" selection-start-column="0" selection-end-line="90" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/framework/core/Model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="250" column="0" lean-forward="true" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -605,13 +613,6 @@
         <state relative-caret-position="90">
           <caret line="6" column="33" lean-forward="false" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/views/layout/dashboard.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -737,6 +738,36 @@
         <state relative-caret-position="120">
           <caret line="12" column="8" lean-forward="false" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/views/layout/dashboard.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/AuthController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-50">
+          <caret line="9" column="31" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/framework/core/Model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="178" column="0" lean-forward="false" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+          <folding>
+            <marker date="1519734978000" expanded="true" signature="3630:3691" ph="INSERT INTO ${$this-&gt;table}... " />
+            <marker date="1519734978000" expanded="true" signature="3630:3807" ph="INSERT INTO ${$this-&gt;table}... " />
+            <marker date="1519734978000" expanded="true" signature="5505:5611" ph="SELECT * FRO... ${$this-&gt;table}" />
+            <marker date="1519734978000" expanded="true" signature="5958:6031" ph="SELECT * FRO... ${$this-&gt;table}" />
+            <marker date="1519734978000" expanded="true" signature="6247:6261" ph="SELECT * FRO... ${$this-&gt;table}" />
+          </folding>
         </state>
       </provider>
     </entry>
