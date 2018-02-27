@@ -49,8 +49,55 @@ return [
         'GET' => [
             'action'=>'HomeController@authorizeReceive',
             'auth' => true,
+            'ebay-auth' => false
         ]
     ],
+
+//    ------------ Content Routes ---------------
+    '/feed' => [
+        'GET' => [
+            'action'=>'FeedController@index',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+    '/feed/preferences' => [
+        'GET' => [
+            'action'=>'FeedController@preferences',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+    '/categories' => [
+        'GET' => [
+            'action'=>'CategoriesController@index',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+    '/categories/example' => [
+        'GET' => [
+            'action'=>'CategoriesController@show',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+    '/just-for-you' => [
+        'GET' => [
+            'action'=>'JustForYouController@index',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+    '/products/example' => [
+        'GET' => [
+            'action'=>'ProductController@show',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+
+
 
 
 

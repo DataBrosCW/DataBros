@@ -4,6 +4,17 @@
 
     <header class="navbar navbar-databros navbar-expand-sm">
         <a class="navbar-brand" href="/">Databros</a>
+        <ul class="navbar-nav px-3">
+            <a class="nav-link" href="/feed">
+                Feed
+            </a>
+            <a class="nav-link" href="/just-for-you">
+                Just for you
+            </a>
+            <a class="nav-link" href="/categories">
+                Categories
+            </a>
+        </ul>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#toggable-nav" aria-controls="toggable-nav" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>

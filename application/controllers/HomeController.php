@@ -15,7 +15,7 @@ class HomeController extends Controller
     public function authorizeReceive()
     {
         // Search api
-        if(! isset($_GET['code']) ){
+        if(isset($_GET['code']) ){
             $_SESSION['user_code'] = $_GET['code'];
             return $this->redirect();
         } else {
