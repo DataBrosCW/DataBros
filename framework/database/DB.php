@@ -56,10 +56,10 @@ class DB
     public function execute( $attributes = [] )
     {
         if ($this->connector() === $this->mysqli){
-            array_unshift($attributes, $this->getVarTypesMysqli($attributes));
-            dd($attributes);
+            $this->preparedStatement->bind_param($this->getVarTypesMysqli($attributes), ...$attributes);
+            return $this->preparedStatement->execute()->get_result()->fetch_all(MYSQLI_ASSOC);
         }
-        return $this->preparedStatement->execute( $attributes );
+        return $this->preparedStatement->execute( $attributes )->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function query( $sql )

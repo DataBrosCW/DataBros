@@ -350,7 +350,7 @@ abstract class Model
 
         // We convert the result (rows) to object(s)
         $objects = [];
-        foreach ($result->fetchAll(PDO::FETCH_ASSOC) as $row){
+        foreach ($result as $row){
             array_push($objects, static::fetch($row));
         }
 

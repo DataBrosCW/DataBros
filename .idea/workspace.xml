@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3840dbf7-9369-4fb0-93b8-b59fb7fe4226" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/framework/core/Model.php" afterPath="$PROJECT_DIR$/framework/core/Model.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/framework/database/DB.php" afterPath="$PROJECT_DIR$/framework/database/DB.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,27 +46,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DB.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DB.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/framework/database/DB.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="59" column="26" lean-forward="false" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
+            <state relative-caret-position="141">
+              <caret line="59" column="94" lean-forward="true" selection-start-line="59" selection-start-column="94" selection-end-line="59" selection-end-column="94" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Model.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Model.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/framework/core/Model.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="343" column="0" lean-forward="false" selection-start-line="343" selection-start-column="0" selection-end-line="343" selection-end-column="0" />
+            <state relative-caret-position="367">
+              <caret line="352" column="24" lean-forward="false" selection-start-line="352" selection-start-column="24" selection-end-line="352" selection-end-column="24" />
               <folding>
-                <marker date="1520538686000" expanded="true" signature="3894:4072" ph="INSERT INTO ${$this-&gt;table}... " />
-                <marker date="1520538686000" expanded="true" signature="5708:5766" ph="INSERT INTO ${$this-&gt;table}... " />
-                <marker date="1520538686000" expanded="true" signature="8041:8147" ph="SELECT * FRO... ${$this-&gt;table}" />
-                <marker date="1520538686000" expanded="true" signature="8589:8662" ph="SELECT * FRO... ${$this-&gt;table}" />
-                <marker date="1520538686000" expanded="true" signature="8878:8892" ph="SELECT * FRO... ${$this-&gt;table}" />
+                <marker date="1520540010000" expanded="true" signature="3894:4072" ph="INSERT INTO ${$this-&gt;table}... " />
+                <marker date="1520540010000" expanded="true" signature="5708:5766" ph="INSERT INTO ${$this-&gt;table}... " />
+                <marker date="1520540010000" expanded="true" signature="8041:8147" ph="SELECT * FRO... ${$this-&gt;table}" />
+                <marker date="1520540010000" expanded="true" signature="8589:8662" ph="SELECT * FRO... ${$this-&gt;table}" />
+                <marker date="1520540010000" expanded="true" signature="8878:8892" ph="SELECT * FRO... ${$this-&gt;table}" />
               </folding>
             </state>
           </provider>
@@ -224,8 +225,8 @@
         <option value="$PROJECT_DIR$/public/views/layout/dashboard.blade.php" />
         <option value="$PROJECT_DIR$/public/.user.ini" />
         <option value="$PROJECT_DIR$/application/config/config.php" />
-        <option value="$PROJECT_DIR$/framework/core/Model.php" />
         <option value="$PROJECT_DIR$/framework/database/DB.php" />
+        <option value="$PROJECT_DIR$/framework/core/Model.php" />
       </list>
     </option>
   </component>
@@ -380,12 +381,12 @@
       <workItem from="1520085251093" duration="6281000" />
       <workItem from="1520331447309" duration="8606000" />
       <workItem from="1520369859119" duration="25000" />
-      <workItem from="1520446033979" duration="10611000" />
+      <workItem from="1520446033979" duration="11034000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99823000" />
+    <option name="totallyTimeSpent" value="100246000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -817,20 +818,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/framework/core/Model.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="343" column="0" lean-forward="false" selection-start-line="343" selection-start-column="0" selection-end-line="343" selection-end-column="0" />
-          <folding>
-            <marker date="1520538686000" expanded="true" signature="3894:4072" ph="INSERT INTO ${$this-&gt;table}... " />
-            <marker date="1520538686000" expanded="true" signature="5708:5766" ph="INSERT INTO ${$this-&gt;table}... " />
-            <marker date="1520538686000" expanded="true" signature="8041:8147" ph="SELECT * FRO... ${$this-&gt;table}" />
-            <marker date="1520538686000" expanded="true" signature="8589:8662" ph="SELECT * FRO... ${$this-&gt;table}" />
-            <marker date="1520538686000" expanded="true" signature="8878:8892" ph="SELECT * FRO... ${$this-&gt;table}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migration.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -849,9 +836,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/framework/database/DB.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="59" column="26" lean-forward="false" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
+        <state relative-caret-position="141">
+          <caret line="59" column="94" lean-forward="true" selection-start-line="59" selection-start-column="94" selection-end-line="59" selection-end-column="94" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/framework/core/Model.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="352" column="24" lean-forward="false" selection-start-line="352" selection-start-column="24" selection-end-line="352" selection-end-column="24" />
+          <folding>
+            <marker date="1520540010000" expanded="true" signature="3894:4072" ph="INSERT INTO ${$this-&gt;table}... " />
+            <marker date="1520540010000" expanded="true" signature="5708:5766" ph="INSERT INTO ${$this-&gt;table}... " />
+            <marker date="1520540010000" expanded="true" signature="8041:8147" ph="SELECT * FRO... ${$this-&gt;table}" />
+            <marker date="1520540010000" expanded="true" signature="8589:8662" ph="SELECT * FRO... ${$this-&gt;table}" />
+            <marker date="1520540010000" expanded="true" signature="8878:8892" ph="SELECT * FRO... ${$this-&gt;table}" />
+          </folding>
         </state>
       </provider>
     </entry>
