@@ -185,8 +185,8 @@ abstract class Model
 
         // 3 - We run the query
         try {
-            $stmt = $this->db->prepare( $this->sql_query );
-            $stmt->execute( $values );
+            $this->db->prepare( $this->sql_query );
+            $this->db->execute($values);
         } catch ( PDOException $e ) {
             throw $e;
         }
@@ -236,8 +236,8 @@ abstract class Model
 
         // 3 - We run the query
         try {
-            $stmt = $this->db->prepare( $this->sql_query );
-            $stmt->execute( $values );
+            $this->db->prepare( $this->sql_query );
+            $this->db->execute($values);
         } catch ( PDOException $e ) {
             throw $e;
         }
@@ -362,33 +362,6 @@ abstract class Model
         } else {
             return $objects;
         }
-
-//        // 1 - We close the query
-//        $this->sql_query .= ';';
-//
-//        // 2 - We run the query
-//        $stmt = null;
-//        try {
-//            $stmt = $this->db->prepare( $this->sql_query );
-//            $stmt->execute($this->sql_values);
-//        } catch ( PDOException $e ) {
-//            throw $e;
-//        }
-//
-//        // We convert the result (rows) to object(s)
-//        $objects = [];
-//        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row){
-//            array_push($objects, static::fetch($row));
-//        }
-//
-//        // We return the obecjt(s) found
-//        if (count($objects) == 1) {
-//            return $objects[0];
-//        } elseif (count($objects) == 0) {
-//            return null;
-//        } else {
-//            return $objects;
-//        }
 
     }
 

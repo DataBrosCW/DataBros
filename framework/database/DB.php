@@ -55,7 +55,7 @@ class DB
 
     public function execute( $attributes = [] )
     {
-        if ($this->connector() === $this->mysqli){
+        if ($this->connection_type === self::CONN_TYPE_MYSQLI){
             $this->preparedStatement->bind_param($this->getVarTypesMysqli($attributes), ...$attributes);
             $this->preparedStatement->execute();
             return  $this->preparedStatement->get_result()->fetch_all(MYSQLI_ASSOC);
