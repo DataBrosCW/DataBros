@@ -55,12 +55,28 @@ class DB
 
     public function execute( $attributes = [] )
     {
+        // Special case for msqli
         if ($this->connection_type === self::CONN_TYPE_MYSQLI){
-            $this->preparedStatement->bind_param($this->getVarTypesMysqli($attributes), ...$attributes);
-            $this->preparedStatement->execute();
-            return  $this->preparedStatement->get_result()->fetch_all(MYSQLI_ASSOC);
+            if (!$this->preparedStatement->bind_param($this->getVarTypesMysqli($attributes), ...$attributes)){
+                throw new Exception("Binding parameters failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error,2);
+            }
+            if (!$this->preparedStatement->execute()){
+                throw new Exception("Execute failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error,2);
+            }
+
+            $res = $this->preparedStatement->get_result();
+
+            if ($res->num_rows > 0) {
+                while ($row = $res->fetch_assoc()) {
+                    $results[] = $row;
+                }
+                return $results;
+            } else {
+                return false;
+            }
         }
 
+        // Default behaviour
         try {
             $this->preparedStatement->execute( $attributes );
         }

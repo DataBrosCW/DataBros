@@ -29,7 +29,7 @@ return [
     ],
 
     'app_key' => 'oijwef893520kf=-32',
-    'app_url' => 'http://localhost:8888/',
+    'app_url' => getenv('APP_URL')?:'http://localhost:8888/',
 
     'ebay' => [
 
