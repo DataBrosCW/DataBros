@@ -341,17 +341,16 @@ abstract class Model
         $this->sql_query .= ';';
 
         // 2 - We run the query
-        $stmt = null;
         try {
-            $stmt = $this->db->prepare( $this->sql_query );
-            $stmt->execute($this->sql_values);
+            $this->db->prepare( $this->sql_query );
+            $result = $this->db->execute($this->sql_values);
         } catch ( PDOException $e ) {
             throw $e;
         }
 
         // We convert the result (rows) to object(s)
         $objects = [];
-        foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $row){
+        foreach ($result->fetchAll(PDO::FETCH_ASSOC) as $row){
             array_push($objects, static::fetch($row));
         }
 
