@@ -28,15 +28,23 @@ class ProductController extends Controller
             $userProduct->update();
         }
 
-        // Retrieve product stat if exists
-        $productStat = ProductStatsModel::instantiate()
+        // Retrieve product avg price stat if exists
+        $productStatAvg = ProductStatsModel::instantiate()
                                         ->where('product_id',$product->id)
                                         ->where('graph_type',ProductStatsModel::AVG_PRICE )
                                         ->limit(1)
                                         ->get();
 
-        // If it has a link to group
-        if (strlen($product->epid)>17 && !$productStat){
+
+        // Retrieve product stat if exists
+        $productStatGeo = ProductStatsModel::instantiate()
+                                        ->where('product_id',$product->id)
+                                        ->where('graph_type',ProductStatsModel::GEO_LOCATION )
+                                        ->limit(1)
+                                        ->get();
+
+        // if one of stats is missing
+        if (!$productStatGeo && !$productStatAvg){
             $client = new \GuzzleHttp\Client([
                 'base_uri' => config('ebay.base_url',true),
             ]);
@@ -44,31 +52,53 @@ class ProductController extends Controller
                 'headers' => config('ebay.headers.get_item')
             ]);
             $result = json_decode($response->getBody());
-            $url = $result->primaryItemGroup->itemGroupHref;
 
-            $response = $client->get($url,[
-                'headers' => config('ebay.headers.get_item')
-            ]);
-            $body = json_decode($response->getBody());
-
-            $items = $body->items;
-            $objects = [];
-            foreach ($items as $item) {
-                array_push($objects,$item->price->value);
+            //get regions for which shipping is available
+            $regions = [];
+            foreach ($result->shipToLocations->regionIncluded as $region) {
+                array_push($regions,$region->regionName);
             }
 
-            $productStat = new ProductStatsModel([
+            $productStatGeo = new ProductStatsModel([
                 'product_id' => $product->id,
-                'graph_type' => 'avg_price',
-                'content'    => json_encode($objects)
+                'graph_type' => 'geo_location',
+                'content'    => json_encode($regions)
             ]);
-            $productStat->save();
+            $productStatGeo->save();
+
+            dd($productStatGeo);
+
+            //if group ID is supplied
+            if (strlen($product->epid)>17) {
+
+                $url = $result->primaryItemGroup->itemGroupHref;
+
+                $response = $client->get($url,[
+                    'headers' => config('ebay.headers.get_item')
+                ]);
+                $body = json_decode($response->getBody());
+
+                $items = $body->items;
+                $objects = [];
+                foreach ($items as $item) {
+                    array_push($objects,$item->price->value);
+                }
+
+                $productStatAvg = new ProductStatsModel([
+                    'product_id' => $product->id,
+                    'graph_type' => 'avg_price',
+                    'content'    => json_encode($objects)
+                ]);
+                $productStatAvg->save();
+            }
         }
+
 
         $this->render('product',[
             'product' => $product,
-            'productStat' =>$productStat,
-            'userProduct' => $userProduct
+            'productStat' =>$productStatAvg,
+            'userProduct' => $userProduct,
+            'productStatGeo' => $productStatGeo
         ]);
 
     }
