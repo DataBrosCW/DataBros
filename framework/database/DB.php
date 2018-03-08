@@ -12,6 +12,7 @@ class DB
      * Instantiate a PDO connection to the database using configuration
      */
     public function __construct(){
+
         $dsn = config('database.driver').":host=".config('database.host').";dbname="
                .config('database.db_name').";charset=".config('database.charset');
         $opt = [
