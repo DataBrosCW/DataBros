@@ -61,7 +61,7 @@ class DB
                 dd(    "Binding parameters failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error);
             }
             if (!$this->preparedStatement->execute()){
-                dd(    "Execute failed: (" . $this->preparedStatement . ") " . $this->preparedStatement);
+                dd(    "Execute failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error);
             }
 
             $res = $this->preparedStatement->get_result();
