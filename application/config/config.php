@@ -13,14 +13,14 @@ return [
 
     'database' => [
         'driver'      => 'mysql',
-        'host'        => '127.0.0.1',
-        'port'        => '3306',
-        'db_name'     => 'databros',
+        'host'        => getenv('DB_HOST')?:'127.0.0.1',
+        'port'        => getenv('DB_PORT')?:'3306',
+        'db_name'     => getenv('DB_NAME')?:'databros',
         'unix_socket' => '',
         'charset'     => 'utf8mb4',
 
-        'user'     => 'databros',
-        'password' => 'databros',
+        'user'     => getenv('DB_USER')?:'databros',
+        'password' => getenv('DB_PWD')?:'databros',
     ],
 
     'app_key' => 'oijwef893520kf=-32',
