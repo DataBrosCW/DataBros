@@ -154,7 +154,7 @@ class ProductController extends Controller
             $msg->success( 'Product removed from favourite products!' );
         }
 
-        return $this->redirect('products/'.$product->id);
+        return $this->redirectBack();
 
     }
 
@@ -163,6 +163,11 @@ class ProductController extends Controller
      */
     public function followed()
     {
-        return $this->render('followed-products');
+        $user = auth_user();
+        $followedProducts = $user->followedProducts();
+
+        return $this->render('followed-products',[
+            'followedProducts' => $followedProducts
+        ]);
     }
 }
