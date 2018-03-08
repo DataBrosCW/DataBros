@@ -64,7 +64,6 @@ class DB
                 dd(    "Execute failed: (" . $this->preparedStatement . ") " . $this->preparedStatement);
             }
 
-            $this->preparedStatement->execute();
             $res = $this->preparedStatement->get_result();
 
             if ($res->num_rows > 0) {
