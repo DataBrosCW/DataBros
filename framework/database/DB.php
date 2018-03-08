@@ -57,7 +57,7 @@ class DB
     {
         if ($this->connector() === $this->mysqli){
             array_unshift($attributes, $this->getVarTypesMysqli($attributes));
-            dd($this->mysqli);
+            dd($attributes);
         }
         return $this->preparedStatement->execute( $attributes );
     }
