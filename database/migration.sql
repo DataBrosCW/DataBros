@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS products(
     title VARCHAR(255) NOT NULL,
     epid VARCHAR(255) NOT NULL,
     img VARCHAR(255),
-    description TEXT,
+    description TEXT DEFAULT NULL,
     price FLOAT,
     PRIMARY KEY (id),
     UNIQUE (epid)
@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS products(
 CREATE TABLE IF NOT EXISTS categories (
     id INT NOT NULL AUTO_INCREMENT,
     ebay_id VARCHAR(255) NOT NULL,
-    description TEXT,
+    name VARCHAR(255) NOT NULL,
+    description TEXT DEFAULT NULL ,
     PRIMARY KEY (id),
     UNIQUE (ebay_id)
 );
@@ -46,6 +47,17 @@ CREATE TABLE IF NOT EXISTS categories (
 --     PRIMARY KEY (id),
 --     UNIQUE INDEX (ebay_id)
 -- );
+
+-- Create product stats table
+
+CREATE TABLE IF NOT EXISTS product_stats(
+    product_id INT NOT NULL,
+    graph_type VARCHAR(255) NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+    content JSON,
+    PRIMARY KEY (id)
+);
+
 
 -- Create best product table
 
@@ -71,6 +83,8 @@ CREATE TABLE IF NOT EXISTS category_best_product (
 CREATE TABLE IF NOT EXISTS user_products (
     user_id INT NOT NULL,
     product_id INT NOT NULL,
+    followed BOOLEAN NOT NULL,
+    count INT NOT NULL,
     PRIMARY KEY (user_id,product_id),
     UNIQUE  (user_id,product_id)
 );

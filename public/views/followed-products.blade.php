@@ -5,7 +5,7 @@
 
     <div class="container">
         <div class="header-databros pt-md-3 text-center mx-auto">
-            <h1>Just for you</h1>
+            <h1>Followed Products</h1>
         </div>
 
         <h3 class="mt-5 mb-3">Because you searched for: iPhone X</h3>

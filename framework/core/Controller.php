@@ -34,12 +34,12 @@ abstract class Controller
     /**
      * Validates a request
      */
-    public function validate($rules = []){
+    public function validate($rules = [],$toValidate=[]){
         if ($rules == []) return true;
 
         // We instanciate a Validator and validate the request
         $validator = new Validator($rules);
-        if ($validator->validate()){
+        if ($validator->validate($toValidate)){
             return true;
         } else {
             // If validation fails, we send back to the previous page with errors

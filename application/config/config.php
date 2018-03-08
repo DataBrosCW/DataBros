@@ -13,14 +13,14 @@ return [
 
     'database' => [
         'driver'      => 'mysql',
-        'host'        => 'localhost',
-        'port'        => '8889',
+        'host'        => '127.0.0.1',
+        'port'        => '3306',
         'db_name'     => 'databros',
         'unix_socket' => '',
         'charset'     => 'utf8mb4',
 
-        'user'        => 'databros',
-        'password'    => 'databros',
+        'user'     => 'databros',
+        'password' => 'databros',
     ],
 
     'app_key' => 'oijwef893520kf=-32',
@@ -28,28 +28,41 @@ return [
 
     'ebay' => [
 
-        'client_id'=>'GermanMi-sampleap-SBX-65d705b3d-772ae4f4',
-        'redirect_uri' => 'German_Mikulski-GermanMi-sample-amcujbjxm',
+        'client_id'     => 'GermanMi-sampleap-SBX-65d705b3d-772ae4f4',
+        'redirect_uri'  => 'German_Mikulski-GermanMi-sample-amcujbjxm',
         'response_type' => 'code',
-        'scope' => 'https://api.ebay.com/oauth/api_scope/sell.account',
+        'scope'         => 'https://api.ebay.com/oauth/api_scope/sell.account',
 
         'base_url' => 'https://api.sandbox.ebay.com',
 
         'headers' => [
-            'token_auth' => [
-                'Content-Type' => 'application/x-www-form-urlencoded',
-                'Authorization'=> 'Basic R2VybWFuTWktc2FtcGxlYXAtU0JYLTY1ZDcwNWIzZC03NzJhZTRmNDpTQlgtNWQ3MDViM2RmMmJiLTg4MDgtNDNkNS05ZDgyLTViMjE='
+            'token_auth'        => [
+                'Content-Type'  => 'application/x-www-form-urlencoded',
+                'Authorization' => 'Basic R2VybWFuTWktc2FtcGxlYXAtU0JYLTY1ZDcwNWIzZC03NzJhZTRmNDpTQlgtNWQ3MDViM2RmMmJiLTg4MDgtNDNkNS05ZDgyLTViMjE='
             ],
-            'search' => [
-                'Authorization'=> 'Bearer ' . '__appToken__'
+            'search'            => [
+                'Authorization' => 'Bearer ' . '__appToken__'
+            ],
+            'get_item'          => [
+                'Authorization' => 'Bearer ' . '__appToken__'
+            ],
+            'categories_update' => [
+                'Content-Type'                   => 'text/xml',
+                'X-EBAY-API-COMPATIBILITY-LEVEL' => '1045',
+                'X-EBAY-API-IAF-TOKEN'           => '__userToken__',
+                'X-EBAY-API-SITEID'              => 0,
+                'X-EBAY-API-CALL-NAME'           => 'GetCategories',
             ]
         ],
 
         'endpoints' => [
-            'token_auth' => '/identity/v1/oauth2/token',
-            'search'     => '/buy/browse/v1/item_summary/search',
-            'user_token' => 'https://auth.sandbox.ebay.com/oauth2/authorize'
+            'token_auth'        => '/identity/v1/oauth2/token',
+            'search'            => '/buy/browse/v1/item_summary/search',
+            'user_token'        => 'https://auth.sandbox.ebay.com/oauth2/authorize',
+            'get_item'          => '/buy/browse/v1/item/',
+            'categories_update' => '/ws/api.dll'
         ],
+
 
     ]
 

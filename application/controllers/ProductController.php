@@ -2,18 +2,84 @@
 
 class ProductController extends Controller
 {
-    public function show()
+    // Show a product page for a specific product
+    public function show($id)
     {
-        $this->render('product');
+        $product = ProductModel::instantiate()->findOrFail($id);
+        $user = auth_user();
+
+        // Store that user searched this product
+        // If user visited before, increment count
+        $userProduct = UserProductsModel::instantiate()
+                                        ->where('user_id',$user->id)
+                                        ->where('product_id',$product->id)
+                                        ->limit(1)
+                                        ->get();
+        if (!$userProduct) {
+            $userProduct = new UserProductsModel([
+                    'user_id'    => $user->id,
+                    'product_id' => $product->id,
+                    'followed'   => false,
+                    'count'      => 1
+            ]);
+            $userProduct->save();
+        } else {
+            $userProduct->count = $userProduct->count + 1;
+            $userProduct->update();
+        }
+
+        // Retrieve product stat if exists
+        $productStat = ProductStatsModel::instantiate()
+                                        ->where('product_id',$product->id)
+                                        ->where('graph_type',ProductStatsModel::AVG_PRICE )
+                                        ->limit(1)
+                                        ->get();
+
+        // If it has a link to group
+        if (strlen($product->epid)>17 && !$productStat){
+            $client = new \GuzzleHttp\Client([
+                'base_uri' => config('ebay.base_url',true),
+            ]);
+            $response = $client->get(config('ebay.endpoints.get_item',true).$product->epid,[
+                'headers' => config('ebay.headers.get_item')
+            ]);
+            $result = json_decode($response->getBody());
+            $url = $result->primaryItemGroup->itemGroupHref;
+
+            $response = $client->get($url,[
+                'headers' => config('ebay.headers.get_item')
+            ]);
+            $body = json_decode($response->getBody());
+
+            $items = $body->items;
+            $objects = [];
+            foreach ($items as $item) {
+                array_push($objects,$item->price->value);
+            }
+
+            $productStat = new ProductStatsModel([
+                'product_id' => $product->id,
+                'graph_type' => 'avg_price',
+                'content'    => json_encode($objects)
+            ]);
+            $productStat->save();
+        }
+
+        $this->render('product',[
+            'product' => $product,
+            'productStat' =>$productStat,
+            'userProduct' => $userProduct
+        ]);
+
     }
 
-    public function search()
+    // Search a product
+    public function search($search)
     {
+
         $this->validate( [
             'search' => 'required|string',
-        ] );
-
-        $search = $_POST['search'];
+        ],['search'=>$search] );
 
         // We need to retrieve one
         $client = new \GuzzleHttp\Client([
@@ -31,6 +97,8 @@ class ProductController extends Controller
             $this->redirectBack();
         }
 
+//        TODO: add link to product + currency
+
         $productsData = $body->itemSummaries;
 
         $products = [];
@@ -45,9 +113,9 @@ class ProductController extends Controller
                     'title' => $productData->title,
                     'img' => isset($productData->image)?$productData->image->imageUrl:
                         (isset($productData->additionalImages)?$productData->additionalImages[0]->imageUrl:''),
-                    'description' => '...',
                     'price' =>  $productData->price->value,
                 ]);
+                $product->save();
             }
 
             array_push($products,$product);
@@ -57,5 +125,44 @@ class ProductController extends Controller
             'products'=>$products,
             'search' => $search
         ]);
+    }
+
+    public function favourite($id){
+        $product = ProductModel::instantiate()->findOrFail($id);
+        $user = auth_user();
+
+        // Store that user searched this product
+        // If user visited before, increment count
+        $userProduct = UserProductsModel::instantiate()
+                                        ->where('user_id',$user->id)
+                                        ->where('product_id',$product->id)
+                                        ->limit(1)
+                                        ->get();
+        if (!$userProduct){
+            $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+            $msg->error( 'Oups! We didn\'t find anythind matching with the keyword "'.$search.'"...' );
+
+            $this->redirect();
+        }
+        $userProduct->followed = !$userProduct->followed;
+        $userProduct->update();
+
+        $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+        if (!$userProduct->followed){
+            $msg->success( 'Product added as a favourite!' );
+        } else {
+            $msg->success( 'Product removed from favourite products!' );
+        }
+
+        return $this->redirect('products/'.$product->id);
+
+    }
+
+    /**
+     * Shows the followed products
+     */
+    public function followed()
+    {
+        return $this->render('followed-products');
     }
 }

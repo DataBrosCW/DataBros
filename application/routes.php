@@ -74,6 +74,13 @@ return [
             'ebay-auth' => true
         ]
     ],
+    '/categories/update' => [
+        'GET' => [
+            'action'=>'CategoriesController@update',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
     '/categories/example' => [
         'GET' => [
             'action'=>'CategoriesController@show',
@@ -81,33 +88,34 @@ return [
             'ebay-auth' => true
         ]
     ],
-    '/just-for-you' => [
+    '/followed-products' => [
         'GET' => [
-            'action'=>'JustForYouController@index',
+            'action'=>'ProductController@followed',
             'auth' => true,
             'ebay-auth' => true
         ]
     ],
-
-    '/products/example' => [
+    '/products/search/{search}' => [
+        'GET' => [
+            'action'=>'ProductController@search',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+    '/products/{id:\d+}' => [
         'GET' => [
             'action'=>'ProductController@show',
             'auth' => true,
             'ebay-auth' => true
         ]
     ],
-
-    '/products/search' => [
-        'POST' => [
-            'action'=>'ProductController@search',
+    '/products/{id:\d+}/favourite' => [
+        'GET' => [
+            'action'=>'ProductController@favourite',
             'auth' => true,
             'ebay-auth' => true
         ]
     ],
-
-
-
-
 
     '/test' => [
         'GET' => [

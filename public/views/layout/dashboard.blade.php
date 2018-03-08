@@ -9,8 +9,8 @@
             <a class="nav-link" href="/feed">
                 Feed
             </a>
-            <a class="nav-link" href="/just-for-you">
-                Just for you
+            <a class="nav-link" href="/followed-products">
+                Followed products
             </a>
             <a class="nav-link" href="/categories">
                 Categories
@@ -25,10 +25,9 @@
 
 
                 @if(auth_check() && isset($user))
-                    <form class="form-inline my-2 my-lg-0 mr-3" method="POST" action="/products/search">
-                        {{csrf_field()}}
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search product..." aria-label="Search" name="search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <form class="form-inline my-2 my-lg-0 mr-3" method="GET" action="/products/search/" id="search-form">
+                        <input class="form-control mr-sm-2" id="search-value" type="search" placeholder="Search product..." aria-label="Search" value="{{isset($search)?$search:''}}">
+                        <button class="btn btn-outline-success my-2 my-sm-0" id="btn-search-form-submit" type="submit">Search</button>
                     </form>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -67,3 +66,15 @@
     </div>
 
 @endsection
+
+@push('scripts')
+    
+    <script type="application/javascript">
+        $( document ).ready(function() {
+            $("#search-value").on("change paste keyup", function() {
+                var url = '/products/search/'+encodeURI($('#search-value').val());
+                $( "#search-form" ).attr('action',url);
+            });
+        });
+    </script>    
+@endpush

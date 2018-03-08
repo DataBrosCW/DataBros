@@ -24,9 +24,9 @@ class Router
         // Convert the route to a regular expression: escape forward slashes
         $uri = preg_replace('/\//', '\\/', $uri);
         // Convert variables e.g. {controller}
-        $uri = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $uri);
+        $uri = preg_replace('/\{(([A-Za-z_ -]|%20)+)\}/', '(?P<\1>[A-Za-z_ -]+)', $uri);
         // Convert variables with custom regular expressions e.g. {id:\d+}
-        $uri = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $uri);
+        $uri = preg_replace('/\{([A-Za-z_ -]+):([^\}]+)\}/', '(?P<\1>\2)', $uri);
         // Add start and end delimiters, and case insensitive flag
         $uri = '/^' . $uri . '$/i';
 
@@ -45,8 +45,10 @@ class Router
         foreach ($this->uris as $uriKey => $params)
         {
             // See if there is a match
+            $matches=[];
             if (preg_match($uriKey, $uri,$matches))
             {
+
                 $httpMethod = $_SERVER['REQUEST_METHOD']?$_SERVER['REQUEST_METHOD']:'GET';
                 if (!isset($params[$httpMethod])) continue;
 
@@ -78,11 +80,20 @@ class Router
                     exit();
                 }
 
+                // Retrieve parameters
+                $parameters = [];
+
+                foreach($matches as $key => $value){
+                    if (!is_numeric($key)){
+                        array_push($parameters,$value);
+                    }
+                }
+
                 $controller = preg_split("/@/", $params[$httpMethod]['action'])[0];
                 $method = preg_split("/@/", $params[$httpMethod]['action'])[1];
 
                 $controller = new $controller();
-                $controller->{ $method }();
+                call_user_func_array([$controller, $method],$parameters);
                 return;
             }
         }

@@ -65,7 +65,9 @@ abstract class Model
 
             if ( isset( $values[ $field ] ) ) {
                 $property = $values[ $field ];
-                if ($this->casts[ $field ] != '') settype( $property, $this->casts[ $field ] );
+                if (isset($this->casts[ $field ]) && $this->casts[ $field ] != '' && $this->casts[ $field ] != null) {
+                    settype( $property, $this->casts[ $field ] );
+                }
                 $this->{$field} = $property;
             }
         }
@@ -77,10 +79,12 @@ abstract class Model
     public function __get( $prop )
     {
         if ( in_array( $prop, $this->private_fields ) ) {
-            return $this->private_properties[ $prop ];
+            if (isset($this->private_properties[ $prop ])) return $this->private_properties[ $prop ];
+            return null;
         }
         if ( in_array( $prop, $this->public_fields ) ) {
-            return $this->{$prop};
+            if (isset($this->{$prop})) return $this->{$prop};
+            return null;
         }
         if ( $prop == $this->getKeyName() ) {
             return $this->{$this->getKeyName()};
@@ -131,7 +135,7 @@ abstract class Model
     public function save()
     {
         // If object has id, then it was already saved in db
-        if ( isset( $this->{$this->getKeyName()} ) ) {
+        if ( isset( $this->{$this->getKeyName()} ) && $this->{$this->getKeyName()}>0) {
             return $this->update();
         } else {
             return $this->create();
@@ -165,10 +169,18 @@ abstract class Model
         // 2- We get the values
         $values = [];
         foreach ( $this->public_fields as $field ) {
-            array_push( $values, $this->{$field} );
+            if (is_bool($this->{$field})){
+                $this->{$field}?array_push($values,1):array_push($values,0);
+            } else {
+                array_push( $values, $this->{$field} );
+            }
         }
         foreach ( $this->private_fields as $field ) {
-            array_push( $values, $this->{$field} );
+            if (is_bool($this->{$field})){
+                $this->{$field}?array_push($values,1):array_push($values,0);
+            } else {
+                array_push( $values, $this->{$field} );
+            }
         }
 
         // 3 - We run the query
@@ -190,8 +202,52 @@ abstract class Model
      */
     public function update()
     {
+        // 1 - We prepare the query
+        $listOfPublicProperties = implode( ", ", $this->public_fields );
+        $listOfPrivateProperties = implode( ", ", $this->private_fields );
 
+        $valuesCount = count( $this->public_fields ) + count( $this->private_fields );
+
+        $this->sql_query = 'UPDATE ' . $this->table . ' SET ';
+
+        $values = [];
+        foreach ( $this->public_fields as $field ) {
+            if (is_bool($this->{$field})){
+                $this->{$field}?array_push($values,1):array_push($values,0);
+            } else {
+                array_push( $values, $this->{$field} );
+            }
+            $this->sql_query .= $field.' = ?';
+            if ($field !== end($this->public_fields)) $this->sql_query .=', ';
+
+        }
+        foreach ( $this->private_fields as $field ) {
+            if (is_bool($this->{$field})){
+                $this->{$field}?array_push($values,1):array_push($values,0);
+            } else {
+                array_push( $values, $this->{$field} );
+            }
+            $this->sql_query .= $field.' = ?';
+            if ( $field !== end($this->public_fields)) $this->sql_query .=', ';
+        }
+
+        // Specify where
+        $this->where($this->getKeyName(),$this->id);
+
+        // 3 - We run the query
+        try {
+            $stmt = $this->db->prepare( $this->sql_query );
+            $stmt->execute( $values );
+        } catch ( PDOException $e ) {
+            throw $e;
+        }
+
+        // 4 - We retrieve the id
+        $this->{$this->getKeyName()} = $this->db->lastInsertedId();
+
+        return true;
     }
+
 
     /**
      * Find by primary_key
@@ -199,6 +255,19 @@ abstract class Model
     public function find( $id )
     {
         return $this->where($this->getKeyName(),$id)->get();
+    }
+
+    public function findOrFail( $id )
+    {
+        $entity = $this->where($this->getKeyName(),$id)->get();
+        if (!$entity){
+            $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+            $msg->error( 'Oups! We could not find what you\'re looking for...' );
+
+            $this->redirect();
+        } else {
+            return $entity;
+        }
     }
 
     /**
@@ -220,9 +289,11 @@ abstract class Model
     {
         if ( $this->sql_query == '' || $this->sql_query == null ) {
             $this->sql_query = 'SELECT * FROM ' . $this->table
-                               . ' WHERE ' . $column . ' ' . $operand . ' ?';
+                               . ' WHERE ' . $column . ' ' . $operand . ' ? ';
         } elseif( strpos($this->sql_query, 'WHERE') !== false ) {
-            $this->sql_query.= 'AND '. $column . ' ' . $operand . ' ?';
+            $this->sql_query.= 'AND '. $column . ' ' . $operand . ' ? ';
+        } else {
+            $this->sql_query.= 'WHERE ' . $column . ' ' . $operand . ' ? ';
         }
 
         array_push($this->sql_values,$value);

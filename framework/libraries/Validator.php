@@ -19,7 +19,12 @@ class Validator
     /**
      * Go through each validation rules and validates
      */
-    public function validate(){
+    public function validate($arrayToValidate=[]){
+
+        if($arrayToValidate==[]) {
+            $arrayToValidate = $_REQUEST;
+        }
+
         foreach ($this->rules as $ruleKey => $ruleValue){
 
             foreach ($ruleValue as $rule){
@@ -28,9 +33,9 @@ class Validator
                     $methodName = preg_split("/:/", $rule)[0];
                     $methodParameters = preg_split("/:/", $rule)[1];
 
-                    $this->{'rule'.ucfirst($methodName)}($ruleKey,$methodParameters);
+                    $this->{'rule'.ucfirst($methodName)}($ruleKey,$methodParameters,$arrayToValidate);
                 } else {
-                    $this->{'rule'.ucfirst($rule)}($ruleKey);
+                    $this->{'rule'.ucfirst($rule)}($ruleKey,$arrayToValidate);
                 }
             }
         }
@@ -53,8 +58,9 @@ class Validator
     /**
      * Make sure request contains such param
      */
-    private function ruleRequired($param) {
-        if( isset($_REQUEST[$param]) && $_REQUEST[$param]!=''){
+    private function ruleRequired($param,$arrayToValidate=[]) {
+
+        if( isset($arrayToValidate[$param]) && $arrayToValidate[$param]!=''){
             return true;
         } else {
             if (!isset($this->errors[$param])) $this->errors[$param] = [];
@@ -68,8 +74,10 @@ class Validator
     /**
      * Make sure request's variable is a string
      */
-    private function ruleString($param) {
-        if( is_string($_REQUEST[$param]) ){
+    private function ruleString($param,$arrayToValidate=[]) {
+
+
+        if( is_string($arrayToValidate[$param]) ){
             return true;
         } else {
             if (!isset($this->errors[$param])) $this->errors[$param] = [];
@@ -83,8 +91,10 @@ class Validator
     /**
      * Make sure request's variable is a valid email
      */
-    private function ruleEmail($param) {
-        if ( filter_var($_REQUEST[$param], FILTER_VALIDATE_EMAIL) ){
+    private function ruleEmail($param,$arrayToValidate=[]) {
+
+
+        if ( filter_var($arrayToValidate[$param], FILTER_VALIDATE_EMAIL) ){
             return true;
         } else {
             if (!isset($this->errors[$param])) $this->errors[$param] = [];
@@ -101,10 +111,10 @@ class Validator
      * For instance, if password field must be confirmed, then there must be a field password_confirm containing
      * the same value
      */
-    private function ruleConfirmed($param) {
-        $validated = isset($_REQUEST[$param])
-                     && isset($_REQUEST[$param.'_confirm'])
-                     && $_REQUEST[$param] === $_REQUEST[$param.'_confirm'];
+    private function ruleConfirmed($param, $arrayToValidate=[]) {
+        $validated = isset($arrayToValidate[$param])
+                     && isset($arrayToValidate[$param.'_confirm'])
+                     && $arrayToValidate[$param] === $arrayToValidate[$param.'_confirm'];
 
         if ( $validated ){
             return true;
@@ -120,12 +130,12 @@ class Validator
     /**
      * Make sure request's variable has a minimum size (or value if int)
      */
-    private function ruleMin($param, $value) {
+    private function ruleMin($param, $value, $arrayToValidate=[]) {
         $validated = false;
-        if (is_string($_REQUEST[$param])){
-            $validated = strlen($_REQUEST[$param]) >= $value;
+        if (is_string($arrayToValidate[$param])){
+            $validated = strlen($arrayToValidate[$param]) >= $value;
         } else {
-            $validated = $_REQUEST[$param] >= $value;
+            $validated = $arrayToValidate[$param] >= $value;
         }
 
         if ( $validated ){

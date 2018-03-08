@@ -40,5 +40,10 @@ class ProductModel extends Model
      * Mutators
      */
 
+    public function avg_price_graph()
+    {
+        return strlen($this->epid) > 17;
+    }
+
 
 }
