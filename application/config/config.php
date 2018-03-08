@@ -11,6 +11,8 @@
 
 return [
 
+    'environment' => getenv('DB_HOST')?:'local',
+
     'database' => [
         'driver'      => 'mysql',
         'host'        => getenv('DB_HOST')?:'127.0.0.1',
