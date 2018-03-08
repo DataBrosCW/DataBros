@@ -2,3 +2,5 @@
 vendor
 # Except this file
 !.gitignore
+.idea/workspace.xml
+/.idea/
