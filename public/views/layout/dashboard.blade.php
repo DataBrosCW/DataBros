@@ -63,7 +63,7 @@
             ?>
         </div>
         @yield('dashboard-content')
-
+        {{phpinfo()}}
     </div>
 
 @endsection
