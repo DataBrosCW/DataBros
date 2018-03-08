@@ -12,6 +12,8 @@ class DB
 
     protected $sql;
 
+    protected $preparedStatement;
+
     /**
      * DB constructor.
      *
@@ -48,7 +50,16 @@ class DB
 
     public function prepare( $sql )
     {
-        return $this->connector()->prepare($sql);
+        $this->preparedStatement = $this->connector()->prepare($sql);
+    }
+
+    public function execute( $attributes = [] )
+    {
+        if ($this->connector() === $this->mysqli){
+            array_unshift($attributes, $this->getVarTypesMysqli($attributes));
+            dd($this->mysqli);
+        }
+        return $this->preparedStatement->execute( $attributes );
     }
 
     public function query( $sql )
@@ -88,5 +99,18 @@ class DB
         }
     }
 
+    private function getVarTypesMysqli($attributes){
+        $string = '';
+        foreach ($attributes as $attribute) {
+            if (is_double($attribute)){
+                $string.='d';
+            }elseif (is_int($attribute)){
+                $string.='i';
+            }elseif (is_string($attribute)){
+                $string.='s';
+            }
+        }
+        return $string;
+    }
 
 }
