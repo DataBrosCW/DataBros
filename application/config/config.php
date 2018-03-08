@@ -14,6 +14,9 @@ return [
     'environment' => getenv('DB_HOST')?:'local',
 
     'database' => [
+        // Connection type is either pdo of mysqli
+        'connection_type' => getenv('DB_CONNECTION_TYPE')?:'pdo',
+
         'driver'      => 'mysql',
         'host'        => getenv('DB_HOST')?:'127.0.0.1',
         'port'        => getenv('DB_PORT')?:'3306',
