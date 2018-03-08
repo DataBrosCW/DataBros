@@ -58,10 +58,10 @@ class DB
         // Special case for msqli
         if ($this->connection_type === self::CONN_TYPE_MYSQLI){
             if (!$this->preparedStatement->bind_param($this->getVarTypesMysqli($attributes), ...$attributes)){
-                dd(    "Binding parameters failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error);
+                throw new Exception("Binding parameters failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error,2);
             }
             if (!$this->preparedStatement->execute()){
-                dd(    "Execute failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error);
+                throw new Exception("Execute failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error,2);
             }
 
             $res = $this->preparedStatement->get_result();
