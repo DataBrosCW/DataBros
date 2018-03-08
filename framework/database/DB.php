@@ -57,7 +57,7 @@ class DB
     {
         if ($this->connector() === $this->mysqli){
             $this->preparedStatement->bind_param($this->getVarTypesMysqli($attributes), ...$attributes);
-            $this->preparedStatement->execute();
+            dd($this->preparedStatement->execute());
             return  $this->preparedStatement->get_result()->fetch_all(MYSQLI_ASSOC);
         }
         return $this->preparedStatement->execute( $attributes )->fetchAll(PDO::FETCH_ASSOC);
