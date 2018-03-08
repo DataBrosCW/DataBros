@@ -63,6 +63,7 @@
             ?>
         </div>
         @yield('dashboard-content')
+        {{getenv('test-ok')}}
     </div>
 
 @endsection
