@@ -79,7 +79,7 @@ function checkOrUpdateAppToken()
             'form_params' => [
                 'grant_type' => 'client_credentials',
                 'redirect_uri' => 'German_Mikulski-GermanMi-sample-amcujbjxm',
-                'scope' => 'https://api.ebay.com/oauth/api_scope https://api.ebay.com/oauth/api_scope/buy.marketing https://api.ebay.com/oauth/api_scope/buy.item.feed'
+                'scope' => 'https://api.ebay.com/oauth/api_scope'
             ]
         ]);
 

@@ -18,8 +18,8 @@ return [
         'connection_type' => getenv('DB_CONNECTION_TYPE')?:'pdo',
 
         'driver'      => 'mysql',
-        'host'        => getenv('DB_HOST')?:'127.0.0.1',
-        'port'        => getenv('DB_PORT')?:'3306',
+        'host'        => getenv('DB_HOST')?:'localhost',
+        'port'        => getenv('DB_PORT')?:'8889',
         'db_name'     => getenv('DB_NAME')?:'databros',
         'unix_socket' => '',
         'charset'     => 'utf8mb4',
@@ -33,8 +33,8 @@ return [
 
     'ebay' => [
 
-        'client_id'     => getenv('EBAY_APP_ID')?:'JulienNa-JuBay-PRD-adf74c2ae-979d50bd',
-        'redirect_uri'  => getenv('EBAY_REDIRECT_URI')?:'Julien_Nahum-JulienNa-JuBay--gijnvsve',
+        'client_id'     => getenv('EBAY_APP_ID')?:'GermanMi-sampleap-PRD-3df6c4a45-ccf46d3f',
+        'redirect_uri'  => getenv('EBAY_REDIRECT_URI')?:'German_Mikulski-GermanMi-sample-daeapvono',
         'response_type' => 'code',
         'scope'         => 'https://api.ebay.com/oauth/api_scope/sell.account',
 
@@ -43,7 +43,7 @@ return [
         'headers' => [
             'token_auth'        => [
                 'Content-Type'  => 'application/x-www-form-urlencoded',
-                'Authorization' => getenv('EBAY_APP_CALL_AUTH')?:'SnVsaWVuTmEtSnVCYXktUFJELWFkZjc0YzJhZS05NzlkNTBiZDpQUkQtZGY3NGMyYWVmYzdjLWE4YWItNDlmNS1hZmI5LTkyODY='
+                'Authorization' => getenv('EBAY_APP_CALL_AUTH')?:'Basic R2VybWFuTWktc2FtcGxlYXAtUFJELTNkZjZjNGE0NS1jY2Y0NmQzZjpQUkQtZGY2YzRhNDU5NWU5LTMwYWUtNDYxNy05OGYyLTQzYTY='
             ],
             'search'            => [
                 'Authorization' => 'Bearer ' . '__appToken__'
