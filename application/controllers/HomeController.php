@@ -26,7 +26,7 @@ class HomeController extends Controller
                 'headers' => config('ebay.headers.token_auth',true),
                 'form_params' => [
                     'grant_type' => 'authorization_code',
-                    'redirect_uri' => 'German_Mikulski-GermanMi-sample-amcujbjxm',
+                    'redirect_uri' => config('ebay.redirect_uri'),
                     'code' => $tempCode
                 ]
             ]);
