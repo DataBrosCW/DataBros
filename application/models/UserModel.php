@@ -42,7 +42,7 @@ class UserModel extends Model
     }
 
     public function followedProducts(){
-        $userProducts =  UserProductsModel::instantiate()->where('user_id',$this->id)->get();
+        $userProducts =  UserProductsModel::instantiate()->where('user_id',$this->id)->where('followed',1)->get();
 
         if (is_array($userProducts)) {
             $products = [];
@@ -50,6 +50,8 @@ class UserModel extends Model
                 array_push( $products, ProductModel::instantiate()->find( $userProduct->product_id ) );
             }
             return $products;
+        } elseif(is_null($userProducts)){
+            return null;
         } else {
             return [ ProductModel::instantiate()->find( $userProducts->product_id )];
         }

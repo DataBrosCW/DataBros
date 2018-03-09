@@ -3,30 +3,39 @@
 @section('dashboard-content')
 
     <div class="container">
-        <div class="header-databros pt-md-3 text-center mx-auto">
-            <h1>Followed Products</h1>
-        </div>
 
-        @if(count($followedProducts)>0)
-
-            <h3 class="mt-5 mb-3">Products you follow</h3>
-            <div class="card-deck">
-                @foreach($followedProducts as $product)
-                    <div class="col-sm-4 col-12">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" style="height: 150px;" src="{{$product->img}}"
-                                 alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">{{$product->title}}</h5>
-                            </div>
-                            <div class="card-footer">
-                                <a href="/products/{{$product->id}}"class="btn btn-primary btn-block">Buy ${{$product->price}}</a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+        @if($followedProducts)
+            <div class="header-databros pt-md-3 text-center mx-auto">
+                <h1>Followed Products</h1>
             </div>
 
+            @if(count($followedProducts)>0)
+
+                <h3 class="mt-5 mb-3">Products you follow</h3>
+                <div class="card-deck">
+                    @foreach($followedProducts as $product)
+                        <div class="col-sm-4 col-12">
+                            <div class="card" style="width: 18rem;">
+                                <img class="card-img-top" style="height: 150px;" src="{{$product->img}}"
+                                     alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$product->title}}</h5>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="/products/{{$product->id}}"class="btn btn-primary btn-block">Buy ${{$product->price}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+            @endif
+
+        @else
+            <div class="header-databros pt-md-3 text-center mx-auto">
+                <h1>Followed Products</h1>
+            </div>
+            <p>You currently don't follow any product.</p>
         @endif
 
         <h3 class="mt-5 mb-3">Because you searched for: iPhone X</h3>
