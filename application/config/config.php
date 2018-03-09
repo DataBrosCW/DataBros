@@ -63,7 +63,7 @@ return [
         'endpoints' => [
             'token_auth'        => '/identity/v1/oauth2/token',
             'search'            => '/buy/browse/v1/item_summary/search',
-            'user_token'        => getenv('APP_ENV')=='production'?'https://auth.sandbox.ebay.com/oauth2/authorize':'https://auth.ebay.com/oauth2/authorize',
+            'user_token'        => getenv('APP_ENV')=='production'?'https://auth.ebay.com/oauth2/authorize':'https://auth.sandbox.ebay.com/oauth2/authorize',
             'get_item'          => '/buy/browse/v1/item/',
             'categories_update' => '/ws/api.dll'
         ],
