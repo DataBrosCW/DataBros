@@ -33,8 +33,8 @@ return [
 
     'ebay' => [
 
-        'client_id'     => 'GermanMi-sampleap-SBX-65d705b3d-772ae4f4',
-        'redirect_uri'  => 'German_Mikulski-GermanMi-sample-amcujbjxm',
+        'client_id'     => getenv('EBAY_APP_ID')?:'GermanMi-sampleap-SBX-65d705b3d-772ae4f4',
+        'redirect_uri'  => getenv('EBAY_REDIRECT_URI')?:'German_Mikulski-GermanMi-sample-amcujbjxm',
         'response_type' => 'code',
         'scope'         => 'https://api.ebay.com/oauth/api_scope/sell.account',
 
@@ -43,7 +43,7 @@ return [
         'headers' => [
             'token_auth'        => [
                 'Content-Type'  => 'application/x-www-form-urlencoded',
-                'Authorization' => 'Basic R2VybWFuTWktc2FtcGxlYXAtU0JYLTY1ZDcwNWIzZC03NzJhZTRmNDpTQlgtNWQ3MDViM2RmMmJiLTg4MDgtNDNkNS05ZDgyLTViMjE='
+                'Authorization' => getenv('EBAY_APP_CALL_AUTH')?:'Basic R2VybWFuTWktc2FtcGxlYXAtU0JYLTY1ZDcwNWIzZC03NzJhZTRmNDpTQlgtNWQ3MDViM2RmMmJiLTg4MDgtNDNkNS05ZDgyLTViMjE='
             ],
             'search'            => [
                 'Authorization' => 'Bearer ' . '__appToken__'
