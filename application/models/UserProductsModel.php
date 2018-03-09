@@ -73,10 +73,11 @@ class UserProductsModel extends Model
         $this->where('user_id',$this->user_id)->where('product_id',$this->product_id);
         $this->sql_query.=';';
 
+
         // 3 - We run the query
         try {
-            $stmt = $this->db->prepare( $this->sql_query );
-            $stmt->execute( $this->sql_values );
+            $this->db->prepare( $this->sql_query );
+            $this->db->execute( $this->sql_values );
         } catch ( PDOException $e ) {
             throw $e;
         }

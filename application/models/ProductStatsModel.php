@@ -4,6 +4,7 @@ class ProductStatsModel extends Model
 {
 
     CONST AVG_PRICE = 'avg_price';
+    CONST GEO_LOCATION = 'geo_location';
 
 
     /**

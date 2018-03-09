@@ -18,8 +18,8 @@ return [
         'connection_type' => getenv('DB_CONNECTION_TYPE')?:'pdo',
 
         'driver'      => 'mysql',
-        'host'        => getenv('DB_HOST')?:'127.0.0.1',
-        'port'        => getenv('DB_PORT')?:'3306',
+        'host'        => getenv('DB_HOST')?:'localhost',
+        'port'        => getenv('DB_PORT')?:'8889',
         'db_name'     => getenv('DB_NAME')?:'databros',
         'unix_socket' => '',
         'charset'     => 'utf8mb4',
