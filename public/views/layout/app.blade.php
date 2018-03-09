@@ -108,6 +108,8 @@
 
     @yield('content')
 
+    hello german {{config('ebay.base_url')}}
+
 </div>
 
 <!-- Scripts -->
