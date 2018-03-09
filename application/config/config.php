@@ -18,8 +18,8 @@ return [
         'connection_type' => getenv('DB_CONNECTION_TYPE')?:'pdo',
 
         'driver'      => 'mysql',
-        'host'        => getenv('DB_HOST')?:'localhost',
-        'port'        => getenv('DB_PORT')?:'8889',
+        'host'        => getenv('DB_HOST')?:'127.0.0.1',
+        'port'        => getenv('DB_PORT')?:'3306',
         'db_name'     => getenv('DB_NAME')?:'databros',
         'unix_socket' => '',
         'charset'     => 'utf8mb4',
@@ -38,7 +38,7 @@ return [
         'response_type' => 'code',
         'scope'         => 'https://api.ebay.com/oauth/api_scope/sell.account',
 
-        'base_url' => 'https://api.sandbox.ebay.com',
+        'base_url' => getenv('EBAY_BASE_URL')?:'https://api.sandbox.ebay.com',
 
         'headers' => [
             'token_auth'        => [
