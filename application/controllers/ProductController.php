@@ -44,7 +44,7 @@ class ProductController extends Controller
                                         ->get();
 
         // if one of stats is missing
-        if (!$productStatGeo && !$productStatAvg){
+        if (!$productStatGeo && !$productStatAvg ){
             $client = new \GuzzleHttp\Client([
                 'base_uri' => config('ebay.base_url',true),
             ]);

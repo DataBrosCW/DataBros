@@ -11,7 +11,7 @@
 
 return [
 
-    'environment' => getenv('APP_ENV')?:'local',
+    'environment' => getenv('APP_ENV')?:'production',
 
     'database' => [
         // Connection type is either pdo of mysqli
@@ -33,17 +33,17 @@ return [
 
     'ebay' => [
 
-        'client_id'     => getenv('EBAY_APP_ID')?:'GermanMi-sampleap-SBX-65d705b3d-772ae4f4',
-        'redirect_uri'  => getenv('EBAY_REDIRECT_URI')?:'German_Mikulski-GermanMi-sample-amcujbjxm',
+        'client_id'     => getenv('EBAY_APP_ID')?:'JulienNa-JuBay-PRD-adf74c2ae-979d50bd',
+        'redirect_uri'  => getenv('EBAY_REDIRECT_URI')?:'Julien_Nahum-JulienNa-JuBay--gijnvsve',
         'response_type' => 'code',
         'scope'         => 'https://api.ebay.com/oauth/api_scope/sell.account',
 
-        'base_url' => getenv('EBAY_BASE_URL')?:'https://api.sandbox.ebay.com',
+        'base_url' => getenv('EBAY_BASE_URL')?:'https://api.ebay.com',
 
         'headers' => [
             'token_auth'        => [
                 'Content-Type'  => 'application/x-www-form-urlencoded',
-                'Authorization' => getenv('EBAY_APP_CALL_AUTH')?:'Basic R2VybWFuTWktc2FtcGxlYXAtU0JYLTY1ZDcwNWIzZC03NzJhZTRmNDpTQlgtNWQ3MDViM2RmMmJiLTg4MDgtNDNkNS05ZDgyLTViMjE='
+                'Authorization' => getenv('EBAY_APP_CALL_AUTH')?:'SnVsaWVuTmEtSnVCYXktUFJELWFkZjc0YzJhZS05NzlkNTBiZDpQUkQtZGY3NGMyYWVmYzdjLWE4YWItNDlmNS1hZmI5LTkyODY='
             ],
             'search'            => [
                 'Authorization' => 'Bearer ' . '__appToken__'
@@ -63,7 +63,7 @@ return [
         'endpoints' => [
             'token_auth'        => '/identity/v1/oauth2/token',
             'search'            => '/buy/browse/v1/item_summary/search',
-            'user_token'        => getenv('APP_ENV')=='production'?'https://auth.ebay.com/oauth2/authorize':'https://auth.sandbox.ebay.com/oauth2/authorize',
+            'user_token'        => getenv('APP_ENV')=='production'?'https://auth.ebay.com/oauth2/authorize':'https://auth.ebay.com/oauth2/authorize',
             'get_item'          => '/buy/browse/v1/item/',
             'categories_update' => '/ws/api.dll'
         ],
