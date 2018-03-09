@@ -49,7 +49,7 @@ class UserModel extends Model
             foreach ( $userProducts as $userProduct ) {
                 array_push( $products, ProductModel::instantiate()->find( $userProduct->product_id ) );
             }
-            return $userProducts;
+            return $products;
         } else {
             return [ ProductModel::instantiate()->find( $userProducts->product_id )];
         }

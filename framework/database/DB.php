@@ -57,8 +57,20 @@ class DB
     {
         // Special case for msqli
         if ($this->connection_type === self::CONN_TYPE_MYSQLI){
-            if (!$this->preparedStatement->bind_param($this->getVarTypesMysqli($attributes), ...$attributes)){
-                throw new Exception("Binding parameters failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error,2);
+
+//            if (count($attributes)>0){
+//                print_r($attributes);
+//                dd($this->getVarTypesMysqli($attributes));
+//            }
+            if (count($attributes) > 0){
+                try {
+                    $result = $this->preparedStatement->bind_param($this->getVarTypesMysqli($attributes), ...$attributes);
+                    if (!$result) {
+                        throw new Exception("Binding parameters failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error,2);
+                    }
+                } catch (ErrorException $e){
+                    throw new Exception("Binding parameters failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error,2);
+                }
             }
             if (!$this->preparedStatement->execute()){
                 throw new Exception("Execute failed: (" . $this->preparedStatement->errno . ") " . $this->preparedStatement->error,2);
@@ -66,13 +78,15 @@ class DB
 
             $res = $this->preparedStatement->get_result();
 
+            if(!is_object($res)) return [];
+
             if ($res->num_rows > 0) {
                 while ($row = $res->fetch_assoc()) {
                     $results[] = $row;
                 }
                 return $results;
             } else {
-                return false;
+                return [];
             }
         }
 
@@ -126,11 +140,11 @@ class DB
     private function getVarTypesMysqli($attributes){
         $string = '';
         foreach ($attributes as $attribute) {
-            if (is_double($attribute)){
+            if (is_float($attribute)){
                 $string.='d';
             }elseif (is_int($attribute)){
                 $string.='i';
-            }elseif (is_string($attribute)){
+            }else{
                 $string.='s';
             }
         }
