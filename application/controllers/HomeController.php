@@ -23,8 +23,7 @@ class HomeController extends Controller
                 'base_uri' => config('ebay.base_url', true),
             ]);
             $response = $client->post(config('ebay.endpoints.token_auth',true),[
-                'headers' => config('ebay.headers.token_auth',true)
-                ,
+                'headers' => config('ebay.headers.token_auth',true),
                 'form_params' => [
                     'grant_type' => 'authorization_code',
                     'redirect_uri' => 'German_Mikulski-GermanMi-sample-amcujbjxm',
@@ -32,7 +31,7 @@ class HomeController extends Controller
                 ]
             ]);
 
-            $token = json_decode( $response->getBody())->access_token;
+            $token = json_decode( $response->getBody() )->access_token;
 
             $_SESSION['user_code'] = $token;
             return $this->redirect();
