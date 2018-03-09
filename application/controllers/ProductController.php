@@ -66,8 +66,6 @@ class ProductController extends Controller
             ]);
             $productStatGeo->save();
 
-            dd($productStatGeo);
-
             //if group ID is supplied
             if (strlen($product->epid)>17) {
 

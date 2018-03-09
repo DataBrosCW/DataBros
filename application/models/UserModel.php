@@ -43,11 +43,16 @@ class UserModel extends Model
 
     public function followedProducts(){
         $userProducts =  UserProductsModel::instantiate()->where('user_id',$this->id)->get();
-        $products = [];
-        foreach ($userProducts as $userProduct) {
-            array_push($products, ProductModel::instantiate()->find($userProduct->product_id));
+
+        if (is_array($userProducts)) {
+            $products = [];
+            foreach ( $userProducts as $userProduct ) {
+                array_push( $products, ProductModel::instantiate()->find( $userProduct->product_id ) );
+            }
+            return $userProducts;
+        } else {
+            return [ ProductModel::instantiate()->find( $userProducts->product_id )];
         }
-        return $products;
     }
 
 }

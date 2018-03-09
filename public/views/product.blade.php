@@ -11,7 +11,8 @@
                 <img class="singleItemPageImg" src="{{$product->img}}">
                 <br>
                 <button type="button" class="btn btn-success singleItemPageBtn">Take Me There</button>
-                @if ($userProduct->followed)
+
+                @if ($userProduct->followed == 0)
                 <a href="/products/{{$product->id}}/favourite" class="btn btn-primary singleItemPageBtn mt-2">Add to favourite</a>
                 @else
                     <a href="/products/{{$product->id}}/favourite" class="btn btn-danger singleItemPageBtn mt-2">Remove favourite</a>
