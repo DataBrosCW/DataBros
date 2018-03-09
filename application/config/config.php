@@ -15,7 +15,7 @@ return [
 
     'database' => [
         // Connection type is either pdo of mysqli
-        'connection_type' => getenv('DB_CONNECTION_TYPE')?:'pdo',
+        'connection_type' => getenv('DB_CONNECTION_TYPE')?:'mysqli',
 
         'driver'      => 'mysql',
         'host'        => getenv('DB_HOST')?:'localhost',

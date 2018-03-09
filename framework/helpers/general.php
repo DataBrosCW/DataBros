@@ -91,7 +91,7 @@ function checkOrUpdateAppToken()
 
         $appToken = new ApplicationTokenModel([
             'token' => $token,
-            'expires_at' => $expires_at
+            'expires_at' => $expires_at->format("Y-m-d H:m:s")
         ]);
         $appToken->save();
     }

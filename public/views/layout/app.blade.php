@@ -99,6 +99,14 @@
             text-align:center;
 
         }
+
+        .img-header {
+            height: 300px;
+            background-position: center center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            border-radius: 3px 3px 0px 0px;
+        }
     </style>
 
 </head>
