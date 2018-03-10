@@ -362,7 +362,7 @@ abstract class Model
         if (count($objects) == 1) {
             return $objects[0];
         } elseif (count($objects) == 0) {
-            return null;
+            return [];
         } else {
             return $objects;
         }

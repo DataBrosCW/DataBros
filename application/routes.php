@@ -52,7 +52,10 @@ return [
         ]
     ],
 
-//    ------------ Content Routes ---------------
+//    =============== Content Routes ==============
+
+//    ------------ Feed ---------------
+
     '/feed' => [
         'GET' => [
             'action'=>'FeedController@index',
@@ -67,6 +70,8 @@ return [
             'ebay-auth' => true
         ]
     ],
+
+    // ---------- Categories --------
     '/categories' => [
         'GET' => [
             'action'=>'CategoriesController@index',
@@ -81,13 +86,29 @@ return [
             'ebay-auth' => true
         ]
     ],
-    '/categories/example' => [
+    '/categories/update/{id:\d+}' => [
+        'GET' => [
+            'action'=>'CategoriesController@updateCategory',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+    '/categories/{id:\d+}' => [
         'GET' => [
             'action'=>'CategoriesController@show',
             'auth' => true,
             'ebay-auth' => true
         ]
     ],
+    '/categories/{id:\d+}/favourite' => [
+        'GET' => [
+            'action'=>'CategoriesController@favourite',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
+
+    // ----------- Followed product -------
     '/followed-products' => [
         'GET' => [
             'action'=>'ProductController@followed',
@@ -114,12 +135,6 @@ return [
             'action'=>'ProductController@favourite',
             'auth' => true,
             'ebay-auth' => true
-        ]
-    ],
-
-    '/test' => [
-        'GET' => [
-            'action'=>'HomeController@test',
         ]
     ],
 

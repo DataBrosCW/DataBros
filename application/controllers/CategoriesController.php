@@ -8,6 +8,12 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = CategoryModel::instantiate()->all()->get();
+        $user = auth_user();
+
+        if (count($categories)==0){
+            return $this->redirect('categories/update');
+        }
+
         $this->render('categories',['categories'=>$categories]);
     }
 
@@ -35,6 +41,7 @@ class CategoriesController extends Controller
 
        $xmlReponse = $response->getBody()->getContents();
        $responseXml = simplexml_load_string($xmlReponse);
+
        foreach ($responseXml->CategoryArray->Category as  $category){
 
            $categoryExistingModel = CategoryModel::instantiate()->where('ebay_id',$category->CategoryID)->limit(1)->get();
@@ -58,9 +65,81 @@ class CategoriesController extends Controller
     /**
      * Display a specific one
      */
-    public function show()
+    public function show($id)
     {
-        $this->render('category');
+        $category = CategoryModel::instantiate()->findOrFail($id);
+        $user = auth_user();
+
+        $userCategory = $category->stats();
+        if (!$userCategory) {
+            $userCategory = new UserCategoriesModel([
+                'user_id'    => $user->id,
+                'category_id' => $category->id,
+                'followed'   => false,
+                'count'      => 1
+            ]);
+            $userCategory->save();
+        } else {
+            $userCategory->count = $userCategory->count + 1;
+            $userCategory->update();
+        }
+
+        $this->render('category',[
+            'category' => $category,
+            'userCategory' => $userCategory
+        ]);
+    }
+
+    /**
+     * Mark a category as favourite
+     */
+    public function favourite($id){
+        $category = CategoryModel::instantiate()->findOrFail($id);
+        $user = auth_user();
+
+        // Store that user searched this product
+        // If user visited before, increment count
+        $userCategory = $category->stats();
+
+        if (!$userCategory){
+            $userCategory = new UserCategoriesModel([
+                'user_id'    => $user->id,
+                'category_id' => $category->id,
+                'followed'   => false,
+                'count'      => 1
+            ]);
+            $userCategory->save();
+        }
+        $userCategory->followed = !$userCategory->followed;
+        $userCategory->update();
+
+        $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+        if (!$userCategory->followed){
+            $msg->success( 'Category removed from favourites categories!' );
+        } else {
+            $msg->success( 'Category added to favourites categories!' );
+        }
+
+        return $this->redirectBack();
+
+    }
+
+    /**
+     * Update a specific category top item average price
+     */
+    public function updateCategory($id){
+        $category = CategoryModel::instantiate()->findOrFail($id);
+
+        $client = new \GuzzleHttp\Client([
+            'base_uri' => config('ebay.base_url',true),
+        ]);
+        $url = config('ebay.endpoints.get_merchandised',true) .
+               '?metric_name=BEST_SELLING&category_id='.$category->ebay_id.'&limit=6';
+        $response = $client->get($url,[
+            'headers' => config('ebay.headers.get_merchandised')
+        ]);
+
+        dd($response->getBody());
     }
 
 }

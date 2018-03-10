@@ -117,5 +117,10 @@ DROP COLUMN link
 ADD link VARCHAR(255) DEFAULT NULL;
 
 
+ALTER TABLE user_categories
+ADD count INT DEFAULT 0,
+ADD followed BOOLEAN DEFAULT FALSE ;
+
+
 
 
