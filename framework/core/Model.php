@@ -210,12 +210,12 @@ abstract class Model
 
         $this->sql_query = 'UPDATE ' . $this->table . ' SET ';
 
-        $values = [];
+
         foreach ( $this->public_fields as $field ) {
             if (is_bool($this->{$field})){
-                $this->{$field}?array_push($values,1):array_push($values,0);
+                $this->{$field}?array_push($this->sql_values,1):array_push($this->sql_values,0);
             } else {
-                array_push( $values, $this->{$field} );
+                array_push( $this->sql_values, $this->{$field} );
             }
             $this->sql_query .= $field.' = ?';
             if ($field !== end($this->public_fields)) $this->sql_query .=', ';
@@ -223,21 +223,25 @@ abstract class Model
         }
         foreach ( $this->private_fields as $field ) {
             if (is_bool($this->{$field})){
-                $this->{$field}?array_push($values,1):array_push($values,0);
+                $this->{$field}?array_push($this->sql_values,1):array_push($this->sql_values,0);
             } else {
-                array_push( $values, $this->{$field} );
+                array_push( $this->sql_values, $this->{$field} );
             }
-            $this->sql_query .= $field.' = ?';
+            $this->sql_query .= $field.' = ? ';
             if ( $field !== end($this->public_fields)) $this->sql_query .=', ';
         }
 
         // Specify where
         $this->where($this->getKeyName(),$this->id);
 
+
         // 3 - We run the query
         try {
-            $this->db->prepare( $this->sql_query );
-            $this->db->execute($values);
+
+            if (!$this->db->prepare( $this->sql_query )){
+                throw new Exception("Query preparation failed: (" . $this->sql_query. ") " ,1);
+            }
+            $this->db->execute($this->sql_values);
         } catch ( PDOException $e ) {
             throw $e;
         }
@@ -291,9 +295,9 @@ abstract class Model
             $this->sql_query = 'SELECT * FROM ' . $this->table
                                . ' WHERE ' . $column . ' ' . $operand . ' ? ';
         } elseif( strpos($this->sql_query, 'WHERE') !== false ) {
-            $this->sql_query.= 'AND '. $column . ' ' . $operand . ' ? ';
+            $this->sql_query.= ' AND '. $column . ' ' . $operand . ' ? ';
         } else {
-            $this->sql_query.= 'WHERE ' . $column . ' ' . $operand . ' ? ';
+            $this->sql_query.= ' WHERE ' . $column . ' ' . $operand . ' ? ';
         }
 
         array_push($this->sql_values,$value);

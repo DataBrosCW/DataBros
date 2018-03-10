@@ -16,8 +16,7 @@
                     @foreach($followedProducts as $product)
                         <div class="col-sm-4 col-12">
                             <div class="card" style="width: 18rem;">
-                                <img class="card-img-top" style="height: 150px;" src="{{$product->img}}"
-                                     alt="Card image cap">
+                                <div class="img-header" style="background-image: url({{$product->img}})"></div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{$product->title}}</h5>
                                 </div>

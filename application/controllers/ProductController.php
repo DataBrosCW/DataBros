@@ -44,7 +44,7 @@ class ProductController extends Controller
                                         ->get();
 
         // if one of stats is missing
-        if (!$productStatGeo && !$productStatAvg ){
+        if (!$productStatGeo || !$productStatAvg || $product->link == null){
             $client = new \GuzzleHttp\Client([
                 'base_uri' => config('ebay.base_url',true),
             ]);
@@ -53,21 +53,24 @@ class ProductController extends Controller
             ]);
             $result = json_decode($response->getBody());
 
-            //get regions for which shipping is available
-            $regions = [];
-            foreach ($result->shipToLocations->regionIncluded as $region) {
-                array_push($regions,$region->regionName);
+            // Geographic graph
+            if (!$productStatGeo) {
+                //get regions for which shipping is available
+                $regions = [];
+                foreach ( $result->shipToLocations->regionIncluded as $region ) {
+                    array_push( $regions, $region->regionName );
+                }
+
+                $productStatGeo = new ProductStatsModel( [
+                    'product_id' => $product->id,
+                    'graph_type' => 'geo_location',
+                    'content'    => json_encode( $regions )
+                ] );
+                $productStatGeo->save();
             }
 
-            $productStatGeo = new ProductStatsModel([
-                'product_id' => $product->id,
-                'graph_type' => 'geo_location',
-                'content'    => json_encode($regions)
-            ]);
-            $productStatGeo->save();
-
-            //if group ID is supplied
-            if (strlen($product->epid)>17) {
+            // Average graph
+            if (!$productStatAvg && strlen($product->epid)>17) {
 
                 $url = $result->primaryItemGroup->itemGroupHref;
 
@@ -88,6 +91,12 @@ class ProductController extends Controller
                     'content'    => json_encode($objects)
                 ]);
                 $productStatAvg->save();
+            }
+
+            // Product link
+            if ($product->link == null) {
+                $product->link = $result->itemWebUrl;
+                $product->save();
             }
         }
 

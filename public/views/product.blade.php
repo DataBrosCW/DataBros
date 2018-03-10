@@ -10,7 +10,7 @@
             <div class="col-md-4 singleItemPageContainer" >
                 <img class="singleItemPageImg" src="{{$product->img}}">
                 <br>
-                <button type="button" class="btn btn-success singleItemPageBtn">Take Me There</button>
+                <a href="{{$product->link}}" target="_blank" class="btn btn-success singleItemPageBtn">Take Me There</a>
 
                 @if ($userProduct->followed == 0)
                 <a href="/products/{{$product->id}}/favourite" class="btn btn-primary singleItemPageBtn mt-2">Add to favourite</a>
@@ -48,9 +48,8 @@
                             <!-- Styles -->
                             <style>
                                 #chartdiv {
-                                    width: 30%;
+                                    width: 100%;
                                     height: 300px;
-                                    border: solid;
                                 }
                             </style>
 

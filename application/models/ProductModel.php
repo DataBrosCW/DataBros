@@ -15,7 +15,8 @@ class ProductModel extends Model
         'img',
         'epid',
         'description',
-        'price'
+        'price',
+        'link'
     ];
 
     /**
@@ -34,6 +35,7 @@ class ProductModel extends Model
         'img' => 'string',
         'description' => 'string',
         'price' => 'double',
+        'link' => 'string'
     ];
 
     /**

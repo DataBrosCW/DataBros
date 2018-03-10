@@ -11,10 +11,7 @@
             @foreach($products as $product)
                 <div class="col-4 mb-4">
                     <div class="card">
-                        <div class="img-header" style="background-image: url({{$product->img}})">
-
-                        </div>
-                        {{--<img class="card-img-top img-fluid" style="height: 150px;" src="{{$product->img}}" alt="{{$product->title}}">--}}
+                        <div class="img-header" style="background-image: url({{$product->img}})"></div>
                         <div class="card-body" style="position: relative;">
                             <h5 class="card-title">{{$product->title}}
                             </h5>
