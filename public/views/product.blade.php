@@ -30,13 +30,13 @@
             <h3>Statistics</h3>
             <div class="row justify-content-center pt-4" >
                 @if($productStatAvg)
-                    <div class="col-md-8 col-sm-12 p-4">
+                    <div class="col-md-6 col-sm-12 p-4">
                         <h5>Average price of similar products ({{count(json_decode($productStatAvg->content))}})</h5>
                         <canvas id="avgChart"></canvas>
                     </div>
                 @endif
                 @if($productStatGeo)
-                        <div class="col-md-8 col-sm-12 p-4">
+                        <div class="col-md-6 col-sm-12 p-4">
                             <h5>Distribution areas</h5>
                             <!-- Styles -->
                             <style>
@@ -420,11 +420,18 @@
                 total += parseFloat(avg_data[i]);
             }
             var avg = total / avg_data.length;
+            var price = {!! $product->price !!};
             var avg_line = new Array(avg_data.length);
+            var price_line = new Array(avg_data.length);
             avg_line.fill(avg);
+            price_line.fill(price);
+            var diff = avg-price;
 
 
             var ctx = document.getElementById('avgChart').getContext('2d');
+
+            Chart.defaults.global.elements.point.radius = 0;
+
             var chart = new Chart(ctx, {
                 // The type of chart we want to create
                 type: 'line',
@@ -446,6 +453,14 @@
                         data: avg_line,
                         fill: false,
                         pointRadius: 0
+                    },
+                    {
+                        label: "Item Price",
+                        backgroundColor: 'rgb(0, 221, 0)',
+                        borderColor: 'rgb(0, 221, 0)',
+                        data: price_line,
+                        fill: false,
+                        pointRadius: 0
                     }]
 
                 },
@@ -462,6 +477,9 @@
                         xAxes: [{
                             ticks: {
                                 display: false
+                            },
+                            gridLines: {
+                                display:false
                             }
                         }]
                     }
