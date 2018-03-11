@@ -19,9 +19,9 @@
                             <p class="card-text">{{$category->description}}</p>
                             <div class="text-center">
                                 <div class="btn-group">
-                                    <a class="btn btn-sm btn-outline-secondary" href="/categories/{{$category->id}}">View</a>
-                                    <a class="btn btn-sm btn-outline-secondary"
-                                       href="/categories">{{$category->stats()?($category->stats()->followed?'Unfollow':'Follow'):'Follow'}}</a>
+                                    <a class="btn btn-sm btn-primary" href="/categories/{{$category->id}}">View</a>
+                                    <a class="btn btn-sm btn-{{$category->stats()?($category->stats()->followed?'danger':'success'):'success'}}"
+                                       href="/categories/{{$category->id}}/favourite">{{$category->stats()?($category->stats()->followed?'Unfollow':'Follow'):'Follow'}}</a>
                                 </div>
                             </div>
                         </div>

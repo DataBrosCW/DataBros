@@ -57,4 +57,20 @@ class UserModel extends Model
         }
     }
 
+    public function followedCategories(){
+        $userCategories =  UserCategoriesModel::instantiate()->where('user_id',$this->id)->where('followed',1)->get();
+
+        if (is_array($userCategories)) {
+            $categories = [];
+            foreach ( $userCategories as $userCategory ) {
+                array_push( $categories, CategoryModel::instantiate()->find( $userCategory->category_id ) );
+            }
+            return $categories;
+        } elseif(is_null($userCategories)){
+            return null;
+        } else {
+            return [ CategoryModel::instantiate()->find( $userCategories->category_id )];
+        }
+    }
+
 }

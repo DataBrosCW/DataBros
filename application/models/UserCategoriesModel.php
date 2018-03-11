@@ -28,7 +28,7 @@ class UserCategoriesModel extends Model
      * Value casting of each attributes (not all fields must be cast)
      */
     public $casts = [
-        'followed'   => 'boolean',
+        'followed'   => 'bool',
     ];
 
     /**

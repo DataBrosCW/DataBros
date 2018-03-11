@@ -30,7 +30,7 @@ class ProductModel extends Model
      * Value casting of each attributes (not all fields must be cast)
      */
     public $casts = [
-        'epid' => 'string',
+        'epid' => '',
         'title' => 'string',
         'img' => 'string',
         'description' => 'string',

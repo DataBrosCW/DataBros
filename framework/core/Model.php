@@ -65,10 +65,7 @@ abstract class Model
 
             if ( isset( $values[ $field ] ) ) {
                 $property = $values[ $field ];
-                if (isset($this->casts[ $field ]) && $this->casts[ $field ] != '' && $this->casts[ $field ] != null) {
-                    settype( $property, $this->casts[ $field ] );
-                }
-                $this->{$field} = $property;
+                $this->{$field} = $this->cast($field, $property);;
             }
         }
     }
@@ -96,20 +93,32 @@ abstract class Model
      */
     public function __set( $prop, $value )
     {
-        // Clean value
-        $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
-        $value = preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
-        $value = remove_emoji($value);
 
         if ( in_array( $prop, $this->private_fields ) ) {
-            $this->private_properties[ $prop ] = $value;
+            $this->private_properties[ $prop ] = $this->cast($prop, $value);;
 
             return;
         } elseif ( in_array( $prop, $this->public_fields ) ) {
-            $this->{$prop} = $value;
+            $this->{$prop} = $this->cast($prop, $value);
         } elseif ( $prop == $this->getKeyName() ) {
             $this->{$this->getKeyName()} = $value;
         }
+    }
+
+    /**
+     * Cast a property to a specified type
+     *
+     */
+    private function cast($prop, $value)
+    {
+        if (isset($this->casts[ $prop ]) && $this->casts[ $prop ] != '' && $this->casts[ $prop ] != null) {
+            settype( $value, $this->casts[ $prop ] );
+            if($this->casts[ $prop ] == 'string'){
+                // Clean string
+                $value = remove_emoji($value);
+            }
+        }
+        return $value;
     }
 
     /**
@@ -365,6 +374,13 @@ abstract class Model
             return $objects;
         }
 
+    }
+
+    /**
+     * For debug purposes
+     */
+    public function sql(){
+        return 'Sql query: '.$this->sql_query . '<br>' . 'Values: '.implode(',',$this->sql_values) . '<br>';
     }
 
 

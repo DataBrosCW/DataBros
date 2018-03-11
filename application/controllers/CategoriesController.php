@@ -105,8 +105,8 @@ class CategoriesController extends Controller
             $userCategory = new UserCategoriesModel([
                 'user_id'    => $user->id,
                 'category_id' => $category->id,
-                'followed'   => false,
-                'count'      => 1
+                'followed'   => (bool) false,
+                'count'      => 0
             ]);
             $userCategory->save();
         }
