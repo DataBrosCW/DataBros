@@ -61,6 +61,9 @@ return [
             'get_merchandised'            => [
                 'Authorization' => 'Bearer ' . '__appToken__'
             ],
+            'get_also_bought'            => [
+                'Authorization' => 'Bearer ' . '__userToken__'
+            ]
 
         ],
 
@@ -71,6 +74,7 @@ return [
             'get_item'          => '/buy/browse/v1/item/',
             'categories_update' => '/ws/api.dll',
             'get_merchandised'  => '/buy/marketing/v1_beta/merchandised_product'
+
         ],
 
 
