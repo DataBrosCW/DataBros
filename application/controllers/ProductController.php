@@ -101,7 +101,6 @@ class ProductController extends Controller
             }
         }
 
-
         $this->render('product',[
             'product' => $product,
             'productStatAvg' =>$productStatAvg,

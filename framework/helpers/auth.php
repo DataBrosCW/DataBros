@@ -13,6 +13,8 @@ function auth_check()
 
 /**
  * Returns active user
+ *
+ * @return UserModel
  */
 function auth_user()
 {

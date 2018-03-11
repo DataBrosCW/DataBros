@@ -23,6 +23,22 @@
     <!-- CSS and JS straight in HTML to avoid having to deal with static assets (not goal of CW) -->
     <style type="text/css">
 
+        #app {
+            background-color: rgb(242, 248, 254);
+        }
+
+        .navbar{
+            background-color: white;
+        }
+
+        .content-block {
+            background-color: white;
+            border-radius: 4px;
+            padding: 20px;
+            box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
+            margin-bottom: 20px;
+        }
+
         h1 {
             font-size: 3.5rem;
             font-weight: 300;

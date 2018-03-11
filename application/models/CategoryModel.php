@@ -27,7 +27,7 @@ class CategoryModel extends Model
      * Value casting of each attributes (not all fields must be cast)
      */
     public $casts = [
-        'ebay_id' => 'string',
+        'ebay_id' => '',
         'description' => 'string',
         'name' => 'string',
     ];
@@ -36,6 +36,9 @@ class CategoryModel extends Model
      * Mutators
      */
 
+    /**
+     * @return UserCategoriesModel
+     */
     public function stats(  )
     {
         return UserCategoriesModel::instantiate()
