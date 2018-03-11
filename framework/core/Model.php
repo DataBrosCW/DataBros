@@ -96,6 +96,11 @@ abstract class Model
      */
     public function __set( $prop, $value )
     {
+        // Clean value
+        $value = mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+        $value = preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
+        $value = remove_emoji($value);
+
         if ( in_array( $prop, $this->private_fields ) ) {
             $this->private_properties[ $prop ] = $value;
 
