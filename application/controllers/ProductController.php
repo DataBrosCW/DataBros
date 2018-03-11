@@ -43,6 +43,7 @@ class ProductController extends Controller
                                         ->limit(1)
                                         ->get();
 
+
         // if one of stats is missing
         if (!$productStatGeo || !$productStatAvg || $product->link == null){
             $client = new \GuzzleHttp\Client([
