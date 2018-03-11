@@ -35,6 +35,15 @@ class CategoryModel extends Model
     /**
      * Mutators
      */
+
+    public function stats(  )
+    {
+        return UserCategoriesModel::instantiate()
+                                  ->where('user_id',auth_user()->id)
+                                  ->where('category_id',$this->id)
+                                  ->limit(1)
+                                  ->get();
+    }
     
 
 }

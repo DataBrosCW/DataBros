@@ -57,7 +57,11 @@ return [
                 'X-EBAY-API-IAF-TOKEN'           => '__userToken__',
                 'X-EBAY-API-SITEID'              => 0,
                 'X-EBAY-API-CALL-NAME'           => 'GetCategories',
-            ]
+            ],
+            'get_merchandised'            => [
+                'Authorization' => 'Bearer ' . '__appToken__'
+            ],
+
         ],
 
         'endpoints' => [
@@ -65,7 +69,8 @@ return [
             'search'            => '/buy/browse/v1/item_summary/search',
             'user_token'        => getenv('APP_ENV')=='production'?'https://auth.ebay.com/oauth2/authorize':'https://auth.ebay.com/oauth2/authorize',
             'get_item'          => '/buy/browse/v1/item/',
-            'categories_update' => '/ws/api.dll'
+            'categories_update' => '/ws/api.dll',
+            'get_merchandised'  => '/buy/marketing/v1_beta/merchandised_product'
         ],
 
 

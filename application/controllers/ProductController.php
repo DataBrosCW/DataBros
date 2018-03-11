@@ -178,18 +178,18 @@ class ProductController extends Controller
                                         ->get();
         if (!$userProduct){
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
-            $msg->error( 'Oups! We didn\'t find anythind matching with the keyword "'.$search.'"...' );
+            $msg->error( 'Oups! Something went wrong, please try again...' );
 
-            $this->redirect();
+            $this->redirect('products/'.$product->id);
         }
         $userProduct->followed = !$userProduct->followed;
         $userProduct->update();
 
         $msg = new \Plasticbrain\FlashMessages\FlashMessages();
         if (!$userProduct->followed){
-            $msg->success( 'Product added as a favourite!' );
-        } else {
             $msg->success( 'Product removed from favourite products!' );
+        } else {
+            $msg->success( 'Product added as a favourite!' );
         }
 
         return $this->redirectBack();
