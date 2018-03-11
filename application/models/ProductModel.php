@@ -8,7 +8,7 @@ class ProductModel extends Model
     public $table = 'products';
 
     /**
-     * List of public fields (that me be passed to view, or mass updated)
+     * List of public fields (that can be passed to view, or mass updated)
      */
     public $public_fields = [
         'title',

@@ -21,7 +21,7 @@
                                 <div class="btn-group">
                                     <a class="btn btn-sm btn-outline-secondary" href="/categories/{{$category->id}}">View</a>
                                     <a class="btn btn-sm btn-outline-secondary"
-                                       href="#">{{$category->stats()?($category->stats()->followed?'Unfollow':'Follow'):'Follow'}}</a>
+                                       href="/categories">{{$category->stats()?($category->stats()->followed?'Unfollow':'Follow'):'Follow'}}</a>
                                 </div>
                             </div>
                         </div>

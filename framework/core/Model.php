@@ -203,11 +203,6 @@ abstract class Model
     public function update()
     {
         // 1 - We prepare the query
-        $listOfPublicProperties = implode( ", ", $this->public_fields );
-        $listOfPrivateProperties = implode( ", ", $this->private_fields );
-
-        $valuesCount = count( $this->public_fields ) + count( $this->private_fields );
-
         $this->sql_query = 'UPDATE ' . $this->table . ' SET ';
 
 
@@ -246,9 +241,6 @@ abstract class Model
             throw $e;
         }
 
-        // 4 - We retrieve the id
-        $this->{$this->getKeyName()} = $this->db->lastInsertedId();
-
         return true;
     }
 
@@ -268,7 +260,8 @@ abstract class Model
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
             $msg->error( 'Oups! We could not find what you\'re looking for...' );
 
-            $this->redirect();
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit();
         } else {
             return $entity;
         }
