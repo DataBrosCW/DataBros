@@ -138,4 +138,13 @@ return [
         ]
     ],
 
+
+//    ================= Cron Jobs ==============
+
+    '/cron/daily' => [
+        'GET' => [
+            'action'=>'CronController@daily',
+        ]
+    ],
+
 ];

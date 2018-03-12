@@ -29,6 +29,15 @@ class AuthController extends Controller
         // Password is a private field, therefore can't be mass assigned
         $user->password = hash( 'md5', $_REQUEST['password'] );
 
+        $userExists = UserModel::instantiate()->where('email',$_REQUEST['email'])->limit(1)->get();
+        if ($userExists){
+            $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+            $msg->error( 'Oups! Another user already uses this email...' );
+
+            $this->redirectBack();
+        }
+
+
         if ( $user->save() ) {
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
             $msg->success( 'Awesome! you can now login!' );
