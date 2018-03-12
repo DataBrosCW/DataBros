@@ -42,6 +42,18 @@ class AuthController extends Controller
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
             $msg->success( 'Awesome! you can now login!' );
 
+            $sendgrid = new SendGrid("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");
+            $email    = new SendGrid\Email();
+
+            $html = '<h1>Hello '.$user->first_name.'!</h1><p>Thank you for joining Databros app!</p>';
+
+            $email->addTo($user->email)
+                ->setFrom("admin@dbbros.com")
+                ->setSubject("Registration confirmation")
+                ->setHtml($html);
+
+            $sendgrid->send($email);
+
             $this->redirect();
 
         } else {
