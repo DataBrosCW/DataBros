@@ -123,6 +123,8 @@ abstract class Model
 
     /**
      * Return a new user (used for chained methods)
+     *
+     * @return self::class
      */
     static public function instantiate()
     {
