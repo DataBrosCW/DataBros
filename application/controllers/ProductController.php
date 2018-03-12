@@ -134,8 +134,6 @@ class ProductController extends Controller
             $this->redirectBack();
         }
 
-//        TODO: add link to product + currency
-
         $productsData = $body->itemSummaries;
 
         $products = [];
@@ -150,7 +148,6 @@ class ProductController extends Controller
                     'title' => $productData->title,
                     'img' => isset($productData->image)?$productData->image->imageUrl:
                         (isset($productData->additionalImages)?$productData->additionalImages[0]->imageUrl:''),
-                    'price' =>  $productData->price->value,
                 ]);
                 $product->save();
             }

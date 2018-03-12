@@ -70,6 +70,7 @@ class CategoriesController extends Controller
         $category = CategoryModel::instantiate()->findOrFail($id);
         $user = auth_user();
 
+        // Update stats
         $userCategory = $category->stats();
         if (!$userCategory) {
             $userCategory = new UserCategoriesModel([
@@ -84,9 +85,42 @@ class CategoriesController extends Controller
             $userCategory->update();
         }
 
+        // Search for top items
+        $client = new \GuzzleHttp\Client([
+            'base_uri' => config('ebay.legacy_base_url',true),
+        ]);
+        $url = config('ebay.endpoints.getMostWatchedItems',true) .
+               '&maxResults=6&categoryId='.$category->ebay_id.'&CONSUMER-ID='.config('ebay.client_id');
+
+        $response = $client->get($url);
+        $xmlReponse = $response->getBody()->getContents();
+        $responseXml = simplexml_load_string($xmlReponse);
+
+        $products = [];
+        $productsPrice = [];
+
+        foreach ($responseXml->itemRecommendations->item as $productData) {
+            $price = json_decode( json_encode($productData->buyItNowPrice),true)[0];
+
+            $product = new ProductModel([
+                'epid' => $productData->itemId,
+                'title' => $productData->title,
+                'img' => $productData->imageURL,
+                'price' =>$price
+            ]);
+
+            array_push($products,$product);
+            array_push($productsPrice,$price);
+        }
+
+        // Update the price historye
+
+
         $this->render('category',[
             'category' => $category,
-            'userCategory' => $userCategory
+            'userCategory' => $userCategory,
+            'products' => $products,
+            'average' => array_sum($productsPrice)/count($productsPrice)
         ]);
     }
 

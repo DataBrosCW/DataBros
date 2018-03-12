@@ -22,44 +22,42 @@
             @endif
 
             <div class="row">
-                <div class="col-12 col-sm-6">
-                    <h1 class="text-center">Top Items</h1>
-                    <div class="card-deck mb-4">
-
-                        <div class="card">
-                            <img class="card-img-top" src="https://staticshop.o2.co.uk/product/images/oneplus-5t-sku-header.png?cb=4939cdd3741b5731c0045aff76793d48" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">iPad</h5>
-                                <p class="card-text">Some quick example text to build on the card title</p>
-                                <p class="price">£500</p>
-                                <a class="btn btn-primary btn-block" href="/products/example">Buy</a>
+                <div class="col-12">
+                    <p>{{$average}}</p>
+                    <h4 class="text-center">Top Items</h4>
+                    <div class="row">
+                        @foreach($products as $product)
+                            <div class="col-4 mb-4">
+                                <div class="card">
+                                    <div class="img-header" style="background-image: url({{$product->img}})"></div>
+                                    <div class="card-body" style="position: relative;">
+                                        <h5 class="card-title">{{$product->title}}
+                                        </h5>
+                                        {{--<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>--}}
+                                        @if($product->avg_price_graph())
+                                            <i class="fas fa-signal text-primary" style="position: absolute;right: 5px;bottom: 5px;"></i>
+                                        @endif
+                                        <div class="text-center">
+                                            {{$product->price}}
+                                        </div>
+                                    </div>
+                                    {{--<footer class="card-footer">--}}
+                                        {{--@if(isset($product->id))--}}
+                                            {{--<a href="/products/{{$product->id}}"class="btn btn-primary btn-block">See (${{$product->price}})</a>--}}
+                                        {{--@else--}}
+                                            {{--<p>Something went wrong with this product...</p>--}}
+                                        {{--@endif--}}
+                                    {{--</footer>--}}
+                                </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <img class="card-img-top" src="https://staticshop.o2.co.uk/product/images/oneplus-5t-sku-header.png?cb=4939cdd3741b5731c0045aff76793d48" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">iPad</h5>
-                                <p class="card-text">Some quick example text to build on the card title</p>
-                                <p class="price">£500</p>
-                                <a class="btn btn-primary btn-block" href="/products/example">Buy</a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <img class="card-img-top" src="https://staticshop.o2.co.uk/product/images/oneplus-5t-sku-header.png?cb=4939cdd3741b5731c0045aff76793d48" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title">iPad</h5>
-                                <p class="card-text">Some quick example text to build on the card title</p>
-                                <p class="price">£500</p>
-                                <a class="btn btn-primary btn-block" href="/products/example">Buy</a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-                <div class="col-12 col-sm-6">
-                    <div class="col-4">
-                        <h1>Statistics</h1>
-                    </div>
-                </div>
+                {{--<div class="col-12 col-sm-6">--}}
+                    {{--<div class="col-4">--}}
+                        {{--<h1>Statistics</h1>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div>
         </div>
 

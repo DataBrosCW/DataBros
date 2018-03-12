@@ -40,13 +40,13 @@ CREATE TABLE IF NOT EXISTS categories (
 
 -- Create category stat table
 
--- CREATE TABLE IF NOT EXISTS category_stats(
---     category_id INT NOT NULL,
---     ebay_id VARCHAR(255) NOT NULL,
---     description TEXT,
---     PRIMARY KEY (id),
---     UNIQUE INDEX (ebay_id)
--- );
+CREATE TABLE IF NOT EXISTS category_stats(
+    category_id INT NOT NULL,
+    graph_type VARCHAR(255) NOT NULL,
+    id INT NOT NULL AUTO_INCREMENT,
+    content JSON,
+    PRIMARY KEY (id)
+);
 
 -- Create product stats table
 
@@ -58,15 +58,6 @@ CREATE TABLE IF NOT EXISTS product_stats(
     PRIMARY KEY (id)
 );
 
-
--- Create best product table
-
-CREATE TABLE IF NOT EXISTS category_feed_product (
-    category_id INT NOT NULL,
-    product_id INT NOT NULL,
-    PRIMARY KEY (category_id,product_id),
-    UNIQUE (category_id,product_id)
-);
 
 -- Create feed product table
 

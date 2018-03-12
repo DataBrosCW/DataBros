@@ -25,6 +25,7 @@
 
         #app {
             background-color: rgb(242, 248, 254);
+            min-height: 100vh;
         }
 
         .navbar{
