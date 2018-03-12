@@ -196,7 +196,33 @@ class ProductController extends Controller
      * From a legacy id redirect to a product page
      */
     public function showOld($id){
-        echo $id;
+
+        $client = new \GuzzleHttp\Client([
+            'base_uri' => config('ebay.base_url',true),
+        ]);
+        $response = $client->get(config('ebay.endpoits.get_item',true).'get_item_by_legacy_id'.'?legacy_item_id='.$id,[
+            'headers' => config('ebay.headers.get_item')
+        ]);
+
+        $productLegacy = json_decode($response->getBody());
+
+        // Try to find if we already have the product
+        $product = ProductModel::instantiate()->where('epid',$productLegacy->itemId)->limit(1)->get();
+
+        //create and save a product
+        if (!$product) {
+            $product = new ProductModel([
+                'epid' => $productLegacy->itemId,
+                'title' => $productLegacy->title,
+                'img' => isset($productLegacy->image)?$productLegacy->image->imageUrl:
+                    (isset($productLegacy->additionalImages)?$productLegacy->additionalImages[0]->imageUrl:''),
+            ]);
+            $product->save();
+        }
+
+        //open product page
+        $this->show($product->id);
+
     }
 
     /**
