@@ -74,11 +74,10 @@ function checkOrUpdateAppToken()
             'base_uri' => config('ebay.base_url', true),
         ]);
         $response = $client->post(config('ebay.endpoints.token_auth',true),[
-            'headers' => config('ebay.headers.token_auth',true)
-            ,
+            'headers' => config('ebay.headers.token_auth',true),
             'form_params' => [
                 'grant_type' => 'client_credentials',
-                'redirect_uri' => 'German_Mikulski-GermanMi-sample-amcujbjxm',
+                'redirect_uri' => 'German_Mikulski-GermanMi-sample-daeapvono',
                 'scope' => 'https://api.ebay.com/oauth/api_scope'
             ]
         ]);

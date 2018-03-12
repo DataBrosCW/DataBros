@@ -27,8 +27,7 @@ class HomeController extends Controller
                 'form_params' => [
                     'grant_type' => 'authorization_code',
                     'redirect_uri' => config('ebay.redirect_uri'),
-                    'code' => $tempCode,
-                    'scope' => 'https://api.ebay.com/oauth/api_scope/buy.marketing https://api.ebay.com/oauth/api_scope/buy.item.feed'
+                    'code' => $tempCode
                 ]
             ]);
 

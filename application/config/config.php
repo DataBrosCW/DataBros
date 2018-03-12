@@ -62,10 +62,14 @@ return [
             'get_merchandised'  => [
                 'Authorization' => 'Bearer ' . '__appToken__'
             ],
+            'get_also_bought'            => [
+                'Authorization' => 'Bearer ' . '__userToken__'
+            ]
 
         ],
 
         'endpoints' => [
+<<<<<<< HEAD
             'token_auth'          => '/identity/v1/oauth2/token',
             'search'              => '/buy/browse/v1/item_summary/search',
             'user_token'          => getenv( 'APP_ENV' ) == 'production' ? 'https://auth.ebay.com/oauth2/authorize' : 'https://auth.ebay.com/oauth2/authorize',
@@ -75,6 +79,15 @@ return [
 
             // Legacy endpoints (use legacy base url for client!)
             'getMostWatchedItems' => '/MerchandisingService?OPERATION-NAME=getMostWatchedItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&RESPONSE-DATA-FORMAT=XML&REST-PAYLOAD'
+=======
+            'token_auth'        => '/identity/v1/oauth2/token',
+            'search'            => '/buy/browse/v1/item_summary/search',
+            'user_token'        => getenv('APP_ENV')=='production'?'https://auth.ebay.com/oauth2/authorize':'https://auth.ebay.com/oauth2/authorize',
+            'get_item'          => '/buy/browse/v1/item/',
+            'categories_update' => '/ws/api.dll',
+            'get_merchandised'  => '/buy/marketing/v1_beta/merchandised_product'
+
+>>>>>>> 5b485dbfb6a2d930a734e38568ddd285baf4761d
         ],
 
 

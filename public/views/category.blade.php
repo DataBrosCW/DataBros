@@ -15,11 +15,15 @@
             <p>{{$category->description}}</p>
             @endif
 
+            <div>
+            <a href="/categories/" class="btn btn-outline-primary singleItemPageBtn mt-2"><i class="fas fa-long-arrow-alt-left"></i> Back to categories</a>
+                <br>
             @if ($userCategory->followed == 0)
-                <a href="/categories/{{$category->id}}/favourite" class="btn btn-primary singleItemPageBtn mt-2">Add to favourite</a>
+                <a href="/categories/{{$category->id}}/favourite" class="btn btn-primary singleItemPageBtn mt-2"><i class="fas fa-star"></i> Add to favourite</a>
             @else
-                <a href="/categories/{{$category->id}}/favourite" class="btn btn-danger singleItemPageBtn mt-2">Remove favourite</a>
+                <a href="/categories/{{$category->id}}/favourite" class="btn btn-danger singleItemPageBtn mt-2"><i class="far fa-star"></i> Remove favourite</a>
             @endif
+            </div>
 
             <div class="row">
                 <div class="col-12">
