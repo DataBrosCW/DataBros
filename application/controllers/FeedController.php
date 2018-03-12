@@ -10,6 +10,7 @@ class FeedController extends Controller
         $user = auth_user();
         $categories = $user->followedCategories();
 
+        $products = null;
         if (count($categories)>0){
             if (!is_array($categories)){
                 $categories = [$categories];
@@ -17,7 +18,6 @@ class FeedController extends Controller
 
             $itemPerCategory = ceil(self::NB_PRODUCT_DISPLAYED/count($categories));
 
-            $products = [];
             foreach ($categories as $category){
                 $client = new \GuzzleHttp\Client([
                     'base_uri' => config('ebay.base_url',true),
