@@ -49,8 +49,7 @@ class FeedController extends Controller
             }
 
         }
-
-        shuffle($products);
+        if (is_array($products)) shuffle($products);
 
         $this->render('feed',[
             'categories' => $categories,

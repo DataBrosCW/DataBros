@@ -88,7 +88,6 @@ class CronController extends Controller
                 }
 
                 // Now we have max and min
-
                 if ($maxDate->format('Y-m-d')!=\Carbon\Carbon::now()->format('Y-m-d')){
                     // We only add value if last update was not today
                     unset($content[$date->format('Y-m-d H:m:s')]);
