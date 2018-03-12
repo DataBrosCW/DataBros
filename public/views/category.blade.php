@@ -45,13 +45,9 @@
                                             {{$product->price}}
                                         </div>
                                     </div>
-                                    {{--<footer class="card-footer">--}}
-                                        {{--@if(isset($product->id))--}}
-                                            {{--<a href="/products/{{$product->id}}"class="btn btn-primary btn-block">See (${{$product->price}})</a>--}}
-                                        {{--@else--}}
-                                            {{--<p>Something went wrong with this product...</p>--}}
-                                        {{--@endif--}}
-                                    {{--</footer>--}}
+                                    <footer class="card-footer">
+                                        <a href="/products/old/{{$product->epid}}"class="btn btn-primary btn-block">See (${{$product->price}})</a>
+                                    </footer>
                                 </div>
                             </div>
                         @endforeach

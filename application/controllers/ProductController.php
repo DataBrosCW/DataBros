@@ -193,6 +193,13 @@ class ProductController extends Controller
     }
 
     /**
+     * From a legacy id redirect to a product page
+     */
+    public function showOld($id){
+        echo $id;
+    }
+
+    /**
      * Shows the followed products
      */
     public function followed()

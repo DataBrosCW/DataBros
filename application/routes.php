@@ -130,6 +130,13 @@ return [
             'ebay-auth' => true
         ]
     ],
+    '/products/old/{id:\d+}' => [
+        'GET' => [
+            'action'=>'ProductController@showOld',
+            'auth' => true,
+            'ebay-auth' => true
+        ]
+    ],
     '/products/{id:\d+}/favourite' => [
         'GET' => [
             'action'=>'ProductController@favourite',
