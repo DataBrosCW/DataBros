@@ -153,5 +153,10 @@ return [
             'action'=>'CronController@daily',
         ]
     ],
+    '/cron/test' => [
+        'GET' => [
+            'action'=>'CronController@test',
+        ]
+    ],
 
 ];

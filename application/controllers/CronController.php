@@ -3,6 +3,11 @@
 class CronController extends Controller
 {
 
+    public function test()
+    {
+        echo 'charly is awesome';
+    }
+
     public function daily()
     {
         // Update categories top item average price
