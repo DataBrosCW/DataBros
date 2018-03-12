@@ -113,8 +113,6 @@ class CategoriesController extends Controller
             array_push($productsPrice,$price);
         }
 
-        // Update the price historye
-
 
         $this->render('category',[
             'category' => $category,
