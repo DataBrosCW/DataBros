@@ -40,7 +40,7 @@ class AuthController extends Controller
 
         if ( $user->save() ) {
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
-            $msg->success( 'Awesome! you can now login!' );
+            $msg->success( 'Awesome! You will receive a confirmation email soon, but you can already login!' );
 
             $sendgrid = new SendGrid("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");
             $email    = new SendGrid\Email();
