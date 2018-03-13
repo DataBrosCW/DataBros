@@ -99,12 +99,7 @@ CREATE TABLE IF NOT EXISTS application_tokens (
 );
 
 
-
 ALTER TABLE products
-ADD link VARCHAR(255);
-
-ALTER TABLE products
-DROP COLUMN link
 ADD link VARCHAR(255) DEFAULT NULL;
 
 
