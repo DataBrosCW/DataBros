@@ -27,7 +27,6 @@
 
             <div class="row">
                 <div class="col-12">
-                    <p>{{$average}}</p>
                     <h4 class="text-center">Top Items</h4>
                     <div class="row">
                         @foreach($products as $product)

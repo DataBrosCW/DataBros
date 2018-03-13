@@ -62,8 +62,12 @@ return [
             'get_merchandised'  => [
                 'Authorization' => 'Bearer ' . '__appToken__'
             ],
-            'get_also_bought'            => [
+            'get_also_bought'   => [
                 'Authorization' => 'Bearer ' . '__userToken__'
+            ],
+            'ml_azure'          => [
+                'Content-Type'  => 'application/json',
+                'Authorization' => 'Bearer rltbWEfLyeayDVO9emrri/zI/Qj8afbhnvZ7qTOW+ggyU9yOxFN6VKvmCqse1iriDQ/3bkVc3cXVHf19Smhucg=='
             ]
 
         ],
@@ -77,7 +81,8 @@ return [
             'get_merchandised'    => '/buy/marketing/v1_beta/merchandised_product',
 
             // Legacy endpoints (use legacy base url for client!)
-            'getMostWatchedItems' => '/MerchandisingService?OPERATION-NAME=getMostWatchedItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&RESPONSE-DATA-FORMAT=XML&REST-PAYLOAD'
+            'getMostWatchedItems' => '/MerchandisingService?OPERATION-NAME=getMostWatchedItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&RESPONSE-DATA-FORMAT=XML&REST-PAYLOAD',
+            'ml-azure'            => 'https://ussouthcentral.services.azureml.net/workspaces/e464f1b4c00a416983b896338369c93c/services/790f83c07b9f4a5297c9f5434d264626/execute?api-version=2.0&format=swagger'
         ],
 
 

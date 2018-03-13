@@ -8,7 +8,6 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = CategoryModel::instantiate()->all()->get();
-        $user = auth_user();
 
         if (count($categories)==0){
             return $this->redirect('categories/update');
@@ -112,6 +111,40 @@ class CategoriesController extends Controller
             array_push($products,$product);
             array_push($productsPrice,$price);
         }
+
+        // Now we get the stat of the category
+        $catStat = CategoryStatsModel::instantiate()->where('category_id',$category->id)
+            ->where('graph_type',CategoryStatsModel::AVG_PRICE)->limit(1)->get();
+
+        // Convert numbers to strings with 2 digits precision
+        $content = json_decode($catStat->content);
+        foreach ($content as $key=>$value){
+            if (is_numeric($value)){
+                $content->{$key} = (string) strval(number_format($value,2,'.',''));
+            }
+        }
+
+        $results = [];
+        $results['input1'] = [$content];
+
+        $temp = [];
+        $temp['Inputs'] = $results;
+
+        header('Content-Type: application-json');
+        echo json_encode($temp);
+        return;
+
+        // Get predicted value
+        $client = new \GuzzleHttp\Client([
+            'base_uri' => config('ebay.endpoints.ml-azure',true),
+        ]);
+        $response = $client->post('',[
+            'headers' => config('ebay.headers.ml_azure'),
+            'body' => json_encode($temp)
+        ]);
+        header('Content-Type: application-json');
+        echo $response->getBody();
+        return;
 
 
         $this->render('category',[
