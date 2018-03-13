@@ -124,6 +124,18 @@
             background-repeat: no-repeat;
             border-radius: 3px 3px 0px 0px;
         }
+
+        .auth-container{
+
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
+
+        .auth-container .btn{
+            margin-top: 30px;
+        }
+
     </style>
 
 </head>

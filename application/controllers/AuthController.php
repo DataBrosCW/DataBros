@@ -41,8 +41,7 @@ class AuthController extends Controller
         if ( $user->save() ) {
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
             $msg->success( 'Awesome! You will receive a confirmation email soon, but you can already login!' );
-
-            if ( config( 'sendgrid.key' ) ) {
+            if ( config( 'sendgrid.key' ) != null ) {
                 $sendgrid = new SendGrid( config( 'sendgrid.key' ) );
                 $email = new SendGrid\Email();
 
