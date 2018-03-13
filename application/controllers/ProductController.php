@@ -5,6 +5,7 @@ class ProductController extends Controller
     // Show a product page for a specific product
     public function show($id)
     {
+
         $product = ProductModel::instantiate()->findOrFail($id);
         $user = auth_user();
 
@@ -36,7 +37,7 @@ class ProductController extends Controller
                                         ->get();
 
 
-        // Retrieve product stat if exists
+        // Retrieve product geo stat if exists
         $productStatGeo = ProductStatsModel::instantiate()
                                         ->where('product_id',$product->id)
                                         ->where('graph_type',ProductStatsModel::GEO_LOCATION )
@@ -129,7 +130,7 @@ class ProductController extends Controller
 
         if (!isset($body->itemSummaries)) {
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
-            $msg->error( 'Oups! We didn\'t find anythind matching with the keyword "'.$search.'"...' );
+            $msg->error( 'Oups! We didn\'t find anything matching with the keyword "'.$search.'"...' );
 
             $this->redirectBack();
         }

@@ -65,10 +65,11 @@
 @endsection
 
 @if($productStatAvg)
-
     @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-        <script type="application/javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script type="application/javascript">
+
+            console.log('sup');
 
             var avg_data = {!!$productStatAvg->content!!};
             avg_data = avg_data.sort();
@@ -146,21 +147,21 @@
             });
 
             console.log(Math.min.apply(Math, avg_data));
+    </script>
     @endpush
-
 @endif
 @if($productStatGeo)
-        </script>
+    @push('scripts')
+    <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+    <script src="https://www.amcharts.com/lib/3/maps/js/continentsLow.js"></script>
+    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css"
+          media="all"/>
+    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+    <script type="application/javascript">
         <!-- Chart code -->
         <!-- Resources -->
-        <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
-        <script src="https://www.amcharts.com/lib/3/maps/js/continentsLow.js"></script>
-        <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-        <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css"
-              media="all"/>
-        <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-
-        <script type="application/javascript">
 
             var countriesByContinent = [
                 {"country": "Aruba", "continent": "North America"},
@@ -497,4 +498,5 @@
 
             });
     </script>
+    @endpush
 @endif
