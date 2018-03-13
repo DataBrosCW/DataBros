@@ -118,17 +118,26 @@ class CategoriesController extends Controller
 
         // Convert numbers to strings with 2 digits precision
         $content = json_decode($catStat->content);
+        $newContent = new stdClass();
+        $i = 1;
         foreach ($content as $key=>$value){
             if (is_numeric($value)){
-                $content->{$key} = (string) strval(number_format($value,2,'.',''));
+                if ($key!='Category'){
+                    $newContent->{$i} = (string) strval(number_format($value,2,'.',''));;
+                    $i++;
+                } else {
+                    $newContent->{$key} = (string) strval(number_format($value,0,'.',''));
+                }
             }
+
         }
 
         $results = [];
-        $results['input1'] = [$content];
+        $results['input1'] = [$newContent];
 
         $temp = [];
         $temp['Inputs'] = $results;
+        $temp['GlobalParameters'] = new stdClass();
 
         header('Content-Type: application-json');
         echo json_encode($temp);
