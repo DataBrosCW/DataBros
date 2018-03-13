@@ -146,6 +146,10 @@
             });
 
             console.log(Math.min.apply(Math, avg_data));
+    @endpush
+
+@endif
+@if($productStatGeo)
         </script>
         <!-- Chart code -->
         <!-- Resources -->
@@ -430,8 +434,6 @@
 
             var graphData = {!! $productStatGeo->content !!};
 
-            console.log(graphData);
-
             if (graphData.includes('Worldwide')) {
                 areaData.forEach(function (item) {
                     item.color = "#ff664a";
@@ -494,8 +496,5 @@
                 }
 
             });
-        </script>
-
-    @endpush
-
+    </script>
 @endif

@@ -200,7 +200,7 @@ class ProductController extends Controller
         $client = new \GuzzleHttp\Client([
             'base_uri' => config('ebay.base_url',true),
         ]);
-        $response = $client->get(config('ebay.endpoits.get_item',true).'get_item_by_legacy_id'.'?legacy_item_id='.$id,[
+        $response = $client->get(config('ebay.endpoints.get_item',true).'get_item_by_legacy_id'.'?legacy_item_id='.$id,[
             'headers' => config('ebay.headers.get_item')
         ]);
 
@@ -214,6 +214,7 @@ class ProductController extends Controller
             $product = new ProductModel([
                 'epid' => $productLegacy->itemId,
                 'title' => $productLegacy->title,
+                'price' => $productLegacy->price->value,
                 'img' => isset($productLegacy->image)?$productLegacy->image->imageUrl:
                     (isset($productLegacy->additionalImages)?$productLegacy->additionalImages[0]->imageUrl:''),
             ]);
@@ -221,7 +222,7 @@ class ProductController extends Controller
         }
 
         //open product page
-        $this->show($product->id);
+        $this->redirect('products/'.$product->id);
 
     }
 
