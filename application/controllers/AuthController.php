@@ -29,8 +29,8 @@ class AuthController extends Controller
         // Password is a private field, therefore can't be mass assigned
         $user->password = hash( 'md5', $_REQUEST['password'] );
 
-        $userExists = UserModel::instantiate()->where('email',$_REQUEST['email'])->limit(1)->get();
-        if ($userExists){
+        $userExists = UserModel::instantiate()->where( 'email', $_REQUEST['email'] )->limit( 1 )->get();
+        if ( $userExists ) {
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
             $msg->error( 'Oups! Another user already uses this email...' );
 
@@ -42,17 +42,19 @@ class AuthController extends Controller
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
             $msg->success( 'Awesome! You will receive a confirmation email soon, but you can already login!' );
 
-            $sendgrid = new SendGrid("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");
-            $email    = new SendGrid\Email();
+            if ( config( 'sendgrid.key' ) ) {
+                $sendgrid = new SendGrid( config( 'sendgrid.key' ) );
+                $email = new SendGrid\Email();
 
-            $html = '<h1>Hello '.$user->first_name.'!</h1><p>Thank you for joining Databros app!</p>';
+                $html = '<h1>Hello ' . $user->first_name . '!</h1><p>Thank you for joining Databros app!</p>';
 
-            $email->addTo($user->email)
-                ->setFrom("admin@dbbros.com")
-                ->setSubject("Registration confirmation")
-                ->setHtml($html);
+                $email->addTo( $user->email )
+                      ->setFrom( "admin@dbbros.com" )
+                      ->setSubject( "Registration confirmation" )
+                      ->setHtml( $html );
 
-            $sendgrid->send($email);
+                $sendgrid->send( $email );
+            }
 
             $this->redirect();
 
@@ -87,28 +89,29 @@ class AuthController extends Controller
 
         // Find user in db
         $user = UserModel::instantiate()->where( 'email', $_REQUEST['email'] )->get();
-        if (!$user || !$user instanceof UserModel) {
-            $msg->error('These crendentials don\'t match our records.');
+        if ( ! $user || ! $user instanceof UserModel ) {
+            $msg->error( 'These crendentials don\'t match our records.' );
 
             $this->redirectBack();
         }
 
         // We make sure password is the same
-        if (hash( 'md5', $_REQUEST['password'] ) != $user->password) {
-            $msg->error('These crendentials don\'t match our records.');
+        if ( hash( 'md5', $_REQUEST['password'] ) != $user->password ) {
+            $msg->error( 'These crendentials don\'t match our records.' );
 
             $this->redirectBack();
         }
 
         $_SESSION['user_id'] = $user->id;
-        $msg->success('Welcome '.$user->first_name.'!');
+        $msg->success( 'Welcome ' . $user->first_name . '!' );
         $this->redirect();
     }
 
     /**
      * Logs a user out
      */
-    public function logout(){
+    public function logout()
+    {
         session_destroy();
         $this->redirect();
     }

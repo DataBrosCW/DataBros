@@ -87,5 +87,8 @@ return [
 
 
     ],
+    'sendgrid'=>[
+        'key' => getenv('SENDGRID_KEY')?:null
+    ]
 
 ];
