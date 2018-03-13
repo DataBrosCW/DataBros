@@ -5,6 +5,7 @@ class ProductController extends Controller
     // Show a product page for a specific product
     public function show($id)
     {
+
         $product = ProductModel::instantiate()->findOrFail($id);
         $user = auth_user();
 
@@ -36,7 +37,7 @@ class ProductController extends Controller
                                         ->get();
 
 
-        // Retrieve product stat if exists
+        // Retrieve product geo stat if exists
         $productStatGeo = ProductStatsModel::instantiate()
                                         ->where('product_id',$product->id)
                                         ->where('graph_type',ProductStatsModel::GEO_LOCATION )
@@ -129,7 +130,7 @@ class ProductController extends Controller
 
         if (!isset($body->itemSummaries)) {
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
-            $msg->error( 'Oups! We didn\'t find anythind matching with the keyword "'.$search.'"...' );
+            $msg->error( 'Oups! We didn\'t find anything matching with the keyword "'.$search.'"...' );
 
             $this->redirectBack();
         }
@@ -196,7 +197,34 @@ class ProductController extends Controller
      * From a legacy id redirect to a product page
      */
     public function showOld($id){
-        echo $id;
+
+        $client = new \GuzzleHttp\Client([
+            'base_uri' => config('ebay.base_url',true),
+        ]);
+        $response = $client->get(config('ebay.endpoints.get_item',true).'get_item_by_legacy_id'.'?legacy_item_id='.$id,[
+            'headers' => config('ebay.headers.get_item')
+        ]);
+
+        $productLegacy = json_decode($response->getBody());
+
+        // Try to find if we already have the product
+        $product = ProductModel::instantiate()->where('epid',$productLegacy->itemId)->limit(1)->get();
+
+        //create and save a product
+        if (!$product) {
+            $product = new ProductModel([
+                'epid' => $productLegacy->itemId,
+                'title' => $productLegacy->title,
+                'price' => $productLegacy->price->value,
+                'img' => isset($productLegacy->image)?$productLegacy->image->imageUrl:
+                    (isset($productLegacy->additionalImages)?$productLegacy->additionalImages[0]->imageUrl:''),
+            ]);
+            $product->save();
+        }
+
+        //open product page
+        $this->redirect('products/'.$product->id);
+
     }
 
     /**
