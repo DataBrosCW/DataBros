@@ -18,7 +18,7 @@ class CronController extends Controller
         // Update categories top item average price
         $categories = CategoryModel::instantiate()->all()->get();
 
-        $date = \Carbon\Carbon::now()->setTime(0,0,0,0);
+        $date = \Carbon\Carbon::now()->setTime(0,0,0);
 
         foreach ($categories as $category){
 
