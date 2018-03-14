@@ -132,7 +132,11 @@
                             ticks: {
                                 suggestedMin: Math.min.apply(Math, avg_data) - 0.05 * Math.min.apply(Math, avg_data),
                                 suggestedMax: Math.max.apply(Math, avg_data) + 0.05 * Math.max.apply(Math, avg_data)
-                            }
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Price (USD)'
+                              }
                         }],
                         xAxes: [{
                             ticks: {
@@ -140,7 +144,11 @@
                             },
                             gridLines: {
                                 display: false
-                            }
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Items'
+                              }
                         }]
                     }
                 }
