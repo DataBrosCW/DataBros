@@ -45,7 +45,15 @@ class AuthController extends Controller
                 $sendgrid = new SendGrid( config( 'sendgrid.key' ) );
                 $email = new SendGrid\Email();
 
-                $html = '<h1>Hello ' . $user->first_name . '!</h1><p>Thank you for joining Databros app!</p>';
+                $html = '<h1>Hello ' . $user->first_name . '!</h1>
+<p>Congratulations on registering your DataBros account. We are thrilled to have you.</p>
+<p>Ready to have the best shopping experience using our platform? It’s easy!<br>
+Just make sure you let us access your eBay account. Here’s how it is done:</p>
+<p>1. Click on one of our header buttons: ‘Feed’, ‘Followed products’ or ‘Categories’.</p>
+<p>2. A page asking your confirmation in accessing your eBay account will appear. Go to the link provided in the message.</p>
+<p>3. Log into eBay using your eBay credentials. You should be redirected to DataBros. All features are now unlocked.</p>
+<p>Enjoy.</p>
+<p>The DataBros Team</p>';
 
                 $email->addTo( $user->email )
                       ->setFrom( "admin@dbbros.com" )

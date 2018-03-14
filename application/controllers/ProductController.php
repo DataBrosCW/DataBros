@@ -149,6 +149,7 @@ class ProductController extends Controller
                     'title' => $productData->title,
                     'img' => isset($productData->image)?$productData->image->imageUrl:
                         (isset($productData->additionalImages)?$productData->additionalImages[0]->imageUrl:''),
+                    'subgroup' => $productData->categories[0]->categoryId
                 ]);
                 $product->save();
             }
@@ -218,6 +219,7 @@ class ProductController extends Controller
                 'price' => $productLegacy->price->value,
                 'img' => isset($productLegacy->image)?$productLegacy->image->imageUrl:
                     (isset($productLegacy->additionalImages)?$productLegacy->additionalImages[0]->imageUrl:''),
+                'subgroup' => $productLegacy->categoryId
             ]);
             $product->save();
         }
@@ -234,6 +236,7 @@ class ProductController extends Controller
     {
         $user = auth_user();
         $followedProducts = $user->followedProducts();
+
 
         return $this->render('followed-products',[
             'followedProducts' => $followedProducts

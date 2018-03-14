@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS products(
     title VARCHAR(255) NOT NULL,
     epid VARCHAR(255) NOT NULL,
     img VARCHAR(255),
+    subgroup VARCHAR(255),
     description TEXT DEFAULT NULL,
     price FLOAT,
     PRIMARY KEY (id),
@@ -59,16 +60,6 @@ CREATE TABLE IF NOT EXISTS product_stats(
 );
 
 
--- Create feed product table
-
-CREATE TABLE IF NOT EXISTS category_best_product (
-    category_id INT NOT NULL,
-    product_id INT NOT NULL,
-    PRIMARY KEY (category_id,product_id),
-    UNIQUE (category_id,product_id)
-);
-
-
 -- Create relationship table between users and products
 
 CREATE TABLE IF NOT EXISTS user_products (
@@ -101,6 +92,9 @@ CREATE TABLE IF NOT EXISTS application_tokens (
 
 ALTER TABLE products
 ADD link VARCHAR(255) DEFAULT NULL;
+
+ALTER TABLE products
+ADD subgroup VARCHAR(255);
 
 
 ALTER TABLE user_categories

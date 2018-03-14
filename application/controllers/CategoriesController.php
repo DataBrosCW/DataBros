@@ -105,55 +105,56 @@ class CategoriesController extends Controller
                 'epid' => $productData->itemId,
                 'title' => $productData->title,
                 'img' => $productData->imageURL,
-                'price' =>$price
+                'price' => $price,
+                'subgroup' => $productData->categoryId
             ]);
 
             array_push($products,$product);
             array_push($productsPrice,$price);
         }
 
-        // Now we get the stat of the category
-        $catStat = CategoryStatsModel::instantiate()->where('category_id',$category->id)
-            ->where('graph_type',CategoryStatsModel::AVG_PRICE)->limit(1)->get();
+//        // Now we get the stat of the category
+//        $catStat = CategoryStatsModel::instantiate()->where('category_id',$category->id)
+//            ->where('graph_type',CategoryStatsModel::AVG_PRICE)->limit(1)->get();
+//
+//        // Convert numbers to strings with 2 digits precision
+//        $content = json_decode($catStat->content);
+//        $newContent = new stdClass();
+//        $i = 1;
+//        foreach ($content as $key=>$value){
+//            if (is_numeric($value)){
+//                if ($key!='Category'){
+//                    $newContent->{$i} = (string) strval(number_format($value,2,'.',''));;
+//                    $i++;
+//                } else {
+//                    $newContent->{$key} = (string) strval(number_format($value,0,'.',''));
+//                }
+//            }
+//
+//        }
+//
+//        $results = [];
+//        $results['input1'] = [$newContent];
+//
+//        $temp = [];
+//        $temp['Inputs'] = $results;
+//        $temp['GlobalParameters'] = new stdClass();
 
-        // Convert numbers to strings with 2 digits precision
-        $content = json_decode($catStat->content);
-        $newContent = new stdClass();
-        $i = 1;
-        foreach ($content as $key=>$value){
-            if (is_numeric($value)){
-                if ($key!='Category'){
-                    $newContent->{$i} = (string) strval(number_format($value,2,'.',''));;
-                    $i++;
-                } else {
-                    $newContent->{$key} = (string) strval(number_format($value,0,'.',''));
-                }
-            }
-
-        }
-
-        $results = [];
-        $results['input1'] = [$newContent];
-
-        $temp = [];
-        $temp['Inputs'] = $results;
-        $temp['GlobalParameters'] = new stdClass();
-
-        header('Content-Type: application-json');
-        echo json_encode($temp);
-        return;
+//        header('Content-Type: application-json');
+//        echo json_encode($temp);
+//        return;
 
         // Get predicted value
-        $client = new \GuzzleHttp\Client([
-            'base_uri' => config('ebay.endpoints.ml-azure',true),
-        ]);
-        $response = $client->post('',[
-            'headers' => config('ebay.headers.ml_azure'),
-            'body' => json_encode($temp)
-        ]);
-        header('Content-Type: application-json');
-        echo $response->getBody();
-        return;
+//        $client = new \GuzzleHttp\Client([
+//            'base_uri' => config('ebay.endpoints.ml-azure',true),
+//        ]);
+//        $response = $client->post('',[
+//            'headers' => config('ebay.headers.ml_azure'),
+//            'body' => json_encode($temp)
+//        ]);
+//        header('Content-Type: application-json');
+//        echo $response->getBody();
+//        return;
 
 
         $this->render('category',[
