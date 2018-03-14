@@ -14,16 +14,46 @@
             @if($category->description)
             <p>{{$category->description}}</p>
             @endif
-
-            <div>
-            <a href="/categories/" class="btn btn-outline-primary singleItemPageBtn mt-2"><i class="fas fa-long-arrow-alt-left"></i> Back to categories</a>
-                <br>
-            @if ($userCategory->followed == 0)
-                <a href="/categories/{{$category->id}}/favourite" class="btn btn-primary singleItemPageBtn mt-2"><i class="fas fa-star"></i> Add to favourite</a>
-            @else
-                <a href="/categories/{{$category->id}}/favourite" class="btn btn-danger singleItemPageBtn mt-2"><i class="far fa-star"></i> Remove favourite</a>
-            @endif
+            <div class="row" style="padding-top: 20px; margin-bottom: 20px;">
+                <div class="col-4">
+                <a href="/categories/" class="btn btn-outline-primary singleItemPageBtn mt-2"><i class="fas fa-long-arrow-alt-left"></i> Back to categories</a>
+                
+                </div>
+                <div class="col-4" style="text-align: center;">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                      Show Statistics
+                    </button>
+                </div>
+                <div class="col-4" style="text-align: right;">
+                    @if ($userCategory->followed == 0)
+                        <a href="/categories/{{$category->id}}/favourite" class="btn btn-primary singleItemPageBtn mt-2"><i class="fas fa-star"></i> Add to favourite</a>
+                    @else
+                        <a href="/categories/{{$category->id}}/favourite" class="btn btn-danger singleItemPageBtn mt-2"><i class="far fa-star"></i> Remove favourite</a>
+                    @endif
+                </div>
             </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Statistics</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
 
             <div class="row">
                 <div class="col-12">
