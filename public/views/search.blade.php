@@ -22,7 +22,7 @@
                         </div>
                         <footer class="card-footer">
                             @if(isset($product->id))
-                                <a href="/products/{{$product->id}}"class="btn btn-primary btn-block">See (${{$product->price}})</a>
+                                <a href="/products/{{$product->id}}"class="btn btn-primary btn-block">Take Me There (${{$product->price}})</a>
                             @else
                                 <p>Something went wrong with this product...</p>
                             @endif
