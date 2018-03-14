@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS products(
     title VARCHAR(255) NOT NULL,
     epid VARCHAR(255) NOT NULL,
     img VARCHAR(255),
-    subgroup VARCHAR(255),
     description TEXT DEFAULT NULL,
     price FLOAT,
     PRIMARY KEY (id),
