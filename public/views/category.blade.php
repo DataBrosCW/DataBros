@@ -40,9 +40,6 @@
                                         @if($product->avg_price_graph())
                                             <i class="fas fa-signal text-primary" style="position: absolute;right: 5px;bottom: 5px;"></i>
                                         @endif
-                                        <div class="text-center">
-                                            {{$product->price}}
-                                        </div>
                                     </div>
                                     <footer class="card-footer">
                                         <a href="/products/old/{{$product->epid}}"class="btn btn-primary btn-block">See (${{$product->price}})</a>

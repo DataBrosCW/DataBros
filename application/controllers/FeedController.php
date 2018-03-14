@@ -42,9 +42,25 @@ class FeedController extends Controller
                             'img' => isset($productData->image)?$productData->image->imageUrl:
                                 (isset($productData->additionalImages)?$productData->additionalImages[0]->imageUrl:''),
                             'price' =>  $productData->price->value,
+                            'subgroup' => $productData->categories[0]->categoryId
                         ]);
                         $product->save();
                     }
+
+//                    //save categories related to the product
+//                    foreach($productData->categories as $cat){
+//                        $catId = $cat->categoryId;
+//                        // Try to find if we already have the product
+//                        $productCat = ProductCategoriesModel::instantiate()->where('product_id',$productData->itemId)
+//                            ->where('category_id', $catId)->limit(1)->get();
+//                        if(!$productCat){
+//                            $productCat = new ProductCategoriesModel([
+//                                'product_id' => $productData->itemId,
+//                                'category_id' => $catId
+//                            ]);
+//                            $productCat->save();
+//                        }
+//                    }
 
                     array_push($products,$product);
                 }
