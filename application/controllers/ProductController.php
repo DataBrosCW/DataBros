@@ -237,7 +237,6 @@ class ProductController extends Controller
         $user = auth_user();
         $followedProducts = $user->followedProducts();
 
-
         return $this->render('followed-products',[
             'followedProducts' => $followedProducts
         ]);
