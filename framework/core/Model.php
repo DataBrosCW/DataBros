@@ -102,7 +102,9 @@ abstract class Model
             $this->{$prop} = $this->cast($prop, $value);
         } elseif ( $prop == $this->getKeyName() ) {
             $this->{$this->getKeyName()} = $value;
-        }
+        } else {
+            throw new Exception('Property '.$prop.' not set on Model '.self::class);
+        ;}
     }
 
     /**
@@ -112,11 +114,11 @@ abstract class Model
     private function cast($prop, $value)
     {
         if (isset($this->casts[ $prop ]) && $this->casts[ $prop ] != '' && $this->casts[ $prop ] != null) {
-            settype( $value, $this->casts[ $prop ] );
             if($this->casts[ $prop ] == 'string'){
                 // Clean string
                 $value = remove_emoji($value);
             }
+            settype( $value, $this->casts[ $prop ] );
         }
         return $value;
     }

@@ -18,7 +18,7 @@ class CronController extends Controller
         // Update categories top item average price
         $categories = CategoryModel::instantiate()->all()->get();
 
-        $date = \Carbon\Carbon::now()->setTime(0,0,0,0);
+        $date = \Carbon\Carbon::now()->setTime(0,0,0);
 
         foreach ($categories as $category){
 
@@ -57,7 +57,7 @@ class CronController extends Controller
                 for ($i=1;$i<=44;$i++){
                     $rdm_val = randomFloat($avg*0.8,$avg*1.2);
                     $tempDate = $date->copy();
-                    $past_value[$tempDate->subDays(45-$i )->setTime(0,0,0,0)->format('Y-m-d H:m:s')] = $rdm_val;
+                    $past_value[$tempDate->subDays(45-$i )->setTime(0,0,0)->format('Y-m-d H:m:s')] = $rdm_val;
                 }
                 $past_value['Category'] = $category->id;
                 $past_value[$date->format('Y-m-d H:m:s')] = $avg;
@@ -91,7 +91,7 @@ class CronController extends Controller
                 if ($maxDate->format('Y-m-d')!=\Carbon\Carbon::now()->format('Y-m-d')){
                     // We only add value if last update was not today
                     unset($content->{$date->format('Y-m-d H:m:s')});
-                    $content->{Carbon\Carbon::now()->setTime(0,0,0,0)->format('Y-m-d H:m:s')} = $avg;
+                    $content->{Carbon\Carbon::now()->setTime(0,0,0)->format('Y-m-d H:m:s')} = $avg;
                     $stat->content = json_encode($content);
                     $stat->save();
                 }

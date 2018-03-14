@@ -27,6 +27,30 @@
                         <a href="/products/{{$product->id}}/favourite" class="btn btn-danger singleItemPageBtn mt-2">Remove
                             favourite</a>
                     @endif
+                    @if (isset($product->description))
+                    <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modalDescription">
+                        Product description
+                    </button>
+                    <div class="modal fade" id="modalDescription" tabindex="-1" role="dialog" aria-labelledby="modalDescription" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Product Description</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body modal-description">
+                                    {!! isset($product->description)?$product->description:'' !!}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                 </div>
 
             </div>
@@ -69,7 +93,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script type="application/javascript">
 
-            console.log('sup');
 
             var avg_data = {!!$productStatAvg->content!!};
             avg_data = avg_data.sort();
@@ -154,7 +177,7 @@
                 }
             });
 
-            console.log(Math.min.apply(Math, avg_data));
+//            console.log(Math.min.apply(Math, avg_data));
     </script>
     @endpush
 @endif

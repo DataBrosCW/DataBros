@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS products(
     title VARCHAR(255) NOT NULL,
     epid VARCHAR(255) NOT NULL,
     img VARCHAR(255),
-    subgroup VARCHAR(255),
     description TEXT DEFAULT NULL,
     price FLOAT,
     PRIMARY KEY (id),
@@ -95,6 +94,11 @@ ADD link VARCHAR(255) DEFAULT NULL;
 
 ALTER TABLE products
 ADD subgroup VARCHAR(255);
+
+
+ALTER TABLE products
+DROP COLUMN description,
+ADD COLUMN description LONGTEXT DEFAULT NULL;
 
 
 ALTER TABLE user_categories

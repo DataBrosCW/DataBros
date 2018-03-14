@@ -93,7 +93,7 @@ class DB
             $this->preparedStatement->execute( $attributes );
         }
         catch ( PDOException $e ) {
-            throw $e;
+            throw new Exception( $e->getMessage(). 'Attributes: '.print_r($attributes));
         }
         return $this->preparedStatement->fetchAll(PDO::FETCH_ASSOC);
     }
