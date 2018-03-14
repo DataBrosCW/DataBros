@@ -96,6 +96,11 @@ ALTER TABLE products
 ADD subgroup VARCHAR(255);
 
 
+ALTER TABLE products
+DROP COLUMN description,
+ADD COLUMN description LONGTEXT DEFAULT NULL;
+
+
 ALTER TABLE user_categories
 ADD count INT DEFAULT 0,
 ADD followed BOOLEAN DEFAULT FALSE ;

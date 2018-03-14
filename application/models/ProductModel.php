@@ -36,7 +36,8 @@ class ProductModel extends Model
         'img' => 'string',
         'description' => 'string',
         'price' => 'double',
-        'link' => 'string'
+        'link' => 'string',
+        'subgroup' => 'string'
     ];
 
     /**

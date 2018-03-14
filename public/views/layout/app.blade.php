@@ -136,6 +136,19 @@
             margin-top: 30px;
         }
 
+        .modal-description{
+            overflow-x: scroll;
+        }
+        .modal-description img {
+            max-width: 100%;
+        }
+        .modal-description div {
+            max-width: 100%;
+        }
+        .modal-description table {
+            max-width: 100% !important;
+            width: 100%!important;
+        }
     </style>
 
 </head>

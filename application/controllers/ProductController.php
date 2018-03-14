@@ -46,7 +46,7 @@ class ProductController extends Controller
 
 
         // if one of stats is missing
-        if (!$productStatGeo || !$productStatAvg || $product->link == null){
+        if (!$productStatGeo || !$productStatAvg || $product->link == null || $product->description == null) {
             $client = new \GuzzleHttp\Client([
                 'base_uri' => config('ebay.base_url',true),
             ]);
@@ -98,6 +98,12 @@ class ProductController extends Controller
             // Product link
             if ($product->link == null) {
                 $product->link = $result->itemWebUrl;
+                $product->save();
+            }
+
+            // Product link
+            if ($product->description == null) {
+                $product->description = $result->description;
                 $product->save();
             }
         }
@@ -202,11 +208,19 @@ class ProductController extends Controller
         $client = new \GuzzleHttp\Client([
             'base_uri' => config('ebay.base_url',true),
         ]);
-        $response = $client->get(config('ebay.endpoints.get_item',true).'get_item_by_legacy_id'.'?legacy_item_id='.$id,[
-            'headers' => config('ebay.headers.get_item')
-        ]);
+        try {
+            $response = $client->get( config( 'ebay.endpoints.get_item', true ) . 'get_item_by_legacy_id' . '?legacy_item_id=' . $id, [
+                'headers' => config( 'ebay.headers.get_item' )
+            ] );
+        } catch (\GuzzleHttp\Exception\ClientException $e){
+            $msg = new \Plasticbrain\FlashMessages\FlashMessages();
+            $msg->error( 'Unfortunately, we couldn\'t retrieve this product. It seems like there is an issue with the eBay API. Please try again later!' );
+            $this->redirectBack();
+        }
 
         $productLegacy = json_decode($response->getBody());
+
+//        dd($productLegacy);
 
         // Try to find if we already have the product
         $product = ProductModel::instantiate()->where('epid',$productLegacy->itemId)->limit(1)->get();
@@ -219,7 +233,8 @@ class ProductController extends Controller
                 'price' => $productLegacy->price->value,
                 'img' => isset($productLegacy->image)?$productLegacy->image->imageUrl:
                     (isset($productLegacy->additionalImages)?$productLegacy->additionalImages[0]->imageUrl:''),
-                'subgroup' => $productLegacy->categoryId
+                'subgroup' => $productLegacy->categoryId,
+                'description' => $productLegacy->description
             ]);
             $product->save();
         }
