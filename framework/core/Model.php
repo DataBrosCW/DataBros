@@ -102,7 +102,9 @@ abstract class Model
             $this->{$prop} = $this->cast($prop, $value);
         } elseif ( $prop == $this->getKeyName() ) {
             $this->{$this->getKeyName()} = $value;
-        }
+        } else {
+            throw new Exception('Property '.$prop.' not set on Model '.self::class);
+        ;}
     }
 
     /**

@@ -16,7 +16,8 @@ class ProductModel extends Model
         'epid',
         'description',
         'price',
-        'link'
+        'link',
+        'subgroup'
     ];
 
     /**
