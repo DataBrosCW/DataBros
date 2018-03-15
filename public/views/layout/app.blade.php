@@ -149,6 +149,11 @@
             max-width: 100% !important;
             width: 100%!important;
         }
+
+        #priceCompare {
+            margin-top: 10px;
+        }
+
     </style>
 
 </head>
