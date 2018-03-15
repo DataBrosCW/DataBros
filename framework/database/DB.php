@@ -105,7 +105,12 @@ class DB
         if (! $result) {
             die($this->errno().':'.$this->error().'<br />Error SQL statement is '.$this->sql.'<br />');
         }
-        return $result;
+
+        $results = [];
+        while ($row = $result->fetch_assoc()) {
+            $results[] = $row;
+        }
+        return $results;
     }
 
     public function lastInsertedId(){

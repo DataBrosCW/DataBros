@@ -43,7 +43,8 @@ class UserModel extends Model
 
     public function mostVisitedProduct(){
         // Fine to hardcode user id in request here as it's not a user input
-        return $this->raw('SELECT product_id FROM user_products WHERE user_id = '.$this->id.' ORDER BY count DESC LIMIT 1;');
+        $product_id = $this->raw('SELECT product_id FROM user_products WHERE user_id = '.$this->id.' ORDER BY count DESC LIMIT 1;')[0]['product_id'];
+        return ProductModel::instantiate()->find($product_id);
     }
 
     public function followedProducts(){
