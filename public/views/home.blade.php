@@ -15,31 +15,34 @@
 
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="card">
-                    <div class="card-header">
-                        Number of followed categories
+                    <div class="card-body text-center pt-4">
+                        <h3><a href="/categories">{{count(auth_user()->followedCategories())}}</a></h3>
                     </div>
-                    <div class="card-body">
-
+                    <div class="card-footer text-center">
+                        Number of followed categories
                     </div>
                 </div>
             </div>
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="card">
-                    <div class="card-header">
-                        Number of favourite products
+                    <div class="card-body text-center pt-4">
+                        <h3><a href="/followed-products">{{count(auth_user()->followedProducts())}}</a></h3>
                     </div>
-                    <div class="card-body">
-
+                    <div class="card-footer text-center">
+                        Number of favourite products
                     </div>
                 </div>
             </div>
             @if (auth_user()->mostVisitedProduct())
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="card">
-                        <div class="card-header">
-                            Your most visited item
+                        <div class="card-body text-center">
+                            <a href="{{auth_user()->mostVisitedProduct()->link}}">
+                                {{auth_user()->mostVisitedProduct()->title}}
+                            </a>
                         </div>
-                        <div class="card-body">
+                        <div class="card-footer text-center">
+                            Your most visited item
                         </div>
                     </div>
                 </div>
