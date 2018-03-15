@@ -26,8 +26,8 @@ return [
     'app_key' => 'oijwef893520kf=-32',
     'app_url' => getenv( 'APP_URL' ) ?: 'http://localhost:8888/',
     'ebay' => [
-        'client_id'     => getenv( 'EBAY_APP_ID' ) ?: 'GermanMi-sampleap-PRD-3df6c4a45-ccf46d3f',
-        'redirect_uri'  => getenv( 'EBAY_REDIRECT_URI' ) ?: 'German_Mikulski-GermanMi-sample-daeapvono',
+        'client_id'     => getenv( 'EBAY_APP_ID' ),
+        'redirect_uri'  => getenv( 'EBAY_REDIRECT_URI' ),
         'response_type' => 'code',
         'scope'         => 'https://api.ebay.com/oauth/api_scope/sell.account',
         'base_url'        => getenv( 'EBAY_BASE_URL' ) ?: 'https://api.ebay.com',
@@ -35,7 +35,7 @@ return [
         'headers' => [
             'token_auth'        => [
                 'Content-Type'  => 'application/x-www-form-urlencoded',
-                'Authorization' => getenv( 'EBAY_APP_CALL_AUTH' ) ?: 'Basic R2VybWFuTWktc2FtcGxlYXAtUFJELTNkZjZjNGE0NS1jY2Y0NmQzZjpQUkQtZGY2YzRhNDU5NWU5LTMwYWUtNDYxNy05OGYyLTQzYTY='
+                'Authorization' => getenv( 'EBAY_APP_CALL_AUTH' )
             ],
             'search'            => [
                 'Authorization' => 'Bearer ' . '__appToken__'
@@ -58,7 +58,7 @@ return [
             ],
             'ml_azure'          => [
                 'Content-Type'  => 'application/json',
-                'Authorization' => 'Bearer rltbWEfLyeayDVO9emrri/zI/Qj8afbhnvZ7qTOW+ggyU9yOxFN6VKvmCqse1iriDQ/3bkVc3cXVHf19Smhucg=='
+                'Authorization' => getenv('ML_AUTH')
             ]
         ],
         'endpoints' => [
