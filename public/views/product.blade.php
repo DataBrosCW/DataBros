@@ -33,7 +33,7 @@
                         <a href="/products/{{$product->id}}/favourite" class="btn btn-danger singleItemPageBtn mt-2">Remove
                             favourite</a>
                     @endif
-                    @if (isset($product->description) && ! strlen(trim($str)) == 0)
+                    @if (isset($product->description) && ! strlen(trim($product->description)) == 0)
                         <div id="htmlTemp" style="display: none">
                             {!! isset($product->description)?$product->description:'' !!}
                         </div>
