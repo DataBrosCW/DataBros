@@ -14,8 +14,14 @@
             <div class="col-12 col-sm-6 col-md-4 singleItemPageContainer pt-3">
                 <div class="content-block">
                     <img class="singleItemPageImg" src="{{$product->img}}">
-
                     <h4 class="text-center">Price: {{$product->price}}</h4>
+                    @if($productStatAvg)
+                        <div class="compareBlock">
+                        <i class="fas fa-thumbs-up fa-lg"></i>
+                         <i class="fas fa-thumbs-down fa-lg"></i>
+                        <p id="priceCompare"></p>
+                        </div>
+                    @endif
 
                     <a href="{{$product->link}}" target="_blank" class="btn btn-success singleItemPageBtn mt-3">Take Me
                         There</a>
@@ -28,6 +34,9 @@
                             favourite</a>
                     @endif
                     @if (isset($product->description))
+                        <div id="htmlTemp" style="display: none">
+                            {!! isset($product->description)?$product->description:'' !!}
+                        </div>
                     <button type="button" class="btn btn-primary mt-2" data-toggle="modal" data-target="#modalDescription">
                         Product description
                     </button>
@@ -41,7 +50,9 @@
                                     </button>
                                 </div>
                                 <div class="modal-body modal-description">
-                                    {!! isset($product->description)?$product->description:'' !!}
+                                    <iframe id="render" style="width: 100%; height: 500px; border: none">
+                                    </iframe>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -49,6 +60,18 @@
                             </div>
                         </div>
                     </div>
+                    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js">
+                    </script>
+                    <script>
+                        $(function() {
+                            var html = $('#htmlTemp').contents();
+                            console.log(html);
+                            $("#render").contents().find('html').html(html);
+                            $('#htmlTemp').remove();
+
+                        });
+
+                    </script>
                     @endif
 
                 </div>
@@ -93,7 +116,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script type="application/javascript">
 
-
             var avg_data = {!!$productStatAvg->content!!};
             avg_data = avg_data.sort();
             var labels = Array.apply(null, {length: avg_data.length}).map(Number.call, Number);
@@ -104,12 +126,32 @@
             }
             var avg = total / avg_data.length;
             var price = {!! $product->price !!};
+            var diff = avg - price;
+            if (diff == 0){
+                $("#priceCompare").css( "display", "none" );
+                $(".fas").css( "display", "none");
+            } else{
+                diff  = Math.round(diff * 10) / 10;
+                if(diff > 0){
+                    var html = 'The item is '+diff+' cheaper than average price of similar products';
+                    $("#priceCompare").css( "color", "green");
+                    $(".fas").css( "color", "green");
+                    $(".fas.fa-thumbs-down").css("display", "none");
+                }
+                if(diff < 0){
+                    var html = 'The item is '+diff+' more expensive than average price of similar products';
+                    $("#priceCompare").css( "color", "red");
+                    $(".fas").css( "color", "red");
+                    $(".fas.fa-thumbs-up").css("display", "none");
+                }
+
+                $( "#priceCompare" ).html(html);
+            }
+
             var avg_line = new Array(avg_data.length);
             var price_line = new Array(avg_data.length);
             avg_line.fill(avg);
             price_line.fill(price);
-            var diff = avg - price;
-
 
             var ctx = document.getElementById('avgChart').getContext('2d');
 
@@ -127,7 +169,7 @@
                         backgroundColor: 'rgb(255, 99, 132)',
                         borderColor: 'rgb(255, 99, 132)',
                         data: avg_data,
-                        fill: false,
+                        fill: false
                     },
                         {
                             label: "Average Price",

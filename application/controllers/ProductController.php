@@ -153,6 +153,7 @@ class ProductController extends Controller
                 $product = new ProductModel([
                     'epid' => $productData->itemId,
                     'title' => $productData->title,
+                    'price' => $productData->price->value,
                     'img' => isset($productData->image)?$productData->image->imageUrl:
                         (isset($productData->additionalImages)?$productData->additionalImages[0]->imageUrl:''),
                     'subgroup' => $productData->categories[0]->categoryId
