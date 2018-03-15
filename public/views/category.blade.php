@@ -217,7 +217,7 @@
 
 
                 <div class="col-12 mt-5">
-                    <h4 class="text-center">Top Items</h4>
+                    <h2 class="text-center">Top Items</h2>
                     <div class="row">
                         @foreach($products as $product)
                             <div class="col-4 mb-4">

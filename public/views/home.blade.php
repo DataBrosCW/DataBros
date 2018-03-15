@@ -33,20 +33,24 @@
                     </div>
                 </div>
             </div>
-            @if (auth_user()->mostVisitedProduct())
                 <div class="col-12 col-sm-6 col-md-4">
                     <div class="card">
+                        @if (auth_user()->mostVisitedProduct())
                         <div class="card-body text-center">
                             <a href="{{auth_user()->mostVisitedProduct()->link}}">
                                 {{auth_user()->mostVisitedProduct()->title}}
                             </a>
                         </div>
+                        @else
+                            <div class="card-body text-center">
+                                None
+                            </div>
+                        @endif
                         <div class="card-footer text-center">
                             Your most visited item
                         </div>
                     </div>
                 </div>
-            @endif
 
         @endif
     </div>
