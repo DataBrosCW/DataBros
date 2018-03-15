@@ -40,7 +40,8 @@ class AuthController extends Controller
 
         if ( $user->save() ) {
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
-            $msg->success( 'Awesome! You will receive a confirmation email soon, but you can already login!' );
+            $emailSent = true;
+
             if ( config( 'sendgrid.key' ) != null ) {
                 $sendgrid = new SendGrid( config( 'sendgrid.key' ) );
                 $email = new SendGrid\Email();
@@ -60,7 +61,17 @@ Just make sure you let us access your eBay account. Here’s how it is done:</p>
                       ->setSubject( "Registration confirmation" )
                       ->setHtml( $html );
 
-                $sendgrid->send( $email );
+                try {
+                    $sendgrid->send( $email );
+                } catch ( Exception $e ) {
+                    $emailSent = false;
+                }
+            }
+
+            if ( $emailSent ) {
+                $msg->success( 'Awesome! You will receive a confirmation email soon, but you can already login!' );
+            } else {
+                $msg->success( 'Awesome! You can already login!' );
             }
 
             $this->redirect();

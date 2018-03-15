@@ -82,7 +82,7 @@ return [
 
             // Legacy endpoints (use legacy base url for client!)
             'getMostWatchedItems' => '/MerchandisingService?OPERATION-NAME=getMostWatchedItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&RESPONSE-DATA-FORMAT=XML&REST-PAYLOAD',
-            'ml-azure'            => 'https://ussouthcentral.services.azureml.net/workspaces/e464f1b4c00a416983b896338369c93c/services/790f83c07b9f4a5297c9f5434d264626/execute?api-version=2.0&format=swagger'
+            'ml_azure'            => 'https://ussouthcentral.services.azureml.net/workspaces/e464f1b4c00a416983b896338369c93c/services/790f83c07b9f4a5297c9f5434d264626/execute?api-version=2.0&format=swagger'
         ],
 
 
