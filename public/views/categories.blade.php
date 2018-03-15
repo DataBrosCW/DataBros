@@ -3,9 +3,7 @@
 @section('dashboard-content')
 
     <div class="header-databros pt-md-3 text-center mx-auto">
-        <h1 class="text-center">Categories</h1>
-        <a class="btn btn-success text-right" href="/categories/update">Refresh <i class="fas fa-sync-alt"></i>
-        </a>
+        <h1 class="text-center">Categories ({{CategoryModel::instantiate()->countAll()}})</h1>
     </div>
 
     <div class="container mt-3">

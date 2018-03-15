@@ -21,8 +21,10 @@ CREATE TABLE IF NOT EXISTS products(
     title VARCHAR(255) NOT NULL,
     epid VARCHAR(255) NOT NULL,
     img VARCHAR(255),
-    description TEXT DEFAULT NULL,
+    description LONGTEXT DEFAULT NULL,
     price FLOAT,
+    link VARCHAR(255) DEFAULT NULL,
+    subgroup VARCHAR(255),
     PRIMARY KEY (id),
     UNIQUE (epid)
 );
@@ -78,6 +80,8 @@ CREATE TABLE IF NOT EXISTS user_products (
 CREATE TABLE IF NOT EXISTS user_categories (
     user_id INT NOT NULL,
     category_id INT NOT NULL,
+    count INT DEFAULT 0,
+    followed BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (user_id,category_id),
     UNIQUE  (user_id,category_id),
     FOREIGN KEY(category_id) REFERENCES categories(id),
@@ -92,24 +96,3 @@ CREATE TABLE IF NOT EXISTS application_tokens (
     expires_at datetime,
     PRIMARY KEY (id)
 );
-
-
-ALTER TABLE products
-ADD link VARCHAR(255) DEFAULT NULL;
-
-ALTER TABLE products
-ADD subgroup VARCHAR(255);
-
-
-ALTER TABLE products
-DROP COLUMN description,
-ADD COLUMN description LONGTEXT DEFAULT NULL;
-
-
-ALTER TABLE user_categories
-ADD count INT DEFAULT 0,
-ADD followed BOOLEAN DEFAULT FALSE ;
-
-
-
-

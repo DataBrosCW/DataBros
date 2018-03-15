@@ -47,6 +47,5 @@ class CategoryModel extends Model
                                   ->limit(1)
                                   ->get();
     }
-    
 
 }

@@ -380,8 +380,22 @@ abstract class Model
 
     }
 
+    public function countAll(){
+        $this->sql_query = 'SELECT COUNT(*) as count FROM '.$this->table.';';
+        // We run the query
+        try {
+            $this->db->prepare( $this->sql_query );
+            $result = $this->db->execute();
+        } catch ( PDOException $e ) {
+            throw $e;
+        }
+
+        // We convert the result (rows) to object(s)
+        return $result[0]['count'];
+    }
+
     /**
-     * For debug purposes
+     * For debuging purposes
      */
     public function sql(){
         return 'Sql query: '.$this->sql_query . '<br>' . 'Values: '.implode(',',$this->sql_values) . '<br>';
