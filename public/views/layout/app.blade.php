@@ -154,6 +154,10 @@
             margin-top: 10px;
         }
 
+        .has-error{
+            border: solid 1px red;
+        }
+
     </style>
 
 </head>
