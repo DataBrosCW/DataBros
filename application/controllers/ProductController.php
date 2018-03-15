@@ -252,8 +252,47 @@ class ProductController extends Controller
         $user = auth_user();
         $followedProducts = $user->followedProducts();
 
+        $categories = [];
+        // Retrieve categories
+        foreach ($followedProducts as $product){
+            $categories[] = $product->subgroup;
+        }
+
+        $products = [];
+        foreach ($categories as $category){
+            // Search for top items
+            $client = new \GuzzleHttp\Client([
+                'base_uri' => config('ebay.legacy_base_url',true),
+            ]);
+            $url = config('ebay.endpoints.getMostWatchedItems',true) .
+                   '&maxResults=3&categoryId='.$category.'&CONSUMER-ID='.config('ebay.client_id');
+
+            $response = $client->get($url);
+            $xmlReponse = $response->getBody()->getContents();
+            $responseXml = simplexml_load_string($xmlReponse);
+
+
+            foreach ($responseXml->itemRecommendations->item as $productData) {
+                $price = json_decode( json_encode($productData->buyItNowPrice),true)[0];
+
+                $product = new ProductModel([
+                    'epid' => $productData->itemId,
+                    'title' => $productData->title,
+                    'img' => $productData->imageURL,
+                    'price' => $price,
+                    'subgroup' => $productData->categoryId
+                ]);
+
+                $products[] = $product;
+            }
+        }
+
+        shuffle($products);
+
+
         return $this->render('followed-products',[
-            'followedProducts' => $followedProducts
+            'followedProducts' => $followedProducts,
+            'featuredProducts' => $products
         ]);
     }
 }
