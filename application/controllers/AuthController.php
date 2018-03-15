@@ -37,7 +37,6 @@ class AuthController extends Controller
             $this->redirectBack();
         }
 
-
         if ( $user->save() ) {
             $msg = new \Plasticbrain\FlashMessages\FlashMessages();
             $emailSent = true;
@@ -69,11 +68,11 @@ Just make sure you let us access your eBay account. Here’s how it is done:</p>
             }
 
             if ( $emailSent ) {
-                $msg->success( 'Awesome! You will receive a confirmation email soon, but you can already login!' );
+                $msg->success( 'Awesome! You will receive a confirmation email soon, but you can already use the app!' );
             } else {
-                $msg->success( 'Awesome! You can already login!' );
+                $msg->success( 'Awesome! You can start using the app right now!' );
             }
-
+            $this->logUserIn($user);
             $this->redirect();
 
         } else {
@@ -120,9 +119,13 @@ Just make sure you let us access your eBay account. Here’s how it is done:</p>
             $this->redirectBack();
         }
 
-        $_SESSION['user_id'] = $user->id;
+        $this->logUserIn($user);
         $msg->success( 'Welcome ' . $user->first_name . '!' );
         $this->redirect();
+    }
+
+    private function logUserIn($user){
+        $_SESSION['user_id'] = $user->id;
     }
 
     /**

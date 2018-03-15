@@ -3,7 +3,9 @@
 @section('content')
 
     <header class="navbar navbar-databros navbar-expand-sm">
-        <a class="navbar-brand" href="/">Databros</a>
+        <a class="navbar-brand py-0" href="/">
+            <img src="https://image.ibb.co/iUB5vH/logo.png" style="height: 40px;"/>
+        </a>
         <ul class="navbar-nav px-3">
             @if(auth_check())
             <a class="nav-link" href="/feed">
@@ -40,8 +42,6 @@
                     </li>
                 @else
                     <li>
-                        <a class="p-2 text-dark" href="#">Infos
-                        </a>
                         <a class="p-2 text-dark" href="/login">Login
                         </a>
                     </li>

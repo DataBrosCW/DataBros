@@ -392,6 +392,17 @@ abstract class Model
 
         // We convert the result (rows) to object(s)
         return $result[0]['count'];
+
+    }
+
+    public function raw($sql){
+        try {
+            $result = $this->db->query($sql);
+        } catch ( PDOException $e ) {
+            throw $e;
+        }
+
+        return $result;
     }
 
     /**
