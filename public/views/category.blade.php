@@ -51,11 +51,10 @@
                 <div class="col-4" style="text-align: right;">
                     @if ($userCategory->followed == 0)
                         <a href="/categories/{{$category->id}}/favourite"
-                           class="btn btn-primary singleItemPageBtn mt-2"><i class="fas fa-star"></i> Add to
-                            favourite</a>
+                           class="btn btn-primary singleItemPageBtn mt-2"><i class="fas fa-star"></i> Follow</a>
                     @else
                         <a href="/categories/{{$category->id}}/favourite" class="btn btn-danger singleItemPageBtn mt-2"><i
-                                    class="far fa-star"></i> Remove favourite</a>
+                                    class="far fa-star"></i> Unfollow</a>
                     @endif
                 </div>
             </div>

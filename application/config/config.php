@@ -10,41 +10,32 @@
 
 
 return [
-
     'environment' => getenv( 'APP_ENV' ) ?: 'local',
-
     'database' => [
         // Connection type is either pdo of mysqli
         'connection_type' => getenv( 'DB_CONNECTION_TYPE' ) ?: 'mysqli',
-
         'driver'      => 'mysql',
         'host'        => getenv( 'DB_HOST' ) ?: 'localhost',
         'port'        => getenv( 'DB_PORT' ) ?: '8889',
         'db_name'     => getenv( 'DB_NAME' ) ?: 'databros',
         'unix_socket' => '',
         'charset'     => 'utf8mb4',
-
         'user'     => getenv( 'DB_USER' ) ?: 'databros',
         'password' => getenv( 'DB_PWD' ) ?: 'databros',
     ],
-
     'app_key' => 'oijwef893520kf=-32',
     'app_url' => getenv( 'APP_URL' ) ?: 'http://localhost:8888/',
-
     'ebay' => [
-
-        'client_id'     => getenv( 'EBAY_APP_ID' ),
-        'redirect_uri'  => getenv( 'EBAY_REDIRECT_URI' ),
+        'client_id'     => getenv( 'EBAY_APP_ID' ) ?: 'GermanMi-sampleap-PRD-3df6c4a45-ccf46d3f',
+        'redirect_uri'  => getenv( 'EBAY_REDIRECT_URI' ) ?: 'German_Mikulski-GermanMi-sample-daeapvono',
         'response_type' => 'code',
         'scope'         => 'https://api.ebay.com/oauth/api_scope/sell.account',
-
         'base_url'        => getenv( 'EBAY_BASE_URL' ) ?: 'https://api.ebay.com',
         'legacy_base_url' => getenv( 'EBAY_LEGACY_BASE_URL' ) ?: 'http://svcs.ebay.com/',
-
         'headers' => [
             'token_auth'        => [
                 'Content-Type'  => 'application/x-www-form-urlencoded',
-                'Authorization' => getenv( 'EBAY_APP_CALL_AUTH' )
+                'Authorization' => getenv( 'EBAY_APP_CALL_AUTH' ) ?: 'Basic R2VybWFuTWktc2FtcGxlYXAtUFJELTNkZjZjNGE0NS1jY2Y0NmQzZjpQUkQtZGY2YzRhNDU5NWU5LTMwYWUtNDYxNy05OGYyLTQzYTY='
             ],
             'search'            => [
                 'Authorization' => 'Bearer ' . '__appToken__'
@@ -67,11 +58,9 @@ return [
             ],
             'ml_azure'          => [
                 'Content-Type'  => 'application/json',
-                'Authorization' => getenv('ML_AUTH')
+                'Authorization' => 'Bearer rltbWEfLyeayDVO9emrri/zI/Qj8afbhnvZ7qTOW+ggyU9yOxFN6VKvmCqse1iriDQ/3bkVc3cXVHf19Smhucg=='
             ]
-
         ],
-
         'endpoints' => [
             'token_auth'          => '/identity/v1/oauth2/token',
             'search'              => '/buy/browse/v1/item_summary/search',
@@ -79,16 +68,12 @@ return [
             'get_item'            => '/buy/browse/v1/item/',
             'categories_update'   => '/ws/api.dll',
             'get_merchandised'    => '/buy/marketing/v1_beta/merchandised_product',
-
             // Legacy endpoints (use legacy base url for client!)
             'getMostWatchedItems' => '/MerchandisingService?OPERATION-NAME=getMostWatchedItems&SERVICE-NAME=MerchandisingService&SERVICE-VERSION=1.1.0&RESPONSE-DATA-FORMAT=XML&REST-PAYLOAD',
             'ml_azure'            => 'https://ussouthcentral.services.azureml.net/workspaces/e464f1b4c00a416983b896338369c93c/services/790f83c07b9f4a5297c9f5434d264626/execute?api-version=2.0&format=swagger'
         ],
-
-
     ],
     'sendgrid'=>[
         'key' => getenv('SENDGRID_KEY')?:null
     ]
-
 ];
