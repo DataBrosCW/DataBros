@@ -31,16 +31,17 @@
                 </div>
             </div>
         </div>
+        @if (auth_user()->mostVisitedProduct())
         <div class="col-12 col-sm-6 col-md-4">
             <div class="card">
                 <div class="card-header">
                     Your most visited item
                 </div>
                 <div class="card-body">
-                    {{auth_user()->mostVisitedProduct()}}
                 </div>
             </div>
         </div>
+        @endif
     </div>
 
 

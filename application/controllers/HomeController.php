@@ -4,7 +4,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        dd(auth_user()->mostVisitedProduct());
+        $product_id = auth_user()->mostVisitedProduct();
+        if (!$product_id) return null;
         $this->render('home');
     }
 
