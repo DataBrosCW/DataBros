@@ -14,7 +14,7 @@
             <div class="col-12 col-sm-6 col-md-4 singleItemPageContainer pt-3">
                 <div class="content-block">
                     <img class="singleItemPageImg" src="{{$product->img}}">
-                    <h4 class="text-center">Price: {{$product->price}}</h4>
+                    <h4 class="text-center">Price: ${{$product->price}}</h4>
                     @if($productStatAvg)
                         <div class="compareBlock">
                         <i class="fas fa-thumbs-up fa-lg"></i>
@@ -65,7 +65,6 @@
                     <script>
                         $(function() {
                             var html = $('#htmlTemp').contents();
-                            console.log(html);
                             $("#render").contents().find('html').html(html);
                             $('#htmlTemp').remove();
 
@@ -79,27 +78,31 @@
             </div>
             <div class="col-12 col-sm-6 col-md-8 singleItemPageContainer pt-3">
                 <div class="content-block">
-                    <h4>Statistics</h4>
+                    <h2>Statistics</h2>
                     <div class="row justify-content-center">
                         @if($productStatAvg)
                             <div class="col-12 p-4">
-                                <h5>Average price of similar products ({{count(json_decode($productStatAvg->content))}})</h5>
+                                <h5>Price range of similar items (based on {{count(json_decode($productStatAvg->content))}} similar products)</h5>
+                                <p>This graph shows where the price of the item stands in relation to other similar items</p>
                                 <canvas id="avgChart"></canvas>
                             </div>
                         @endif
                         @if($productStatGeo)
                             <div class="col-12 p-4">
                                 <h5>Distribution areas</h5>
+                                <p>This graph shows areas to which the following item can be delivered</p>
                                 <!-- Styles -->
                                 <style>
                                     #chartdiv {
                                         width: 100%;
                                         height: 300px;
                                     }
+
                                 </style>
 
                                 <!-- HTML -->
                                 <div id="chartdiv"></div>
+                                <div id="legenddiv"></div>
                             </div>
                         @endif
                     </div>
@@ -165,7 +168,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: "Comparable item prices",
+                        label: "Prices of Similar Products",
                         backgroundColor: 'rgb(255, 99, 132)',
                         borderColor: 'rgb(255, 99, 132)',
                         data: avg_data,
@@ -218,8 +221,6 @@
                     }
                 }
             });
-
-//            console.log(Math.min.apply(Math, avg_data));
     </script>
     @endpush
 @endif
@@ -233,9 +234,6 @@
     <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
     <script type="application/javascript">
-        <!-- Chart code -->
-        <!-- Resources -->
-
             var countriesByContinent = [
                 {"country": "Aruba", "continent": "North America"},
                 {"country": "Afghanistan", "continent": "Asia"},
@@ -567,9 +565,40 @@
                 },
                 "export": {
                     "enabled": false
-                }
+                },
+                "legend": {
+                    width: "60%",
+                    divId: "legenddiv",
+                    marginRight: 27,
+                    marginLeft: 27,
+                    equalWidths: false,
+                    backgroundAlpha: 0,
+                    backgroundColor: "#FFFFFF",
+                    borderColor: "#ffffff",
+                    borderAlpha: 1,
+                    top: 0,
+                    left: 0,
+                    horizontalGap: 10,
+                    data: [{
+                        "title": "Available",
+                        "color": "#ff664a"
+                    }, {
+                        "title": "Unavailable",
+                        "color": "#c1baba"
+                    }]
+                },
+                // "listeners": [{
+                //     "event": "rendered",
+                //     "method":
+                // }
 
             });
+
+
+            console.log($('#legenddiv').children())
+
+
+
     </script>
     @endpush
 @endif
