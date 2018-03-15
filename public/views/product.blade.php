@@ -60,16 +60,17 @@
                             </div>
                         </div>
                     </div>
-                    </script>
-                    <script>
-                        $(function() {
-                            var html = $('#htmlTemp').contents();
-                            $("#render").contents().find('html').html(html);
-                            $('#htmlTemp').remove();
+                    @push('scripts')
+                        <script>
+                            $(function() {
+                                var html = $('#htmlTemp').contents();
+                                $("#render").contents().find('html').html(html);
+                                $('#htmlTemp').remove();
 
-                        });
+                            });
 
-                    </script>
+                        </script>
+                    @endpush
                     @endif
 
                 </div>
