@@ -98,12 +98,14 @@ class ProductController extends Controller
             // Product link
             if ($product->link == null) {
                 $product->link = $result->itemWebUrl;
-                $product->save();
             }
 
             // Product link
             if ($product->description == null) {
                 $product->description = $result->description;
+            }
+
+            if ($product->link == null && $product->description == null){
                 $product->save();
             }
         }
