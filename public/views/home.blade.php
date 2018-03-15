@@ -3,12 +3,12 @@
 @section('dashboard-content')
 
     <div class="header-databros pt-md-3 text-center mx-auto">
-        <h1>Welcome to Databros</h1>
+        <h1>Welcome to DataBros</h1>
     </div>
 
     <div class="row">
         <div class="col-12 mb-3" align="center">
-            <p>Your personalised ebay experience</p>
+            <p>Your personalised Ebay experience</p>
         </div>
 
         @if (auth_check())

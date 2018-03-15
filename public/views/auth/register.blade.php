@@ -32,7 +32,7 @@
                     <input type="password" class="form-control" id="password_confirm" name="password_confirm"
                            placeholder="Password Confirmation">
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                <button type="submit" class="btn btn-success btn-block btn-lg" style="margin-top: 30px">Register</button>
             </form>
         </div>
     </div>

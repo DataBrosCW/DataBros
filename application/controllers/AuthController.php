@@ -45,7 +45,8 @@ class AuthController extends Controller
                 $sendgrid = new SendGrid( config( 'sendgrid.key' ) );
                 $email = new SendGrid\Email();
 
-                $html = '<h1>Hello ' . $user->first_name . '!</h1>
+                $html = '<img src="https://image.ibb.co/iUB5vH/logo.png" style="height: 40px;">
+<h1>Hello ' . $user->first_name . '!</h1>
 <p>Congratulations on registering your DataBros account. We are thrilled to have you.</p>
 <p>Ready to have the best shopping experience using our platform? It’s easy!<br>
 Just make sure you let us access your eBay account. Here’s how it is done:</p>
