@@ -6,7 +6,7 @@
 
         @if($followedProducts)
             <div class="header-databros pt-md-3 text-center mx-auto">
-                <h1>Followed Products</h1>
+                <h1>Favourite Products</h1>
             </div>
 
             @if(count($followedProducts)>0)

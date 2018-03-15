@@ -12,7 +12,7 @@
                 Feed
             </a>
             <a class="nav-link" href="/followed-products">
-                Followed products
+                Favourite products
             </a>
             <a class="nav-link" href="/categories">
                 Categories
