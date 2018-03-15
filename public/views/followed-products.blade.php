@@ -37,6 +37,7 @@
             <p>You currently don't follow any product.</p>
         @endif
 
+        @if($featuredProducts)
         <h3 class="mt-5 mb-3">Suggestions</h3>
             <div class="card-deck mt-4 pb-4">
                 @foreach($featuredProducts as $product)
@@ -53,6 +54,7 @@
                     </div>
                 @endforeach
             </div>
+            @endif
     </div>
 
 
