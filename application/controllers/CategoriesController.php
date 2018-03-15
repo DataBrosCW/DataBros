@@ -113,12 +113,46 @@ class CategoriesController extends Controller
             array_push($productsPrice,$price);
         }
 
+        // Category stats
+        $catStats = CategoryStatsModel::instantiate()->where('category_id',$category->id)
+            ->where('graph_type',CategoryStatsModel::AVG_PRICE)->limit(1)->get();
+
+        $content = json_decode($catStats->content);
+        $dataToPost = [];
+        $i = 1;
+        foreach ($content as $key => $value){
+            if ($key== 'Category') {
+                $dataToPost['Category'] = $value;
+            } else {
+                $dataToPost[ $i ] = floor($value * 100);
+                $i ++;
+            }
+        }
+        $data = [
+            'Inputs' => [
+                'input1' => [$dataToPost]
+            ],
+            'GlobalParameters' => new stdClass()
+        ];
+
+        // Search for top items
+        $client = new \GuzzleHttp\Client([
+            'base_uri' => config('ebay.endpoints.ml_azure',true),
+        ]);
+        $response = $client->post('',[
+            'headers' => config('ebay.headers.ml_azure'),
+            'body' => json_encode($data)
+        ]);
+
+        $body = json_decode($response->getBody());
+        $catStats->content = json_encode($body->Results->output1[0]);
 
         $this->render('category',[
             'category' => $category,
             'userCategory' => $userCategory,
             'products' => $products,
-            'average' => array_sum($productsPrice)/count($productsPrice)
+            'average' => array_sum($productsPrice)/count($productsPrice),
+            'category_stat' => $catStats
         ]);
     }
 
@@ -156,22 +190,22 @@ class CategoriesController extends Controller
 
     }
 
-    /**
-     * Update a specific category top item average price
-     */
-    public function updateCategory($id){
-        $category = CategoryModel::instantiate()->findOrFail($id);
-
-        $client = new \GuzzleHttp\Client([
-            'base_uri' => config('ebay.base_url',true),
-        ]);
-        $url = config('ebay.endpoints.get_merchandised',true) .
-               '?metric_name=BEST_SELLING&category_id='.$category->ebay_id.'&limit=6';
-        $response = $client->get($url,[
-            'headers' => config('ebay.headers.get_merchandised')
-        ]);
-
-        dd($response->getBody());
-    }
+//    /**
+//     * Update a specific category top item average price
+//     */
+//    public function updateCategory($id){
+//        $category = CategoryModel::instantiate()->findOrFail($id);
+//
+//        $client = new \GuzzleHttp\Client([
+//            'base_uri' => config('ebay.base_url',true),
+//        ]);
+//        $url = config('ebay.endpoints.get_merchandised',true) .
+//               '?metric_name=BEST_SELLING&category_id='.$category->ebay_id.'&limit=6';
+//        $response = $client->get($url,[
+//            'headers' => config('ebay.headers.get_merchandised')
+//        ]);
+//
+//        dd($response->getBody());
+//    }
 
 }

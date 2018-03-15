@@ -86,13 +86,13 @@ return [
             'ebay-auth' => true
         ]
     ],
-    '/categories/update/{id:\d+}' => [
-        'GET' => [
-            'action'=>'CategoriesController@updateCategory',
-            'auth' => true,
-            'ebay-auth' => true
-        ]
-    ],
+//    '/categories/update/{id:\d+}' => [
+//        'GET' => [
+//            'action'=>'CategoriesController@updateCategory',
+//            'auth' => true,
+//            'ebay-auth' => true
+//        ]
+//    ],
     '/categories/{id:\d+}' => [
         'GET' => [
             'action'=>'CategoriesController@show',
