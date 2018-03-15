@@ -65,10 +65,11 @@
             <div class="row mt-3">
                 @if ($category_stat)
                     <div class="col-12 collapse show" id="stats">
-                        <h4 class="text-center">Statistics</h4>
+                        <h2 class="text-center">Statistics</h2>
 
                         <div class="card p-4">
-                            <h5 class="text-center">Average price of top items of category</h5>
+                            <h5 class="text-center">Average price of top items in the category</h5>
+                            <p style="text-align: center">This graph shows how the average price of top items in this category was changing over time (red line). In addition, we provide a prediction of the average price using Machine Learning (green line)</p>
                             <canvas id="avgChart"></canvas>
                             @push('scripts')
                                 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -158,21 +159,21 @@
                                             labels: labels,
                                             datasets: [
                                                 {
-                                                    label: "Comparable item prices",
+                                                    label: "Average price of items in the category",
                                                     backgroundColor: 'rgb(255, 99, 132)',
                                                     borderColor: 'rgb(255, 99, 132)',
                                                     data: dataPoints,
                                                     fill: false,
                                                 },
                                                 {
-                                                    label: "Machine learning prediction",
+                                                    label: "Predicted average value",
                                                     backgroundColor: 'rgb(100, 255, 100)',
                                                     borderColor: 'rgb(100, 255, 100)',
                                                     data: prediction,
                                                     fill: false,
                                                 },
                                                 {
-                                                    label: "Average Price",
+                                                    label: "Average line",
                                                     backgroundColor: 'rgb(117, 154, 244)',
                                                     borderColor: 'rgb(117, 154, 244)',
                                                     data: avg_line,
@@ -201,7 +202,7 @@
                                                     },
                                                     scaleLabel: {
                                                         display: true,
-                                                        labelString: 'Days'
+                                                        labelString: 'Days (from the current)'
                                                     }
                                                 }]
                                             }
