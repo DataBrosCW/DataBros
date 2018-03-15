@@ -45,7 +45,8 @@ CREATE TABLE IF NOT EXISTS category_stats(
     graph_type VARCHAR(255) NOT NULL,
     id INT NOT NULL AUTO_INCREMENT,
     content JSON,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY(category_id) REFERENCES categories(id)
 );
 
 -- Create product stats table
@@ -55,9 +56,9 @@ CREATE TABLE IF NOT EXISTS product_stats(
     graph_type VARCHAR(255) NOT NULL,
     id INT NOT NULL AUTO_INCREMENT,
     content JSON,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY(product_id) REFERENCES products(id)
 );
-
 
 -- Create relationship table between users and products
 
@@ -67,7 +68,9 @@ CREATE TABLE IF NOT EXISTS user_products (
     followed BOOLEAN NOT NULL,
     count INT NOT NULL,
     PRIMARY KEY (user_id,product_id),
-    UNIQUE  (user_id,product_id)
+    UNIQUE  (user_id,product_id),
+    FOREIGN KEY(product_id) REFERENCES products(id),
+    FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
 -- Create relationship table between users and categories
@@ -76,7 +79,9 @@ CREATE TABLE IF NOT EXISTS user_categories (
     user_id INT NOT NULL,
     category_id INT NOT NULL,
     PRIMARY KEY (user_id,category_id),
-    UNIQUE  (user_id,category_id)
+    UNIQUE  (user_id,category_id),
+    FOREIGN KEY(category_id) REFERENCES categories(id),
+    FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
 -- Create table to store app key
