@@ -70,7 +70,7 @@ Just make sure you let us access your eBay account. Here’s how it is done:</p>
             if ( $emailSent ) {
                 $msg->success( 'Awesome! You will receive a confirmation email soon, but you can already use the app!' );
             } else {
-                $msg->success( 'Awesome! You can start using the app right now!' );
+                $msg->success( 'Awesome! You can stur' );
             }
             $this->logUserIn($user);
             $this->redirect();
